@@ -5,6 +5,7 @@ import React, { Component, ComponentType, Fragment } from 'react';
 import { I18nextProvider } from 'react-i18next';
 import { Provider } from 'react-redux';
 import { compose, createStore } from 'redux';
+import { createLogger } from 'redux-logger';
 import Thunk from 'redux-thunk';
 
 import { IStore } from '../../../app/types';
@@ -222,11 +223,22 @@ export default class BaseApp<P> extends Component<P, IState> {
         // additional 3rd party middleware:
         // - Thunk - allows us to dispatch async actions easily. For more info
         // @see https://github.com/gaearon/redux-thunk.
-        const middleware = MiddlewareRegistry.applyMiddleware(Thunk);
+        const middleware = MiddlewareRegistry.applyMiddleware(Thunk, createLogger());
 
         // @ts-ignore
         const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-        const store = createStore(reducer, PersistenceRegistry.getPersistedState(), composeEnhancers(middleware));
+        const store = createStore(
+            reducer,
+            PersistenceRegistry.getPersistedState(),
+            composeEnhancers(middleware)
+        );
+
+        if ((module as any).hot) {
+            // Enable Webpack hot module replacement for reducers
+            (module as any).hot.accept('../reducer', () => {
+              store.replaceReducer(reducer);
+            });
+        }
 
         // StateListenerRegistry
         StateListenerRegistry.subscribe(store);

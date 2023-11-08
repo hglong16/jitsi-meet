@@ -100,9 +100,10 @@ export function _setDeeplinkingDefaults(deeplinking: IDeeplinkingConfig) {
         ios = {} as IDeeplinkingMobileConfig
     } = deeplinking;
 
-    desktop.appName = desktop.appName || 'Jitsi Meet';
+    // desktop.appName = desktop.appName || 'Công Lý';
+    desktop.appName =  'Công Lý';
 
-    ios.appName = ios.appName || 'Jitsi Meet';
+    ios.appName = ios.appName || 'Công Lý';
     ios.appScheme = ios.appScheme || 'org.jitsi.meet';
     ios.downloadLink = ios.downloadLink
         || 'https://itunes.apple.com/us/app/jitsi-meet/id1165103905';

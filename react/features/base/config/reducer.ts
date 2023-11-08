@@ -297,7 +297,7 @@ function _translateInterfaceConfig(oldValue: IConfig) {
         const deeplinking: IDeeplinkingConfig = {
             desktop: {} as IDeeplinkingPlatformConfig,
             hideLogo: false,
-            disabled,
+            disabled: true,
             android: {} as IDeeplinkingMobileConfig,
             ios: {} as IDeeplinkingMobileConfig
         };

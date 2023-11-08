@@ -110,6 +110,8 @@ StateListenerRegistry.register(
         if (conference && !previousConference) {
             conference.on(JitsiConferenceEvents.MEMBERS_ONLY_CHANGED, (enabled: boolean) => {
                 dispatch(setLobbyModeEnabled(enabled));
+                conference?.enableLobby();
+
                 if (enabled) {
                     dispatch(setLobbyMessageListener());
                 }

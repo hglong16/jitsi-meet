@@ -9,7 +9,7 @@
  */
 
 var interfaceConfig = {
-    APP_NAME: 'Jitsi Meet',
+    APP_NAME: 'Sky Meeting',
     AUDIO_LEVEL_PRIMARY_COLOR: 'rgba(255,255,255,0.4)',
     AUDIO_LEVEL_SECONDARY_COLOR: 'rgba(255,255,255,0.2)',
 
@@ -244,7 +244,7 @@ var interfaceConfig = {
     // DEFAULT_LOGO_URL: 'images/watermark.svg',
 
     // Please use defaultRemoteDisplayName from config.js
-    // DEFAULT_REMOTE_DISPLAY_NAME: 'Fellow Jitster',
+    DEFAULT_REMOTE_DISPLAY_NAME: 'Chào bạn',
 
     // Moved to config.js as `toolbarConfig.initialTimeout`.
     // INITIAL_TOOLBAR_TIMEOUT: 20000,

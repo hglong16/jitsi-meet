@@ -4,7 +4,7 @@
 export const THRESHOLDS = [
     {
         width: 565,
-        order: [ 'microphone', 'camera', 'desktop', 'chat', 'raisehand', 'reactions', 'participants', 'tileview' ]
+        order: [ 'microphone', 'camera', 'security', 'participants', 'chat', 'desktop', 'recording', 'raisehand', 'reactions','invite', 'tileview' ]
     },
     {
         width: 520,

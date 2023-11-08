@@ -46,7 +46,8 @@ const SubjectText = () => {
             content = { subject }
             position = 'bottom'>
             <div className = { classes.container }>
-                <div className = { clsx('subject-text--content', classes.content) }>{subject}</div>
+                {/* <div className = { clsx('subject-text--content', classes.content) }>{subject}</div> */}
+                <div className = { clsx('subject-text--content', classes.content) }>Cuộc họp đang diễn ra</div>
             </div>
         </Tooltip>
     );
