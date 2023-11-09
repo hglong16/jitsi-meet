@@ -192,7 +192,7 @@ const PreMeetingScreen = ({
                         </h1>
                         {_roomName && (
                             <span className = { classes.roomName }>
-                                {_roomName}
+                                {/* {_roomName} */}
                             </span>
                         )}
                         {children}
