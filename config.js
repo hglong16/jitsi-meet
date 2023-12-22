@@ -30,7 +30,7 @@ var config = {
 
     hosts: {
         // XMPP domain.
-        domain: 'jitsi.merctrans.vn',
+        domain: 'skymeet.vn',
 
         // When using authentication, domain for guest users.
         // anonymousdomain: 'guest.example.com',
@@ -42,14 +42,14 @@ var config = {
         // focus: 'focus.jitsi-meet.example.com',
 
         // XMPP MUC domain. FIXME: use XEP-0030 to discover it.
-        muc: 'conference.' + subdomain + 'jitsi.merctrans.vn',
+        muc: 'conference.' + subdomain + 'skymeet.vn',
     },
 
     // BOSH URL. FIXME: use XEP-0156 to discover it.
-    bosh: 'https://jitsi.merctrans.vn/' + subdir + 'http-bind',
+    bosh: 'https://skymeet.vn/' + subdir + 'http-bind',
 
     // Websocket URL (XMPP)
-    websocket: 'wss://jitsi.merctrans.vn/' + subdir + 'xmpp-websocket',
+    websocket: 'wss://skymeet.vn/' + subdir + 'xmpp-websocket',
 
     // The real JID of focus participant - can be overridden here
     // Do not change username - FIXME: Make focus username configurable
