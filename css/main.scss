@@ -77,4 +77,25 @@ $flagsImagePath: "../images/";
 @import 'reactions-menu';
 @import 'plan-limit';
 
+// Customize UI
+@import 'utilities';
+@import 'navbar';
+@import 'footer';
+@import 'recent-list';
+
+@include generateSpacingClasses(ml, margin-left);
+@include generateSpacingClasses(mr, margin-right);
+@include generateSpacingClasses(mt, margin-top);
+@include generateSpacingClasses(mb, margin-bottom);
+
+@include generateSpacingClasses(pl, padding-left);
+@include generateSpacingClasses(pr, padding-right);
+@include generateSpacingClasses(pt, padding-top);
+@include generateSpacingClasses(pb, padding-bottom);
+
+@include generateFontSizeClasses(fs, font-size);
+@include generateFontWeightClasses(fw, font-weight);
+
+@include generatePositionClasses(top, top);
+@include generatePositionClasses(bot, bottom);
 /* Modules END */

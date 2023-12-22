@@ -1,7 +1,10 @@
+/* ============ Settings ============ */
+$container-width: 1200px;
+
 /**
  * Style variables
  */
-$baseFontFamily: -apple-system, BlinkMacSystemFont, 'open_sanslight', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+ $baseFontFamily: -apple-system, BlinkMacSystemFont, 'open_sanslight', 'Helvetica Neue', "Noto Sans", Helvetica, Arial, sans-serif, "Noto Sans";
 
 /**
  * Size variables.
@@ -9,6 +12,29 @@ $baseFontFamily: -apple-system, BlinkMacSystemFont, 'open_sanslight', 'Helvetica
 
 // Video layout.
 $thumbnailsBorder: 2px;
+
+/**
+ * Base Color
+ */
+$cod-gray: #141414;
+$black: #000000;
+$red: #c00;
+$white: #FFFFFF;
+$grey: #f9f9f9;
+
+/*
+ * Breakpoints
+ */
+$breakpoint-1200: 1200px;
+$breakpoint-1000: 1000px;
+$breakpoint-959: 959px;
+$breakpoint-900: 900px;
+$breakpoint-700: 700px;
+$breakpoint-600: 600px;
+$breakpoint-500: 500px;
+$breakpoint-414: 414px;
+$breakpoint-375: 375px;
+$breakpoint-320: 320px;
 
 /**
  * Toolbar

@@ -1,0 +1,31 @@
+.recents {
+  &__container {
+    border-radius: 8px;
+    border: 1px solid #dbdbdb;
+    height: 260px;
+    width: 100%;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    overflow-y: scroll;
+  }
+
+  &__item {
+    border-radius: 4px;
+    background: #f9f9f9;
+    padding: 4px 12px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 50px;
+
+    p {
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 10px; /* 160% */
+      letter-spacing: 0.3px;
+    }
+  }
+}

@@ -3,7 +3,7 @@
  */
 @mixin animation($animate...) {
     $max: length($animate);
-    $animations: '';
+    $animations: "";
 
     @for $i from 1 through $max {
         $animations: #{$animations + nth($animate, $i)};
@@ -13,9 +13,9 @@
         }
     }
     -webkit-animation: $animations;
-    -moz-animation:    $animations;
-    -o-animation:      $animations;
-    animation:         $animations;
+    -moz-animation: $animations;
+    -o-animation: $animations;
+    animation: $animations;
 }
 
 @mixin flex() {
@@ -83,10 +83,10 @@
 }
 
 @mixin transition($transition...) {
-    -moz-transition:    $transition;
-    -o-transition:      $transition;
+    -moz-transition: $transition;
+    -o-transition: $transition;
     -webkit-transition: $transition;
-    transition:         $transition;
+    transition: $transition;
 }
 
 /**
@@ -121,7 +121,7 @@
         #{$selector} {
             @content;
         }
-  }
+    }
 }
 
 /**
@@ -199,11 +199,60 @@
  * of its children; Keep them RTL.
  */
 @mixin ltr {
-    body[dir=rtl] & {
+    body[dir="rtl"] & {
         direction: ltr;
 
         & > * {
             direction: rtl;
+        }
+    }
+}
+
+@mixin generateSpacingClasses($prefix, $property) {
+    $sizes: [5px, 10px, 15px, 20px, 25px, 30px, 35px, 40px, 45px, 50px];
+
+    @for $i from 1 through length($sizes) {
+        $size: nth($sizes, $i);
+
+        .#{$prefix}-#{$i} {
+            #{$property}: $size !important;
+        }
+    }
+}
+
+@mixin generateFontSizeClasses($prefix, $property) {
+    $sizes: [10px, 12px, 14px, 16px, 20px];
+
+    @for $i from 1 through length($sizes) {
+        $size: nth($sizes, $i);
+
+        .#{$prefix}-#{$i} {
+            #{$property}: $size !important;
+        }
+    }
+}
+
+@mixin generateFontWeightClasses($prefix, $property) {
+    $sizes: [300, 400, 500, 600, 700];
+
+    @for $i from 1 through length($sizes) {
+        $size: nth($sizes, $i);
+
+        .#{$prefix}-#{$i} {
+            #{$property}: $size !important;
+        }
+    }
+}
+
+@mixin generatePositionClasses($prefix, $property) {
+    $sizes: [1px, 2px, 3px, 4px, 5px, 6px, 7px, 8px, 9px, 10px];
+
+    @for $i from 1 through length($sizes) {
+        $size: nth($sizes, $i);
+
+        .#{$prefix}-#{$i} {
+            position: relative;
+            #{$property}: $size !important;
         }
     }
 }

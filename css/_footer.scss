@@ -1,0 +1,45 @@
+.footer {
+  // position: absolute;
+  // bottom: 0;
+  // width: 100%;
+  // margin: 0 20px;
+  // padding-bottom: 16px;
+  // padding-left: 20px;
+  // padding-right: 20px;
+
+  .left {
+    // width: 60%;
+  }
+  .right {
+    // width: 40%;
+  }
+
+  p {
+    color: white;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+  }
+
+  &__powered {
+    color: #bcbcbc !important;
+  }
+
+  &__highlight {
+    font-weight: 700 !important;
+  }
+
+  @media screen and (max-width: $breakpoint-900) {
+    position: relative;
+    margin-top: 50px;
+    width: 90%;
+    p {
+      color: #bcbcbc !important;
+    }
+
+    &__highlight {
+      color: #bcbcbc !important;
+    }
+  }
+}

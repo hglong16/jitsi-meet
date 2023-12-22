@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Grid, TextField, Button } from '@mui/material';
 
 import { isMobileBrowser } from '../../base/environment/utils';
 import { translate, translateToHTML } from '../../base/i18n/functions';
@@ -14,6 +15,8 @@ import { SETTINGS_TABS } from '../../settings/constants';
 
 import { AbstractWelcomePage, IProps, _mapStateToProps } from './AbstractWelcomePage';
 import Tabs from './Tabs';
+import Navbar from './Navbar';
+import Footer from './Footer';
 
 /**
  * The pattern used to validate room name.
@@ -189,9 +192,84 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
 
         return (
             <div
-                className = { `welcome ${contentClassName} ${footerClassName}` }
-                id = 'welcome_page'>
-                <div className = 'header'>
+                className='welcome'
+                id='welcome_page'
+            >
+                <div className='banner d-flex flex-column justify-between'>
+                    <Navbar />
+                    <Footer />
+                </div>
+                <div className='action-wrapper flex-column d-flex justify-between align-center'>
+                    <div className='d-flex flex-column justify-center align-center flex-grow-1'>
+                        <div>
+                            <img
+                                alt='powered-by'
+                                src='images/powered-by.svg'
+                                width={180}
+                            />
+                            <div className="content__mobile-setting">
+                                <h1 className="content__title">Hội nghị Trực tuyến</h1>
+                            </div>
+                            <h2 className="content__description">
+                                Cổng hội nghị trực tuyến an toàn, bảo mật. Kết nối mọi lúc mọi nơi
+                            </h2>
+                            <div className="mb-2 mt-6">
+                                <h6>Nhập tên phòng để bắt đầu</h6>
+                                <div id = 'enter_room'>
+                                    <div className = 'join-meeting-container'>
+                                        <div className = 'enter-room-input-container'>
+                                            <form onSubmit = { this._onFormSubmit }>
+                                                <input
+                                                    aria-disabled = 'false'
+                                                    aria-label = 'Meeting name input'
+                                                    autoFocus = { true }
+                                                    className = 'enter-room-input'
+                                                    id = 'enter_room_field'
+                                                    onChange = { this._onRoomChange }
+                                                    pattern = { ROOM_NAME_VALIDATE_PATTERN_STR }
+                                                    placeholder = { this.state.roomPlaceholder }
+                                                    ref = { this._setRoomInputRef }
+                                                    title = { t('welcomepage.roomNameAllowedChars') }
+                                                    type = 'text'
+                                                    value = { this.state.room } />
+                                            </form>
+                                        </div>
+                                        <button
+                                            aria-disabled = 'false'
+                                            aria-label = 'Start meeting'
+                                            className = 'welcome-page-button'
+                                            id = 'enter_room_button'
+                                            onClick = { this._onFormSubmit }
+                                            tabIndex = { 0 }
+                                            type = 'button'>
+                                            { t('welcomepage.startMeeting') }
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="mb-2 mt-4">
+                                <h6>Cuộc họp gần đây</h6>
+                                <div className = 'welcome-cards-container mt-6'>
+                                    <div className = 'welcome-card-column'>
+                                        <div className = 'welcome-tabs welcome-card'>
+                                            { this._renderTabs() }
+                                        </div>
+                                        { showAdditionalCard
+                                            ? <div
+                                                className = 'welcome-card welcome-card--dark'
+                                                ref = { this._setAdditionalCardRef } />
+                                            : null }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className='powered-by'>
+                        <p>Powered By Sky Media Group</p>
+                    </div>
+                </div>
+
+                {/* <div className = 'header'>
                     <div className = 'header-image' />
                     <div className = 'header-container'>
                         <div className = 'header-watermark-container'>
@@ -259,11 +337,11 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
                                 }
                             </div>)}
                     </div>
-                </div>
+                </div> */}
 
-                <div className = 'welcome-cards-container'>
+                {/* <div className = 'welcome-cards-container'>
                     <div className = 'welcome-card-column'>
-                        <div className = 'welcome-tabs welcome-card welcome-card--blue'>
+                        <div className = 'welcome-tabs welcome-card'>
                             { this._renderTabs() }
                         </div>
                         { showAdditionalCard
@@ -278,8 +356,8 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
                             className = 'welcome-page-content'
                             ref = { this._setAdditionalContentRef } />
                         : null }
-                </div>
-                { DISPLAY_WELCOME_FOOTER && this._renderFooter()}
+                </div> */}
+                {/* { DISPLAY_WELCOME_FOOTER && this._renderFooter()} */}
             </div>
 
         );
@@ -351,20 +429,30 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
 
         const { fDroidUrl, downloadLink: androidDownloadLink } = android;
 
-        return (<footer className = 'welcome-footer'>
-            <div className = 'welcome-footer-centered'>
-                <div className = 'welcome-footer-padded'>
-                    <div className = 'welcome-footer--congly'>
-                        <p><strong>CƠ QUAN CỦA TOÀ ÁN NHÂN DÂN TỐI CAO</strong></p>
-                        <p className="">Giấy phép số 226/GP-BTTTT do Bộ Thông tin và Truyền thông cấp</p>
-                        <p className="">Tổng Biên tập: <strong>Trần Đức Vinh </strong></p>
-                        <p className="">Phó Tổng Biên tập: <strong>Tô Thị Lan Phương</strong> - Phụ trách ấn phẩm</p>
-                        <p className="">Trụ sở Tòa soạn: 262 Đội Cấn, Ba Đình, Hà Nội</p>
-                        <p className="">©Bản quyền thuộc về Báo Công lý</p>
-                    </div>
-                </div>
-            </div>
-        </footer>);
+        return (
+            <Grid
+                container
+                className="footer"
+                flexDirection={{ lg: "row", md: "row", xs: "column" }}
+            >
+                <Grid item lg={4} md={3.5}>
+                    <p className="footer__highlight">CƠ QUAN CỦA TÒA ÁN NHÂN DÂN TỐI CAO</p>
+                    <p>Trụ sở Tòa soạn: 262 Đội Cấn, Ba Đình, Hà Nội</p>
+                    <p>Giấy phép số 226/BTTTT do Bộ Thông tin và Truyền thông cấp</p>
+                </Grid>
+                <Grid item lg={4} md={3.5}>
+                    <p>
+                    Tổng Biên tập: <span className="footer__highlight">Trần Đức Vinh</span>
+                    </p>
+                    <p>
+                    Phó Tổng Biên tập: <span className="footer__highlight">Tô Thị Lan Phương</span>
+                    </p>
+                </Grid>
+                <Grid item lg={4} md={5}>
+                    <p className="footer__powered">Powered by Sky Media Group</p>
+                </Grid>
+            </Grid>
+        );
     }
 
     /**
@@ -380,7 +468,7 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
 
         const { _calendarEnabled, _recentListEnabled, t } = this.props;
 
-        const tabs = [];
+        const tabs: any = [];
 
         if (_calendarEnabled) {
             tabs.push({

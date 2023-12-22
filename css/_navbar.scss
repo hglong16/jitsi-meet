@@ -1,0 +1,23 @@
+.navbar {
+  &__container {
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__button {
+    color: #cc0000;
+  }
+
+  @media screen and (max-width: $breakpoint-900) {
+    // background: url("../images/background.png") no-repeat {
+    //   size: cover;
+    //   attachment: fixed;
+    // }
+    height: 100%;
+    &__button {
+      display: none;
+    }
+  }
+}
