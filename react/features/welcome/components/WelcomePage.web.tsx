@@ -249,7 +249,7 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
                             </div>
                             <div className="mb-2 mt-4">
                                 <h6>Cuộc họp gần đây</h6>
-                                <div className = 'welcome-cards-container mt-6'>
+                                <div className = 'welcome-cards-container mt-2'>
                                     <div className = 'welcome-card-column'>
                                         <div className = 'welcome-tabs welcome-card'>
                                             { this._renderTabs() }
