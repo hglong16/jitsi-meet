@@ -274,7 +274,7 @@
         "stopRecordingWarning": "Bạn có chắc chắn muốn dừng ghi hình không?",
         "stopStreamingWarning": "Bạn có chắc chắn muốn dừng phát trực tuyến?",
         "streamKey": "Mã phát trực tuyến",
-        "thankYou": "Cám ơn bạn đã sử dụng Công Lý - Hội nghị trực tuyến!",
+        "thankYou": "Cám ơn bạn đã sử dụng Sky Meet - Hội nghị trực tuyến!",
         "token": "mã thông báo",
         "tokenAuthFailed": "Rất tiếc, bạn không được phép tham gia cuộc gọi này.",
         "tokenAuthFailedTitle": "Xác thực thất bại",
@@ -450,7 +450,7 @@
         "somebody": "Ai đó",
         "startSilentDescription": "",
         "startSilentTitle": "",
-        "suboptimalExperienceDescription": "Chúng tôi lo rằng trải nghiệm của bạn với Công Lý - Hội nghị trực tuyến đang không tốt. Chúng tôi đang tìm cách cải thiện, hiện tại thử một trong <a href='{{recommendedBrowserPageLink}}' target='_blank'>các trình duyệt được hỗ trợ</a>.",
+        "suboptimalExperienceDescription": "Chúng tôi lo rằng trải nghiệm của bạn với Sky Meet - Hội nghị trực tuyến đang không tốt. Chúng tôi đang tìm cách cải thiện, hiện tại thử một trong <a href='{{recommendedBrowserPageLink}}' target='_blank'>các trình duyệt được hỗ trợ</a>.",
         "suboptimalExperienceTitle": "Cảnh báo trình duyệt",
         "unmute": ""
     },
@@ -531,7 +531,7 @@
     },
     "settings": {
         "calendar": {
-            "about": "Công Lý - Hội nghị trực tuyến tích hợp lịch được sử dụng để truy cập bảo mật lịch để lấy thông tin sự kiện sắp tới.",
+            "about": "Sky Meet - Hội nghị trực tuyến tích hợp lịch được sử dụng để truy cập bảo mật lịch để lấy thông tin sự kiện sắp tới.",
             "disconnect": "Ngắt kết nối",
             "microsoftSignIn": "Đăng nhập với Microsoft",
             "signedIn": "Đang truy cập lịch sự kiện của {{email}}. Chọn Ngắt kết nối để dừng truy cập lịch sự kiện.",

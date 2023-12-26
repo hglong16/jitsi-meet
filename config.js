@@ -1166,11 +1166,11 @@ var config = {
     // deeplinking.[ios/android].dynamicLink check:
     // https://firebase.google.com/docs/dynamic-links/create-manually
     deeplinking: {
-    
+
         // The desktop deeplinking config.
-         desktop: {
-             appName: 'Công Lý Hội nghị trực tuyến'
-         },
+        desktop: {
+            appName: 'Sky Meet - Hội nghị trực tuyến'
+        },
         // If true, any checks to handoff to another application will be prevented
         // and instead the app will continue to display in the current browser.
         disabled: true,

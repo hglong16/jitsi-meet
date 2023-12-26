@@ -266,6 +266,12 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
                     </div>
                     <div className='powered-by'>
                         <div className='d-mobile'>
+                        <img
+                                className='footer__white--logo'
+                                alt='powered-by'
+                                src='images/Logo-Digital.svg'
+                                width={180}
+                            />
                             <p className='highlight'>CƠ QUAN CỦA TÒA ÁN NHÂN DÂN TỐI CAO</p>
                             <p>Trụ sở Tòa soạn: 262 Đội Cấn, Ba Đình, Hà Nội</p>
                         </div>

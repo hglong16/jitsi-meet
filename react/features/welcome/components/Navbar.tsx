@@ -6,7 +6,8 @@ const Navbar = () => {
       <div className="navbar__container">
         <img
           alt='logo'
-          src='images/watermark.svg'
+          src='images/Logo-TRANG.svg'
+          width={180}
         />
       </div>
     </div>
