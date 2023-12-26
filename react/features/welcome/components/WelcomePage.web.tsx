@@ -247,27 +247,31 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
                                     </div>
                                 </div>
                             </div>
-                            <div className="mb-2 mt-4">
-                                <h6>Cuộc họp gần đây</h6>
-                                <div className = 'welcome-cards-container mt-2'>
-                                    <div className = 'welcome-card-column'>
-                                        <div className = 'welcome-tabs welcome-card'>
-                                            { this._renderTabs() }
+                            {
+                                this.props._recentList?.length > 0
+                                   ? <div className="mb-2 mt-4">
+                                        <h6>Cuộc họp gần đây</h6>
+                                        <div className = 'welcome-cards-container mt-2'>
+                                            <div className = 'welcome-card-column'>
+                                                <div className = 'welcome-tabs welcome-card'>
+                                                    { this._renderTabs() }
+                                                </div>
+                                                { showAdditionalCard
+                                                    ? <div
+                                                        className = 'welcome-card welcome-card--dark'
+                                                        ref = { this._setAdditionalCardRef } />
+                                                    : null }
+                                            </div>
                                         </div>
-                                        { showAdditionalCard
-                                            ? <div
-                                                className = 'welcome-card welcome-card--dark'
-                                                ref = { this._setAdditionalCardRef } />
-                                            : null }
                                     </div>
-                                </div>
-                            </div>
+                                    : null
+                            }
                         </div>
                     </div>
                     <div className='powered-by'>
                         <div className='d-mobile'>
-                        <img
-                                className='footer__white--logo'
+                            <img
+                                className='red-logo'
                                 alt='powered-by'
                                 src='images/Logo-Digital.svg'
                                 width={180}

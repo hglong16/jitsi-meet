@@ -59,6 +59,11 @@ export interface IProps extends WithTranslation {
     _settings: Object;
 
     /**
+     * The recent list from the Redux store.
+     */
+    _recentList: Array<any>;
+
+    /**
      * The Redux dispatch Function.
      */
     dispatch: IStore['dispatch'];
@@ -131,6 +136,7 @@ export class AbstractWelcomePage<P extends IProps> extends Component<P, IState> 
         this._onRoomChange = this._onRoomChange.bind(this);
         this._renderInsecureRoomNameWarning = this._renderInsecureRoomNameWarning.bind(this);
         this._updateRoomName = this._updateRoomName.bind(this);
+        this._removeSpecialChars = this._removeSpecialChars.bind(this);
     }
 
     /**
@@ -202,6 +208,11 @@ export class AbstractWelcomePage<P extends IProps> extends Component<P, IState> 
         return null;
     }
 
+    _removeSpecialChars(originalRoomName: string): string {
+        const noSpecialChars = originalRoomName.replace(/[^\w ]/g, '');
+        return noSpecialChars;
+    }
+
     /**
      * Handles joining. Either by clicking on 'Join' button
      * or by pressing 'Enter' in room name input field.
@@ -210,7 +221,7 @@ export class AbstractWelcomePage<P extends IProps> extends Component<P, IState> 
      * @returns {void}
      */
     _onJoin() {
-        const room = this.state.room || this.state.generatedRoomName;
+        const room = this._removeSpecialChars(this.state.room) || this.state.generatedRoomName;
 
         sendAnalytics(
             createWelcomePageEvent('clicked', 'joinButton', {
@@ -298,6 +309,7 @@ export function _mapStateToProps(state: IReduxState) {
         _moderatedRoomServiceUrl: state['features/base/config'].moderatedRoomServiceUrl,
         _recentListEnabled: isRecentListEnabled(),
         _room: state['features/base/conference'].room ?? '',
-        _settings: state['features/base/settings']
+        _settings: state['features/base/settings'],
+        _recentList: state['features/recent-list'],
     };
 }

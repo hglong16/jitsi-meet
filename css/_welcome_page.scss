@@ -1,16 +1,6 @@
 body.welcome-page {
     background: inherit;
-    // overflow: auto;
-}
-
-@media (max-width: 767px) {
-    .footer__white--logo {
-        display: block;
-    }
-}
-
-.footer__white--logo {
-    display: none;
+    overflow: auto;
 }
 
 
@@ -497,10 +487,14 @@ body.welcome-page {
 
         .powered-by {
             color: #c4c4c4;
+            margin-top: 16px;
             padding-bottom: 16px;
 
             .d-mobile {
                 display: none;
+                .red-logo {
+
+                }
             }
         }
     }
@@ -520,6 +514,7 @@ body.welcome-page {
 
         .action-wrapper {
             width: fit-content;
+            min-height: calc(100vh - 132px);
 
             >div:nth-child(1) {
                 padding: 16px;
@@ -527,6 +522,7 @@ body.welcome-page {
 
             .welcome-page-button {
                 width: unset !important;
+                padding: 16px 12px;
             }
 
             .powered-by {
@@ -535,7 +531,12 @@ body.welcome-page {
 
                 .d-mobile {
                     .highlight {
+                        margin-top: 4px;
                         font-weight: 700;
+                    }
+                    .red-logo {
+                        display: block;
+                        margin-left: -4px;
                     }
 
                     display: block;
