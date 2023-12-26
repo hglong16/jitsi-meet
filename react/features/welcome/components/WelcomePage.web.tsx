@@ -265,6 +265,10 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
                         </div>
                     </div>
                     <div className='powered-by'>
+                        <div className='d-mobile'>
+                            <p className='highlight'>CƠ QUAN CỦA TÒA ÁN NHÂN DÂN TỐI CAO</p>
+                            <p>Trụ sở Tòa soạn: 262 Đội Cấn, Ba Đình, Hà Nội</p>
+                        </div>
                         <p>Powered By Sky Media Group</p>
                     </div>
                 </div>

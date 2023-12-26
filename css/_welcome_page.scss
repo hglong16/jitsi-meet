@@ -468,6 +468,10 @@ body.welcome-page {
         .powered-by {
             color: #c4c4c4;
             padding-bottom: 16px;
+
+            .d-mobile {
+                display: none;
+            }
         }
     }
     @media screen and (max-width: $breakpoint-900) {
@@ -488,8 +492,18 @@ body.welcome-page {
             .welcome-page-button {
                 width: unset!important;
             }
+            .powered-by {
+                width: 100%;
+                padding-left: 32px;
+                .d-mobile {
+                    .highlight {
+                        font-weight: 700;
+                    }
+                    display: block;
+                }
+            }
         }
-      }
+    }
     .content {
         &__title {
             font-size: 32px;
