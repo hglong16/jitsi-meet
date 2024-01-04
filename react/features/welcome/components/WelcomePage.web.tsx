@@ -249,23 +249,21 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
                                 </div>
                             </div> */}
                             {
-                                this.props._recentList?.length > 0
-                                   ? <div className="mb-2 mt-4">
-                                        <h6>Cuộc họp của bạn</h6>
-                                        <div className = 'welcome-cards-container mt-2'>
-                                            <div className = 'welcome-card-column'>
-                                                <div className = 'welcome-tabs welcome-card'>
-                                                    { this._renderRooms() }
-                                                </div>
-                                                { showAdditionalCard
-                                                    ? <div
-                                                        className = 'welcome-card welcome-card--dark'
-                                                        ref = { this._setAdditionalCardRef } />
-                                                    : null }
+                                <div className="mb-2 mt-4">
+                                    <h6>Cuộc họp của bạn</h6>
+                                    <div className = 'welcome-cards-container mt-2'>
+                                        <div className = 'welcome-card-column'>
+                                            <div className = 'welcome-tabs welcome-card'>
+                                                { this._renderRooms() }
                                             </div>
+                                            { showAdditionalCard
+                                                ? <div
+                                                    className = 'welcome-card welcome-card--dark'
+                                                    ref = { this._setAdditionalCardRef } />
+                                                : null }
                                         </div>
                                     </div>
-                                    : null
+                                </div>
                             }
                             {/* {
                                 this.props._recentList?.length > 0
