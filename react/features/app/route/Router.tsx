@@ -5,6 +5,7 @@ import PrivateRoute from './PrivateRoute';
 import LoginPage from '../../authentication/components/web/LoginPage';
 import WelcomePage from '../../welcome/components/WelcomePage.web';
 import Conference from '../../conference/components/web/Conference';
+import { OriginalApp } from '../components/OriginalApp.web';
 
 const Router = () => {
   return (
@@ -23,7 +24,7 @@ const Router = () => {
           path='/:roomName'
           element={
             <PrivateRoute >
-              <Conference />
+              <OriginalApp />
             </PrivateRoute>
           }
         />
