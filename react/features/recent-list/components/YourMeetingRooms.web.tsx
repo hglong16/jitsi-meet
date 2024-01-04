@@ -10,6 +10,20 @@ import { isRecentListEnabled, toDisplayableList } from '../functions.web';
 
 import AbstractRecentList from './AbstractRecentList';
 
+interface IAvailableRoom {
+    conference: string;
+    date: Date;
+    duration: number;
+}
+
+const AVAILABLE_ROOMS = [
+    {
+        conference: `${window.location.origin}/hopgiaoban`,
+        date: new Date(),
+        duration: 0
+    }
+];
+
 /**
  * The type of the React {@code Component} props of {@link RecentList}.
  */
@@ -71,17 +85,15 @@ class RecentList extends AbstractRecentList<IProps> {
         }
         const {
             disabled,
-            _recentList
         } = this.props;
-        console.log('_recentList', _recentList);
-        const recentList = toDisplayableList(_recentList);
+        const rooms = toDisplayableList(AVAILABLE_ROOMS);
 
         return (
             <MeetingsList
                 disabled = { Boolean(disabled) }
                 hideURL = { true }
                 listEmptyComponent = { this._getRenderListEmptyComponent() }
-                meetings = { recentList }
+                meetings = { rooms }
                 onItemDelete = { this._onItemDelete }
                 onPress = { this._onPress } />
         );

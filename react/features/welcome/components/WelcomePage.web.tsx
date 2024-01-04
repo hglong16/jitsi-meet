@@ -9,6 +9,7 @@ import { IconWarning } from '../../base/icons/svg';
 import Watermarks from '../../base/react/components/web/Watermarks';
 import getUnsafeRoomText from '../../base/util/getUnsafeRoomText.web';
 import CalendarList from '../../calendar-sync/components/CalendarList.web';
+import YourMeetingRooms from '../../recent-list/components/YourMeetingRooms.web';
 import RecentList from '../../recent-list/components/RecentList.web';
 import SettingsButton from '../../settings/components/web/SettingsButton';
 import { SETTINGS_TABS } from '../../settings/constants';
@@ -213,7 +214,7 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
                             <h2 className="content__description">
                                 Cổng hội nghị trực tuyến an toàn, bảo mật. Kết nối mọi lúc mọi nơi
                             </h2>
-                            <div className="mb-2 mt-6">
+                            {/* <div className="mb-2 mt-6">
                                 <h6>Nhập tên phòng để bắt đầu</h6>
                                 <div id = 'enter_room'>
                                     <div className = 'join-meeting-container'>
@@ -246,8 +247,25 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
                                         </button>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                             {
+                                <div className="mb-2 mt-4">
+                                    <h6>Cuộc họp của bạn</h6>
+                                    <div className = 'welcome-cards-container mt-2'>
+                                        <div className = 'welcome-card-column'>
+                                            <div className = 'welcome-tabs welcome-card'>
+                                                { this._renderRooms() }
+                                            </div>
+                                            { showAdditionalCard
+                                                ? <div
+                                                    className = 'welcome-card welcome-card--dark'
+                                                    ref = { this._setAdditionalCardRef } />
+                                                : null }
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            {/* {
                                 this.props._recentList?.length > 0
                                    ? <div className="mb-2 mt-4">
                                         <h6>Cuộc họp gần đây</h6>
@@ -265,7 +283,7 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
                                         </div>
                                     </div>
                                     : null
-                            }
+                            } */}
                         </div>
                     </div>
                     <div className='powered-by'>
@@ -466,6 +484,38 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
                     <p className="footer__powered">Powered by Sky Media Group</p>
                 </Grid>
             </Grid>
+        );
+    }
+
+    /**
+     * Renders tabs to show previous meetings and upcoming calendar events. The
+     * tabs are purposefully hidden on mobile browsers.
+     *
+     * @returns {ReactElement|null}
+     */
+    _renderRooms() {
+        // if (isMobileBrowser()) {
+        //     return null;
+        // }
+
+        const { t } = this.props;
+
+        const tabs: any = [];
+
+        tabs.push({
+            id: 'your-rooms',
+            label: t('welcomepage.recentList'),
+            content: <YourMeetingRooms />
+        });
+
+        if (tabs.length === 0) {
+            return null;
+        }
+
+        return (
+            <Tabs
+                accessibilityLabel = { t('welcomepage.meetingsAccessibilityLabel') }
+                tabs = { tabs } />
         );
     }
 
