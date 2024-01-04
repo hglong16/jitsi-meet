@@ -494,9 +494,9 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
      * @returns {ReactElement|null}
      */
     _renderRooms() {
-        if (isMobileBrowser()) {
-            return null;
-        }
+        // if (isMobileBrowser()) {
+        //     return null;
+        // }
 
         const { t } = this.props;
 
