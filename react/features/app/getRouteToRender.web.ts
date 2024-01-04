@@ -25,7 +25,7 @@ import { IReduxState } from './types';
  * {@code getState} function.
  * @returns {Promise<Object>}
  */
-export function _getRouteToRender(stateful: IStateful) {
+export async function _getRouteToRender(stateful: IStateful) {
     const state = toState(stateful);
 
     return _getWebConferenceRoute(state) || _getWebWelcomePageRoute(state);

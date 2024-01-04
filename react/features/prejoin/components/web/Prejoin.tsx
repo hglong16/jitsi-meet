@@ -240,6 +240,7 @@ const Prejoin = ({
 
             return;
         }
+        console.log('join button click');
         joinConference();
     };
 

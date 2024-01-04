@@ -158,6 +158,7 @@ export default class BaseApp<P> extends Component<P, IState> {
      * @returns {ReactElement}
      */
     render() {
+        console.log('==== state', this.state);
         const { route: { component, props }, store } = this.state;
 
         if (store) {
@@ -204,7 +205,7 @@ export default class BaseApp<P> extends Component<P, IState> {
      * @protected
      */
     _createMainElement(component?: ComponentType, props?: Object) {
-        console.log('==== component', component);
+        console.log('==== component _createMainElement', component);
         return component ? React.createElement(component, props || {}) : null;
     }
 
@@ -227,6 +228,8 @@ export default class BaseApp<P> extends Component<P, IState> {
         const middleware = process.env.NODE_ENV === 'production'
             ? MiddlewareRegistry.applyMiddleware(Thunk)
             : MiddlewareRegistry.applyMiddleware(Thunk, createLogger());
+
+        // const middleware = MiddlewareRegistry.applyMiddleware(Thunk);
 
         // @ts-ignore
         const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

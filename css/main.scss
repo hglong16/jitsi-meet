@@ -82,6 +82,7 @@ $flagsImagePath: "../images/";
 @import 'navbar';
 @import 'footer';
 @import 'recent-list';
+@import 'login_page';
 
 @include generateSpacingClasses(ml, margin-left);
 @include generateSpacingClasses(mr, margin-right);

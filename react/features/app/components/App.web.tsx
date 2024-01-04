@@ -11,6 +11,7 @@ import { AbstractApp } from './AbstractApp';
 // Register middlewares and reducers.
 import '../middlewares';
 import '../reducers';
+import Router from '../route/Router';
 
 
 /**
@@ -47,7 +48,8 @@ export class App extends AbstractApp {
             <JitsiThemeProvider>
                 <GlobalStyles />
                 <ChromeExtensionBanner />
-                { super._createMainElement(component, props) }
+                <Router />
+                {/* { super._createMainElement(component, props) } */}
             </JitsiThemeProvider>
         );
     }
