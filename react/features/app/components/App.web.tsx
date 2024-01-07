@@ -12,6 +12,8 @@ import { AbstractApp } from './AbstractApp';
 import '../middlewares';
 import '../reducers';
 import Router from '../route/Router';
+import { ThemeProvider } from '@mui/material';
+import theme from '../../../theme';
 
 
 /**
@@ -48,7 +50,9 @@ export class App extends AbstractApp {
             <JitsiThemeProvider>
                 <GlobalStyles />
                 <ChromeExtensionBanner />
-                <Router />
+                <ThemeProvider theme={theme}>
+                    <Router />
+                </ThemeProvider>
                 {/* { super._createMainElement(component, props) } */}
             </JitsiThemeProvider>
         );

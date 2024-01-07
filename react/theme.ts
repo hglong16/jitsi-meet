@@ -15,6 +15,21 @@ const theme = createTheme({
       main: red.A400,
     },
   },
+  components: {
+    MuiButtonBase: {
+      styleOverrides: {
+        root: ({ ownerState }) => {
+          console.log('### ownerState', ownerState);
+          return {
+            ...(ownerState.color === 'primary' && {
+              backgroundColor: 'rgba(183, 34, 50, 1)!important',
+              color: '#fff',
+            }),
+          }
+        },
+      }
+    }
+  }
 });
 
 export default theme;
