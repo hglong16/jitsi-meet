@@ -1,30 +1,3 @@
 .login {
     background: $white;
-    .login-container {
-        color: red;
-        .form-wrapper {
-            color: red;
-            .form {
-                color: red;
-                form {
-                    .username-input, .password-input {
-                        border-radius: 8px;
-                        border: 1px solid #dbdbdb;
-                        background: #fff;
-                        display: inline-block;
-                        height: 50px;
-                        width: 100%;
-                        font-size: 14px;
-                        padding-left: 10px;
-                        // outline: auto 2px #c4c4c4;
-
-                        &.focus-visible {
-                            border: 1px solid #005fcc;
-                            // outline: auto 2px #005fcc;
-                        }
-                    }
-                }
-            }
-        }
-    }
 }

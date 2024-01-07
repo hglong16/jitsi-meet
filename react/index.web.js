@@ -9,6 +9,8 @@ import Platform from './features/base/react/Platform.web';
 import { getJitsiMeetGlobalNS } from './features/base/util/helpers';
 import DialInSummaryApp from './features/invite/components/dial-in-summary/web/DialInSummaryApp';
 import PrejoinApp from './features/prejoin/components/web/PrejoinApp';
+import { ThemeProvider, createTheme } from '@mui/material';
+import theme from './theme';
 
 const logger = getLogger('index.web');
 const OS = Platform.OS;
@@ -54,7 +56,9 @@ globalNS.renderEntryPoint = ({
     elementId = 'react'
 }) => {
     ReactDOM.render(
-        <Component { ...props } />,
+        <ThemeProvider theme={theme}>
+            <Component { ...props } />,
+        </ThemeProvider>,
         document.getElementById(elementId)
     );
 };

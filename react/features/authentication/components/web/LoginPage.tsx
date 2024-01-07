@@ -3,12 +3,10 @@ import { WithTranslation } from 'react-i18next';
 import { connect as reduxConnect, useDispatch } from 'react-redux';
 
 import { translate } from '../../../base/i18n/functions';
-import Input from '../../../base/ui/components/web/Input';
 
 import Navbar from '../../../welcome/components/Navbar';
 import Footer from '../../../welcome/components/Footer';
-import Button from '../../../base/ui/components/web/Button';
-import { BUTTON_TYPES } from '../../../base/ui/constants.any';
+import { Box, Button, TextField } from '@mui/material';
 
 /**
  * The type of the React {@code Component} props of {@link LoginPage}.
@@ -27,9 +25,9 @@ interface IState {
     password: string;
 
     /**
-     * The username entered for logging in.
+     * The email entered for logging in.
      */
-    username: string;
+    email: string;
 }
 
 /**
@@ -47,12 +45,12 @@ class LoginPage extends Component<IProps, IState> {
         super(props);
 
         this.state = {
-            username: '',
+            email: '',
             password: ''
         };
 
         this._onLogin = this._onLogin.bind(this);
-        this._onUsernameChange = this._onUsernameChange.bind(this);
+        this._onEmailChange = this._onEmailChange.bind(this);
         this._onPasswordChange = this._onPasswordChange.bind(this);
     }
 
@@ -65,7 +63,7 @@ class LoginPage extends Component<IProps, IState> {
      */
     _onLogin() {
         const dispatch = useDispatch();
-        const { password, username } = this.state;
+        const { password, email } = this.state;
 
         // TODO: Integrate with Auth API
     }
@@ -88,9 +86,9 @@ class LoginPage extends Component<IProps, IState> {
      * @param {string} value - The new value.
      * @returns {void}
      */
-    _onUsernameChange(event: any) {
+    _onEmailChange(event: any) {
         this.setState({
-            username: event.target.value
+            email: event.target.value
         });
     }
 
@@ -103,6 +101,7 @@ class LoginPage extends Component<IProps, IState> {
      */
     _onFormSubmit(event: React.FormEvent) {
         event.preventDefault();
+        console.log('Submit login form', this.state);
 
         // TODO: Complete this login logic
     }
@@ -115,7 +114,7 @@ class LoginPage extends Component<IProps, IState> {
     render() {
         const { t } = this.props;
 
-        const { username, password } = this.state;
+        const { email, password } = this.state;
 
         return (
             <div
@@ -139,13 +138,49 @@ class LoginPage extends Component<IProps, IState> {
                             </div>
                             <div className="mb-2 mt-6 form-wrapper">
                                 <div className = 'form'>
-                                    <form onSubmit = { this._onFormSubmit } className='d-flex flex-column align-center'>
+                                    <Box component="form" onSubmit={this._onFormSubmit} noValidate sx={{ mt: 1 }}>
+                                        <TextField
+                                            margin="normal"
+                                            value={email}
+                                            required
+                                            fullWidth
+                                            id="email"
+                                            label="Email Address"
+                                            name="email"
+                                            autoComplete="email"
+                                            onChange = { this._onEmailChange }
+                                            autoFocus
+                                        />
+                                        <TextField
+                                            margin="normal"
+                                            value={password}
+                                            required
+                                            fullWidth
+                                            name="password"
+                                            label={t('dialog.password')}
+                                            type="password"
+                                            id="password"
+                                            autoComplete="current-password"
+                                            onChange = { this._onPasswordChange }
+                                        />
+                                        <Button
+                                            type="submit"
+                                            fullWidth
+                                            size='large'
+                                            sx={{ mt: 3, mb: 2 }}
+                                            variant="contained"
+                                            color='primary'
+                                        >
+                                            {t('dialog.login')}
+                                        </Button>
+                                    </Box>
+                                    {/* <form onSubmit = { this._onFormSubmit } className='d-flex flex-column align-center'>
                                         <input
                                             aria-disabled = 'false'
                                             aria-label = {t('dialog.user')}
                                             autoFocus = { true }
                                             className = 'username-input'
-                                            onChange = { this._onUsernameChange }
+                                            onChange = { this._onEmailChange }
                                             // pattern = { ROOM_NAME_VALIDATE_PATTERN_STR }
                                             placeholder = { 'Email' }
                                             title = { t('welcomepage.roomNameAllowedChars') }
@@ -163,13 +198,13 @@ class LoginPage extends Component<IProps, IState> {
                                             type = 'text'
                                             value = { password }
                                         />
-                                    </form>
-                                    <Button
+                                    </form> */}
+                                    {/* <Button
                                         onClick = { this._onFormSubmit }
                                         id = 'login_button'
                                         type = { BUTTON_TYPES.SECONDARY }
                                         labelKey = { t('dialog.login') }
-                                    />
+                                    /> */}
                                 </div>
                             </div>
                         </div>
