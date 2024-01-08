@@ -513,7 +513,7 @@ body.welcome-page {
         }
 
         .action-wrapper {
-            width: fit-content;
+            width: unset;
             min-height: calc(100vh - 132px);
 
             >div:nth-child(1) {
