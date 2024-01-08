@@ -214,7 +214,7 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
                             <h2 className="content__description">
                                 Cổng hội nghị trực tuyến an toàn, bảo mật. Kết nối mọi lúc mọi nơi
                             </h2>
-                            {/* <div className="mb-2 mt-6">
+                            <div className="mb-2 mt-6">
                                 <h6>Nhập tên phòng để bắt đầu</h6>
                                 <div id = 'enter_room'>
                                     <div className = 'join-meeting-container'>
@@ -247,14 +247,14 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
                                         </button>
                                     </div>
                                 </div>
-                            </div> */}
+                            </div>
                             {
                                 <div className="mb-2 mt-4">
                                     <h6>Cuộc họp của bạn</h6>
                                     <div className = 'welcome-cards-container mt-2'>
                                         <div className = 'welcome-card-column'>
                                             <div className = 'welcome-tabs welcome-card'>
-                                                { this._renderRooms() }
+                                                { this._renderTabs() }
                                             </div>
                                             { showAdditionalCard
                                                 ? <div
@@ -526,9 +526,9 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
      * @returns {ReactElement|null}
      */
     _renderTabs() {
-        if (isMobileBrowser()) {
-            return null;
-        }
+        // if (isMobileBrowser()) {
+        //     return null;
+        // }
 
         const { _calendarEnabled, _recentListEnabled, t } = this.props;
 
