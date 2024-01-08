@@ -6,6 +6,7 @@ import LoginPage from '../../authentication/components/web/LoginPage';
 import WelcomePage from '../../welcome/components/WelcomePage.web';
 import Conference from '../../conference/components/web/Conference';
 import { OriginalApp } from '../components/OriginalApp.web';
+import Dashboard from '../../base/dashboard/components/Dashboard';
 
 const Router = () => {
   return (
@@ -17,6 +18,14 @@ const Router = () => {
           element={
             <PrivateRoute >
               <WelcomePage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path='/dashboard'
+          element={
+            <PrivateRoute >
+              <Dashboard />
             </PrivateRoute>
           }
         />
