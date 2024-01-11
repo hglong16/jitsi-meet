@@ -56,7 +56,7 @@ export const AccountPopover = (props) => {
         }}
       >
         <MenuItem onClick={handleSignOut}>
-          Sign out
+          Đăng xuất
         </MenuItem>
       </MenuList>
     </Popover>

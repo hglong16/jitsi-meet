@@ -36,6 +36,8 @@ export const MAX_LIST_SIZE = 30;
  */
 const STORE_NAME = 'features/recent-list';
 
+const IGNORE_URL = ['/', '/new-meeting', '/meeting-history', '/account', '/support'];
+
 /**
  * Sets up the persistence of the feature {@code recent-list}.
  */
@@ -82,7 +84,12 @@ function _deleteRecentListEntry(
  * @returns {Object}
  */
 function _storeCurrentConference(state: IRecentListState, { locationURL }: { locationURL: { href: string; }; }) {
+    console.log('Store current conference');
     const conference = getURLWithoutParamsNormalized(new URL(locationURL.href));
+    console.log('conference url', conference);
+    if (IGNORE_URL.includes(conference)) {
+        return state;
+    }
 
     // If the current conference is already in the list, we remove it to re-add
     // it to the top.

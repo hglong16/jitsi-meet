@@ -14,7 +14,7 @@ const Router = () => {
       <Routes>
         <Route path='/login' element={<LoginPage />} />
         <Route
-          path='/'
+          path='/new-meeting'
           element={
             <PrivateRoute >
               <WelcomePage />
@@ -22,7 +22,7 @@ const Router = () => {
           }
         />
         <Route
-          path='/dashboard'
+          path='/'
           element={
             <PrivateRoute >
               <Dashboard />

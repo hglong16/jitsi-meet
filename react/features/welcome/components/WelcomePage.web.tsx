@@ -18,6 +18,7 @@ import { AbstractWelcomePage, IProps, _mapStateToProps } from './AbstractWelcome
 import Tabs from './Tabs';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import { Layout } from '../../base/layouts/dashboard/Layout';
 
 /**
  * The pattern used to validate room name.
@@ -192,83 +193,67 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
         const footerClassName = DISPLAY_WELCOME_FOOTER ? 'with-footer' : 'without-footer';
 
         return (
-            <div
-                className='welcome'
-                id='welcome_page'
-            >
-                <div className='banner d-flex flex-column justify-between'>
-                    <Navbar />
-                    <Footer />
-                </div>
-                <div className='action-wrapper flex-column d-flex justify-between align-center'>
-                    <div className='d-flex flex-column justify-center align-center flex-grow-1'>
-                        <div>
-                            <img
-                                alt='powered-by'
-                                src='images/powered-by.svg'
-                                width={180}
-                            />
-                            <div className="content__mobile-setting">
-                                <h1 className="content__title">Hội nghị Trực tuyến</h1>
-                            </div>
-                            <h2 className="content__description">
-                                Cổng hội nghị trực tuyến an toàn, bảo mật. Kết nối mọi lúc mọi nơi
-                            </h2>
-                            <div className="mb-2 mt-6">
-                                <h6>Nhập tên phòng để bắt đầu</h6>
-                                <div id = 'enter_room'>
-                                    <div className = 'join-meeting-container'>
-                                        <div className = 'enter-room-input-container'>
-                                            <form onSubmit = { this._onFormSubmit }>
-                                                <input
-                                                    aria-disabled = 'false'
-                                                    aria-label = 'Meeting name input'
-                                                    autoFocus = { true }
-                                                    className = 'enter-room-input'
-                                                    id = 'enter_room_field'
-                                                    onChange = { this._onRoomChange }
-                                                    pattern = { ROOM_NAME_VALIDATE_PATTERN_STR }
-                                                    placeholder = { this.state.roomPlaceholder }
-                                                    ref = { this._setRoomInputRef }
-                                                    title = { t('welcomepage.roomNameAllowedChars') }
-                                                    type = 'text'
-                                                    value = { this.state.room } />
-                                            </form>
-                                        </div>
-                                        <button
-                                            aria-disabled = 'false'
-                                            aria-label = 'Start meeting'
-                                            className = 'welcome-page-button'
-                                            id = 'enter_room_button'
-                                            onClick = { this._onFormSubmit }
-                                            tabIndex = { 0 }
-                                            type = 'button'>
-                                            { t('welcomepage.startMeeting') }
-                                        </button>
-                                    </div>
+            <Layout>
+
+                <div
+                    className='welcome'
+                    id='welcome_page'
+                >
+                    {/* <div className='banner d-flex flex-column justify-between'>
+                        <Navbar />
+                        <Footer />
+                    </div> */}
+                    <div className='action-wrapper flex-column d-flex justify-between align-center'>
+                        <div className='d-flex flex-column justify-center align-center flex-grow-1'>
+                            <div>
+                                {/* <img
+                                    alt='powered-by'
+                                    src='images/powered-by.svg'
+                                    width={180}
+                                /> */}
+                                <div className="content__mobile-setting">
+                                    <h1 className="content__title">Hội nghị Trực tuyến</h1>
                                 </div>
-                            </div>
-                            {
-                                <div className="mb-2 mt-4">
-                                    <h6>Cuộc họp của bạn</h6>
-                                    <div className = 'welcome-cards-container mt-2'>
-                                        <div className = 'welcome-card-column'>
-                                            <div className = 'welcome-tabs welcome-card'>
-                                                { this._renderTabs() }
+                                <h2 className="content__description">
+                                    Cổng hội nghị trực tuyến an toàn, bảo mật. Kết nối mọi lúc mọi nơi
+                                </h2>
+                                <div className="mb-2 mt-6">
+                                    <h6>Nhập tên phòng để bắt đầu</h6>
+                                    <div id = 'enter_room'>
+                                        <div className = 'join-meeting-container'>
+                                            <div className = 'enter-room-input-container'>
+                                                <form onSubmit = { this._onFormSubmit }>
+                                                    <input
+                                                        aria-disabled = 'false'
+                                                        aria-label = 'Meeting name input'
+                                                        autoFocus = { true }
+                                                        className = 'enter-room-input'
+                                                        id = 'enter_room_field'
+                                                        onChange = { this._onRoomChange }
+                                                        pattern = { ROOM_NAME_VALIDATE_PATTERN_STR }
+                                                        placeholder = { this.state.roomPlaceholder }
+                                                        ref = { this._setRoomInputRef }
+                                                        title = { t('welcomepage.roomNameAllowedChars') }
+                                                        type = 'text'
+                                                        value = { this.state.room } />
+                                                </form>
                                             </div>
-                                            { showAdditionalCard
-                                                ? <div
-                                                    className = 'welcome-card welcome-card--dark'
-                                                    ref = { this._setAdditionalCardRef } />
-                                                : null }
+                                            <button
+                                                aria-disabled = 'false'
+                                                aria-label = 'Start meeting'
+                                                className = 'welcome-page-button'
+                                                id = 'enter_room_button'
+                                                onClick = { this._onFormSubmit }
+                                                tabIndex = { 0 }
+                                                type = 'button'>
+                                                { t('welcomepage.startMeeting') }
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
-                            }
-                            {/* {
-                                this.props._recentList?.length > 0
-                                   ? <div className="mb-2 mt-4">
-                                        <h6>Cuộc họp gần đây</h6>
+                                {
+                                    <div className="mb-2 mt-4">
+                                        <h6>Cuộc họp của bạn</h6>
                                         <div className = 'welcome-cards-container mt-2'>
                                             <div className = 'welcome-card-column'>
                                                 <div className = 'welcome-tabs welcome-card'>
@@ -282,116 +267,25 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
                                             </div>
                                         </div>
                                     </div>
-                                    : null
-                            } */}
+                                }
+                            </div>
                         </div>
-                    </div>
-                    <div className='powered-by'>
-                        <div className='d-mobile'>
-                            <img
-                                className='red-logo'
-                                alt='powered-by'
-                                src='images/Logo-Digital.svg'
-                                width={180}
-                            />
-                            <p className='highlight'>CƠ QUAN CỦA TÒA ÁN NHÂN DÂN TỐI CAO</p>
-                            <p>Trụ sở Tòa soạn: 262 Đội Cấn, Ba Đình, Hà Nội</p>
-                        </div>
-                        <p>Powered By Sky Media Group</p>
+                        {/* <div className='powered-by'>
+                            <div className='d-mobile'>
+                                <img
+                                    className='red-logo'
+                                    alt='powered-by'
+                                    src='images/Logo-Digital.svg'
+                                    width={180}
+                                />
+                                <p className='highlight'>CƠ QUAN CỦA TÒA ÁN NHÂN DÂN TỐI CAO</p>
+                                <p>Trụ sở Tòa soạn: 262 Đội Cấn, Ba Đình, Hà Nội</p>
+                            </div>
+                            <p>Powered By Sky Media Group</p>
+                        </div> */}
                     </div>
                 </div>
-
-                {/* <div className = 'header'>
-                    <div className = 'header-image' />
-                    <div className = 'header-container'>
-                        <div className = 'header-watermark-container'>
-                            <div className = 'welcome-watermark'>
-                                <Watermarks
-                                    defaultJitsiLogoURL = { DEFAULT_WELCOME_PAGE_LOGO_URL }
-                                    noMargins = { true } />
-                            </div>
-                        </div>
-                        <div className = 'welcome-page-settings'>
-                            <SettingsButton
-                                defaultTab = { SETTINGS_TABS.CALENDAR }
-                                isDisplayedOnWelcomePage = { true } />
-                            { showAdditionalToolbarContent
-                                ? <div
-                                    className = 'settings-toolbar-content'
-                                    ref = { this._setAdditionalToolbarContentRef } />
-                                : null
-                            }
-                        </div>
-                        <h1 className = 'header-text-title'>
-                            { t('welcomepage.headerTitle') }
-                        </h1>
-                        <span className = 'header-text-subtitle'>
-                            { t('welcomepage.headerSubtitle')}
-                        </span>
-                        <div id = 'enter_room'>
-                            <div className = 'join-meeting-container'>
-                                <div className = 'enter-room-input-container'>
-                                    <form onSubmit = { this._onFormSubmit }>
-                                        <input
-                                            aria-disabled = 'false'
-                                            aria-label = 'Meeting name input'
-                                            autoFocus = { true }
-                                            className = 'enter-room-input'
-                                            id = 'enter_room_field'
-                                            onChange = { this._onRoomChange }
-                                            pattern = { ROOM_NAME_VALIDATE_PATTERN_STR }
-                                            placeholder = { this.state.roomPlaceholder }
-                                            ref = { this._setRoomInputRef }
-                                            title = { t('welcomepage.roomNameAllowedChars') }
-                                            type = 'text'
-                                            value = { this.state.room } />
-                                    </form>
-                                </div>
-                                <button
-                                    aria-disabled = 'false'
-                                    aria-label = 'Start meeting'
-                                    className = 'welcome-page-button'
-                                    id = 'enter_room_button'
-                                    onClick = { this._onFormSubmit }
-                                    tabIndex = { 0 }
-                                    type = 'button'>
-                                    { t('welcomepage.startMeeting') }
-                                </button>
-                            </div>
-                        </div>
-                        { this._renderInsecureRoomNameWarning() }
-
-                        { _moderatedRoomServiceUrl && (
-                            <div id = 'moderated-meetings'>
-                                {
-                                    translateToHTML(
-                                    t, 'welcomepage.moderatedMessage', { url: _moderatedRoomServiceUrl })
-                                }
-                            </div>)}
-                    </div>
-                </div> */}
-
-                {/* <div className = 'welcome-cards-container'>
-                    <div className = 'welcome-card-column'>
-                        <div className = 'welcome-tabs welcome-card'>
-                            { this._renderTabs() }
-                        </div>
-                        { showAdditionalCard
-                            ? <div
-                                className = 'welcome-card welcome-card--dark'
-                                ref = { this._setAdditionalCardRef } />
-                            : null }
-                    </div>
-
-                    { showAdditionalContent
-                        ? <div
-                            className = 'welcome-page-content'
-                            ref = { this._setAdditionalContentRef } />
-                        : null }
-                </div> */}
-                {/* { DISPLAY_WELCOME_FOOTER && this._renderFooter()} */}
-            </div>
-
+            </Layout>
         );
     }
 

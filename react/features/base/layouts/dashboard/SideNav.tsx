@@ -42,7 +42,7 @@ export const SideNav = (props) => {
         }}
       >
         <Box sx={{ p: 3 }}>
-          <Box
+          {/* <Box
             component={Link}
             href="/"
             sx={{
@@ -52,8 +52,8 @@ export const SideNav = (props) => {
             }}
           >
             LOGO
-            {/* <Logo /> */}
-          </Box>
+            <Logo />
+          </Box> */}
           <Box
             sx={{
               alignItems: 'center',
@@ -67,7 +67,12 @@ export const SideNav = (props) => {
             }}
           >
             <div>
-              <Typography
+              <img
+                alt='powered-by'
+                src='images/powered-by.svg'
+                width={180}
+              />
+              {/* <Typography
                 color="inherit"
                 variant="subtitle1"
               >
@@ -78,7 +83,7 @@ export const SideNav = (props) => {
                 variant="body2"
               >
                 Production
-              </Typography>
+              </Typography> */}
             </div>
             {/* <SvgIcon
               fontSize="small"
@@ -108,7 +113,7 @@ export const SideNav = (props) => {
           >
             <SideNavItem
               className="mb-2"
-              active={location.pathname === '/dashboard'}
+              active={location.pathname === '/'}
               icon={<SvgIcon component={DashboardIcon} inheritViewBox sx={{ fill: 'unset' }} />}
               path="/"
               title="Dashboard"
@@ -122,7 +127,7 @@ export const SideNav = (props) => {
             />
             <SideNavItem
               className="mb-2"
-              active={location.pathname === '/new-meeting'}
+              active={location.pathname === '/meeting-history'}
               icon={<SvgIcon component={MeetingHistoryIcon} inheritViewBox sx={{ fill: 'unset' }} />}
               path="/meeting-history"
               title="Lịch sử cuộc họp"

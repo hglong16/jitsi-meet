@@ -14,6 +14,7 @@ import { SET_JWT } from './actionTypes';
 import { setJWT } from './actions';
 import { parseJWTFromURLParams } from './functions';
 import logger from './logger';
+import PersistenceRegistry from '../redux/PersistenceRegistry';
 
 /**
  * Middleware to parse token data upon setting a new room URL.
@@ -76,6 +77,8 @@ function _overwriteLocalParticipant(
             newProperties.features = features;
         }
         dispatch(participantUpdated(newProperties));
+
+        PersistenceRegistry.persistState(getState());
     }
 }
 
@@ -96,12 +99,16 @@ function _overwriteLocalParticipant(
  * specified {@code action}.
  */
 function _setConfigOrLocationURL({ dispatch, getState }: IStore, next: Function, action: AnyAction) {
+    console.log('_setConfigOrLocationURL');
     const result = next(action);
 
     const { locationURL } = getState()['features/base/connection'];
 
-    dispatch(
-        setJWT(locationURL ? parseJWTFromURLParams(locationURL) : undefined));
+    const jwt = parseJWTFromURLParams(locationURL);
+
+    if (jwt) {
+        dispatch(setJWT(jwt));
+    }
 
     return result;
 }
@@ -127,11 +134,14 @@ function _setJWT(store: IStore, next: Function, action: AnyAction) {
     if (!Object.keys(actionPayload).length) {
         if (jwt) {
             let jwtPayload;
+            let isAuthenticated = false;
 
             try {
                 jwtPayload = jwtDecode(jwt);
+                isAuthenticated = true;
             } catch (e) {
                 logger.error(e);
+                isAuthenticated = false;
             }
 
             if (jwtPayload) {
@@ -139,6 +149,7 @@ function _setJWT(store: IStore, next: Function, action: AnyAction) {
 
                 action.jwt = jwt;
                 action.issuer = iss;
+                action.isAuthenticated = isAuthenticated;
                 if (context) {
                     const user = _user2participant(context.user || {});
 
@@ -151,8 +162,11 @@ function _setJWT(store: IStore, next: Function, action: AnyAction) {
                     const newUser = user ? { ...user } : {};
 
                     _overwriteLocalParticipant(
-                        store, { ...newUser,
-                            features: context.features });
+                        store, {
+                            ...newUser,
+                            features: context.features,
+                            // isAuthenticated
+                        });
                 } else if (jwtPayload.name || jwtPayload.picture || jwtPayload.email) {
                     // there are some tokens (firebase) having picture and name on the main level.
                     _overwriteLocalParticipant(store, {

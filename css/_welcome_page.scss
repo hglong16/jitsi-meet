@@ -421,15 +421,15 @@ body.welcome-page {
         .welcome-page-button {
             border: 0;
             font-size: 14px;
-            background: #CC0000;
+            background: #10B981;
             border-radius: 8px;
             color: #FFFFFF;
             cursor: pointer;
             padding: 16px 20px;
             margin-left: -6px;
 
-            &:focus-within {
-                outline: auto 2px #CC0000;
+            &:focus, &:hover, &:active {
+                background-color: #0B815A;
             }
         }
 

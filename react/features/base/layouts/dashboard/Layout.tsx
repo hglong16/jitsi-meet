@@ -24,7 +24,7 @@ const LayoutContainer = styled('div')({
   width: '100%'
 });
 
-export const Layout = withAuthGuard((props) => {
+export const Layout = ((props) => {
   const { children } = props;
   const location = useLocation();
   const [openNav, setOpenNav] = useState(false);

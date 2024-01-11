@@ -9,7 +9,7 @@ const PrivateRoute = (props: RouteProps) => {
   return (
     <>{props.children}</>
   );
-  // return jwtState.user?.id
+  // return jwtState.isAuthenticated
   //   ? (
   //     <>{props.children}</>
   //   )
