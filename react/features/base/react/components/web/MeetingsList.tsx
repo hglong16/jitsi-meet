@@ -49,6 +49,11 @@ interface IProps extends WithTranslation {
      * Function to be invoked when an item is pressed. The item's URL is passed.
      */
     onPress: Function;
+
+    /**
+     * Limit number of conference list
+     */
+    limit?: number;
 }
 
 /**
@@ -106,18 +111,23 @@ class MeetingsList extends Component<IProps> {
      * @returns {React.ReactNode}
      */
     render() {
-        const { listEmptyComponent, meetings } = this.props;
+        const { listEmptyComponent, meetings, limit } = this.props;
 
         /**
          * If there are no recent meetings we don't want to display anything.
          */
         if (meetings) {
+            const conferenceList = limit
+                ? limit <= meetings.length
+                    ? meetings.splice(0, limit)
+                    : meetings
+                : meetings;
             return (
                 <Container className = 'meetings-list'>
                     {
                         meetings.length === 0
                             ? listEmptyComponent
-                            : meetings.map(this._renderItem)
+                            : conferenceList.map(this._renderItem)
                     }
                 </Container>
             );
@@ -268,6 +278,7 @@ class MeetingsList extends Component<IProps> {
                         onKeyPress = { this._onDeleteKeyPress(meeting) }
                         role = 'button'
                         src = { IconTrash }
+                        color={"#F04438"}
                         tabIndex = { 0 } />}
                 </Container>
             </Container>

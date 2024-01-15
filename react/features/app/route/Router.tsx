@@ -7,12 +7,21 @@ import WelcomePage from '../../welcome/components/WelcomePage.web';
 import Conference from '../../conference/components/web/Conference';
 import { OriginalApp } from '../components/OriginalApp.web';
 import Dashboard from '../../base/dashboard/components/Dashboard';
+import MeetingHistory from '../../base/meeting-history/components/MeetingHistory';
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path='/login' element={<LoginPage />} />
+        <Route
+          path='/meeting-history'
+          element={
+            <PrivateRoute >
+              <MeetingHistory />
+            </PrivateRoute>
+          }
+        />
         <Route
           path='/new-meeting'
           element={

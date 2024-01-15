@@ -138,16 +138,19 @@ export function validateJwt(jwt: string) {
             }
         }
 
-        if (!isValidUnixTimestamp(nbf)) {
-            errors.push({ key: JWT_VALIDATION_ERRORS.NBF_INVALID });
-        } else if (currentTimestamp < nbf * 1000) {
-            errors.push({ key: JWT_VALIDATION_ERRORS.NBF_FUTURE });
-        }
+        // if (!isValidUnixTimestamp(nbf)) {
+        //     errors.push({ key: JWT_VALIDATION_ERRORS.NBF_INVALID });
+        // } else if (currentTimestamp < nbf * 1000) {
+        //     errors.push({ key: JWT_VALIDATION_ERRORS.NBF_FUTURE });
+        // }
 
-        if (!isValidUnixTimestamp(exp)) {
-            errors.push({ key: JWT_VALIDATION_ERRORS.EXP_INVALID });
-        } else if (currentTimestamp > exp * 1000) {
-            errors.push({ key: JWT_VALIDATION_ERRORS.TOKEN_EXPIRED });
+        // Allow permanent token
+        if (exp) {
+            if (!isValidUnixTimestamp(exp)) {
+                errors.push({ key: JWT_VALIDATION_ERRORS.EXP_INVALID });
+            } else if (currentTimestamp > exp * 1000) {
+                errors.push({ key: JWT_VALIDATION_ERRORS.TOKEN_EXPIRED });
+            }
         }
 
         if (!context) {

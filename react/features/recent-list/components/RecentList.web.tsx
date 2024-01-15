@@ -26,6 +26,11 @@ interface IProps extends WithTranslation {
     disabled?: boolean;
 
     /**
+     * Limit number of conference list
+     */
+    limit?: number;
+
+    /**
      * The redux store's {@code dispatch} function.
      */
     dispatch: IStore['dispatch'];
@@ -71,7 +76,8 @@ class RecentList extends AbstractRecentList<IProps> {
         }
         const {
             disabled,
-            _recentList
+            _recentList,
+            limit,
         } = this.props;
         console.log('_recentList', _recentList);
         const recentList = toDisplayableList(_recentList);
@@ -80,6 +86,7 @@ class RecentList extends AbstractRecentList<IProps> {
             <MeetingsList
                 disabled = { Boolean(disabled) }
                 hideURL = { true }
+                limit={limit}
                 listEmptyComponent = { this._getRenderListEmptyComponent() }
                 meetings = { recentList }
                 onItemDelete = { this._onItemDelete }

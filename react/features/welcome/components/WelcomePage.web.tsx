@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Grid, TextField, Button } from '@mui/material';
+import { Grid, TextField, Button, Typography } from '@mui/material';
 
 import { isMobileBrowser } from '../../base/environment/utils';
 import { translate, translateToHTML } from '../../base/i18n/functions';
@@ -212,7 +212,12 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
                                     width={180}
                                 /> */}
                                 <div className="content__mobile-setting">
-                                    <h1 className="content__title">Hội nghị Trực tuyến</h1>
+                                    {/* <h1 className="content__title">Hội nghị Trực tuyến</h1> */}
+                                    <Typography
+                                        variant="h2"
+                                    >
+                                        Hội nghị Trực tuyến
+                                    </Typography>
                                 </div>
                                 <h2 className="content__description">
                                     Cổng hội nghị trực tuyến an toàn, bảo mật. Kết nối mọi lúc mọi nơi
@@ -253,7 +258,7 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
                                 </div>
                                 {
                                     <div className="mb-2 mt-4">
-                                        <h6>Cuộc họp của bạn</h6>
+                                        <h6>Cuộc họp gần đây</h6>
                                         <div className = 'welcome-cards-container mt-2'>
                                             <div className = 'welcome-card-column'>
                                                 <div className = 'welcome-tabs welcome-card'>
@@ -440,7 +445,7 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
             tabs.push({
                 id: 'recent',
                 label: t('welcomepage.recentMeetings'),
-                content: <RecentList />
+                content: <RecentList limit={5}/>
             });
         }
 
