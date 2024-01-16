@@ -4,6 +4,7 @@ import Logger from '@jitsi/logger';
 import $ from 'jquery';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { I18nextProvider } from 'react-i18next';
 import { Provider } from 'react-redux';
 
@@ -506,7 +507,7 @@ export default class LargeVideoManager {
      * Updates the src of the dominant speaker avatar
      */
     updateAvatar() {
-        ReactDOM.render(
+        createRoot(
             <Provider store = { APP.store }>
                 <Avatar
                     id = "dominantSpeakerAvatar"
@@ -547,7 +548,7 @@ export default class LargeVideoManager {
         const presenceLabelContainer = document.getElementById('remotePresenceMessage');
 
         if (presenceLabelContainer) {
-            ReactDOM.render(
+            createRoot(
                 <Provider store = { APP.store }>
                     <I18nextProvider i18n = { i18next }>
                         <PresenceLabel

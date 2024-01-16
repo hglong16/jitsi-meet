@@ -53,7 +53,7 @@ const BasicInformation = (props: Props) => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <List>
           <ListItem sx={{ paddingLeft: 0 }}>
-            <Grid container spacing={8}>
+            <Grid container spacing={4}>
               <Grid item lg={8} md={8} sm={12} xs={12}>
                 <Box display={'flex'} flexDirection={'column'}>
                   <Typography variant='h6' sx={{ color: '#101828' }}>
@@ -69,11 +69,18 @@ const BasicInformation = (props: Props) => {
                   <Button
                     variant='contained'
                     color='error'
-                    sx={{
-                      backgroundColor: '#fff',
-                      color: '#000',
-                      marginRight: '12px'
-                    }}
+                    sx={[
+                      {
+                        backgroundColor: '#fff',
+                        color: '#000',
+                        marginRight: '12px'
+                      },
+                      {
+                        '&:hover': {
+                          color: '#fff',
+                        },
+                      },
+                    ]}
                     type='reset'
                   >
                     Hủy thay đổi
@@ -85,7 +92,7 @@ const BasicInformation = (props: Props) => {
           </ListItem>
           <Divider variant="middle" component="li" className='mt-2 mb-2' />
           <ListItem sx={{ paddingLeft: 0 }}>
-            <Grid container spacing={8} display={'flex'}>
+            <Grid container spacing={4} display={'flex'}>
               <Grid item lg={4} md={12} sm={12} xs={12}>
                 <Box display={'flex'} flexDirection={'column'}>
                   <Typography variant='subtitle2' sx={{ color: '#101828' }}>
@@ -118,7 +125,7 @@ const BasicInformation = (props: Props) => {
           </ListItem>
           <Divider variant="middle" component="li" className='mt-2 mb-2' />
           <ListItem sx={{ paddingLeft: 0 }}>
-            <Grid container spacing={8} display='flex' alignItems='center'>
+            <Grid container spacing={4} display='flex' alignItems='center'>
               <Grid item lg={4} md={12} sm={12} xs={12}>
                 <Box display={'flex'} flexDirection={'column'}>
                   <Typography variant='subtitle2' sx={{ color: '#101828' }}>

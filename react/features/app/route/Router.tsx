@@ -9,12 +9,18 @@ import { OriginalApp } from '../components/OriginalApp.web';
 import Dashboard from '../../base/dashboard/components/Dashboard';
 import MeetingHistory from '../../base/meeting-history/components/MeetingHistory';
 import AccountSetting from '../../base/account/components/AccountSetting';
+import Support from '../../base/support/components/Support';
+import Logout from '../../authentication/components/web/Logout';
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path='/login' element={<LoginPage />} />
+        <Route
+          path='/logout'
+          element={<Logout />}
+        />
         <Route
           path='/meeting-history'
           element={
@@ -36,6 +42,14 @@ const Router = () => {
           element={
             <PrivateRoute >
               <AccountSetting />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path='/support'
+          element={
+            <PrivateRoute >
+              <Support />
             </PrivateRoute>
           }
         />

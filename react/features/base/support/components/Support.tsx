@@ -52,27 +52,9 @@ const AccountSetting = (props: Props) => {
           <Typography
             variant="h3"
           >
-            Tùy chọn người dùng
+            Hỗ trợ sự cố
           </Typography>
         </div>
-        <Tabs value={activeTab} onChange={handleSelectTab} >
-          <Tab sx={{ "&": { minHeight: '56px' } }} icon={<PersonIcon style={{ height: 20 }} />} iconPosition="start" label="Hồ sơ" />
-          <Tab sx={{ "&": { minHeight: '56px' } }} icon={<KeyIcon style={{ height: 20 }} />} iconPosition="start" label="Mật khẩu" />
-        </Tabs>
-        {
-          activeTab === ACTIVE_TAB.PERSONAL_INFO
-            ? (
-              <BasicInformation />
-            )
-            : null
-        }
-        {
-          activeTab === ACTIVE_TAB.PASSWORD
-            ? (
-              <ChangePassword />
-            )
-            : null
-        }
       </div>
     </Layout>
   );

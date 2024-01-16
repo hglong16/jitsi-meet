@@ -85,7 +85,7 @@ export const TopNav = (props) => {
                   <UsersIcon />
                 </SvgIcon>
               </IconButton>
-            </Tooltip>
+            </Tooltip> */}
             <Tooltip title="Notifications">
               <IconButton>
                 <Badge
@@ -98,7 +98,7 @@ export const TopNav = (props) => {
                   </SvgIcon>
                 </Badge>
               </IconButton>
-            </Tooltip> */}
+            </Tooltip>
             <Avatar
               onClick={accountPopover.handleOpen}
               ref={accountPopover.anchorRef}

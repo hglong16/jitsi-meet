@@ -9,7 +9,7 @@ import { IReduxState } from '../../../app/types';
 import { IRecentListState } from '../../../recent-list/reducer';
 import MeetingsList from '../../react/components/web/MeetingsList';
 import { toDisplayableList } from '../../../recent-list/functions.web';
-import { Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import { sendAnalytics } from '../../../analytics/functions';
 import { createRecentClickedEvent } from '../../../analytics/AnalyticsEvents';
 import { appNavigate } from '../../../app/actions.web';
@@ -47,38 +47,42 @@ const MeetingHistory = () => {
             Lịch sử cuộc họp
           </Typography>
           <div className='recent-list-container mt-4'>
-            <div
-              className='recent-list-wrapper'
-              // style={{
-              //   padding: '12px',
-              //   border: '1px solid #dbdbdb',
-              //   'borderRadius': '8px',
-              // }}
-            >
-              {
-                Object.keys(recentConferenceDict).map((key) => (
-                  <div key={key}>
-                    <Typography
-                      variant="h4"
-                      sx={{
-                        color: '#000',
-                        paddingBottom: '32px',
-                        paddingTop: '32px',
-                      }}
-                    >
-                      Tháng {getLocalizedDateFormatter(moment(key, MONTH_YEAR_FORMAT).toDate()).format('MM, YYYY')}
-                    </Typography>
-                    <MeetingsList
-                      hideURL={true}
-                      meetings={recentConferenceDict[key] as any}
-                      onItemDelete={onItemDelete}
-                      onPress={onPress}
-                    />
-                  </div>
-                ))
-              }
-              {/* <RecentList /> */}
-            </div>
+            <Grid container spacing={8}>
+              <Grid item lg={6} md={12} sm={12} xs={12}>
+                <div
+                  className='recent-list-wrapper'
+                  // style={{
+                  //   padding: '12px',
+                  //   border: '1px solid #dbdbdb',
+                  //   'borderRadius': '8px',
+                  // }}
+                >
+                  {
+                    Object.keys(recentConferenceDict).map((key) => (
+                      <div key={key}>
+                        <Typography
+                          variant="h4"
+                          sx={{
+                            color: '#000',
+                            paddingBottom: '32px',
+                            paddingTop: '32px',
+                          }}
+                        >
+                          Tháng {getLocalizedDateFormatter(moment(key, MONTH_YEAR_FORMAT).toDate()).format('MM, YYYY')}
+                        </Typography>
+                        <MeetingsList
+                          hideURL={true}
+                          meetings={recentConferenceDict[key] as any}
+                          onItemDelete={onItemDelete}
+                          onPress={onPress}
+                        />
+                      </div>
+                    ))
+                  }
+                  {/* <RecentList /> */}
+                </div>
+              </Grid>
+            </Grid>
           </div>
         </div>
       </div>

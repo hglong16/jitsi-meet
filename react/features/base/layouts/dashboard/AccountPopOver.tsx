@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { Box, Divider, MenuItem, MenuList, Popover, Typography } from '@mui/material';
+import { Box, Divider, Link, MenuItem, MenuList, Popover, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { IReduxState } from '../../../app/types';
 import { IJwtState } from '../../jwt/reducer';
@@ -55,8 +55,10 @@ export const AccountPopover = (props) => {
           }
         }}
       >
-        <MenuItem onClick={handleSignOut}>
-          Đăng xuất
+        <MenuItem>
+          <Link to="/logout" underline='none' color={'#000'}>
+            Đăng xuất
+          </Link>
         </MenuItem>
       </MenuList>
     </Popover>

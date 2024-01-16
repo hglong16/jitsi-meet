@@ -52,6 +52,7 @@ class LoginPage extends Component<IProps, IState> {
         this._onLogin = this._onLogin.bind(this);
         this._onEmailChange = this._onEmailChange.bind(this);
         this._onPasswordChange = this._onPasswordChange.bind(this);
+        this._onFormSubmit = this._onFormSubmit.bind(this);
     }
 
     /**
@@ -145,7 +146,7 @@ class LoginPage extends Component<IProps, IState> {
                                             required
                                             fullWidth
                                             id="email"
-                                            label="Email Address"
+                                            label="Địa chỉ Email"
                                             name="email"
                                             autoComplete="email"
                                             onChange = { this._onEmailChange }
