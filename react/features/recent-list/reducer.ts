@@ -36,7 +36,7 @@ export const MAX_LIST_SIZE = 30;
  */
 const STORE_NAME = 'features/recent-list';
 
-const IGNORE_URLS = ['/new-meeting', '/meeting-history', '/account', '/support', '/login'];
+const IGNORE_URLS = ['/new-meeting', '/meeting-history', '/account', '/support', '/login', '/logout'];
 
 /**
  * Sets up the persistence of the feature {@code recent-list}.

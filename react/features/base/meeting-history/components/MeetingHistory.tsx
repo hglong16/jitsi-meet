@@ -42,7 +42,7 @@ const MeetingHistory = () => {
       >
         <div className='mb-2'>
           <Typography
-            variant="h2"
+            variant="h3"
           >
             Lịch sử cuộc họp
           </Typography>

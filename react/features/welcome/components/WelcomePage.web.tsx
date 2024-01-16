@@ -214,7 +214,7 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
                                 <div className="content__mobile-setting">
                                     {/* <h1 className="content__title">Hội nghị Trực tuyến</h1> */}
                                     <Typography
-                                        variant="h2"
+                                        variant="h3"
                                     >
                                         Hội nghị Trực tuyến
                                     </Typography>

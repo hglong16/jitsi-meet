@@ -23,6 +23,7 @@
     "@giphy/react-components": "6.8.1",
     "@giphy/react-native-sdk": "2.3.0",
     "@heroicons/react": "^2.1.1",
+    "@hookform/resolvers": "^3.3.4",
     "@jitsi/excalidraw": "https://github.com/jitsi/excalidraw/releases/download/v0.0.14/jitsi-excalidraw-0.0.14.tgz",
     "@jitsi/js-utils": "2.2.1",
     "@jitsi/logger": "2.0.2",
@@ -78,6 +79,7 @@
     "react-dom": "18.2.0",
     "react-emoji-render": "1.2.4",
     "react-focus-on": "3.8.1",
+    "react-hook-form": "^7.49.3",
     "react-i18next": "10.11.4",
     "react-linkify": "1.0.0-alpha",
     "react-native": "0.69.12",
@@ -127,6 +129,7 @@
     "wasm-check": "2.0.1",
     "webm-duration-fix": "1.0.4",
     "windows-iana": "3.1.0",
+    "zod": "^3.22.4",
     "zxcvbn": "4.4.2"
   },
   "devDependencies": {

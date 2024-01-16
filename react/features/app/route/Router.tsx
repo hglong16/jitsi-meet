@@ -8,6 +8,7 @@ import Conference from '../../conference/components/web/Conference';
 import { OriginalApp } from '../components/OriginalApp.web';
 import Dashboard from '../../base/dashboard/components/Dashboard';
 import MeetingHistory from '../../base/meeting-history/components/MeetingHistory';
+import AccountSetting from '../../base/account/components/AccountSetting';
 
 const Router = () => {
   return (
@@ -27,6 +28,14 @@ const Router = () => {
           element={
             <PrivateRoute >
               <WelcomePage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path='/account'
+          element={
+            <PrivateRoute >
+              <AccountSetting />
             </PrivateRoute>
           }
         />
