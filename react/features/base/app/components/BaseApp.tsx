@@ -158,7 +158,7 @@ export default class BaseApp<P> extends Component<P, IState> {
      * @returns {ReactElement}
      */
     render() {
-        console.log('==== state', this.state);
+        // console.log('==== state', this.state);
         const { route: { component, props }, store } = this.state;
 
         if (store) {

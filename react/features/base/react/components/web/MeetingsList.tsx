@@ -9,7 +9,7 @@ import { IconTrash } from '../../../icons/svg';
 import Container from './Container';
 import Text from './Text';
 
-interface IMeeting {
+export interface IMeeting {
     date: Date;
     duration?: number;
     elementAfter?: React.ReactElement;

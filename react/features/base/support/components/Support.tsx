@@ -49,10 +49,11 @@ const AccountSetting = (props: Props) => {
     <Layout>
       <div className='account-setting-container ml-8'>
         <div className='mb-2'>
-          <Typography
-            variant="h3"
-          >
+          <Typography variant="h3">
             Hỗ trợ sự cố
+          </Typography>
+          <Typography variant='h6' sx={{ color: '#101828' }} className='mt-4'>
+            Hotline: 0918839888 (Hoàng)
           </Typography>
         </div>
       </div>

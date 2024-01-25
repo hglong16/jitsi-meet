@@ -36,13 +36,8 @@ enum ACTIVE_TAB {
 
 const AccountSetting = (props: Props) => {
   const [activeTab, setActiveTab] = useState(ACTIVE_TAB.PERSONAL_INFO);
-  const [showPassword, setShowPassword] = useState(false);
   const handleSelectTab = (event: React.SyntheticEvent, tabIdx: number) => {
     setActiveTab(tabIdx);
-  };
-
-  const renderPasswordTab = () => {
-
   };
 
   return (
