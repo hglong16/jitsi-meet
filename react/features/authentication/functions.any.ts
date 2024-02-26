@@ -1,5 +1,6 @@
 import { IConfig } from '../base/config/configType';
 import { getBackendSafeRoomName } from '../base/util/uri';
+import { SKYMEET_API } from '../../../modules/API/constants';
 
 /**
  * Checks if the token for authentication is available.
@@ -48,3 +49,67 @@ export const _getTokenAuthState = (
 
     return state;
 };
+
+export type LoginRequest = {
+  method: "call";
+  params: {
+    login: string;
+    password: string;
+  },
+  id: string | null;
+}
+
+export type LoginResponse = {
+  jsonrpc: string;
+  id: string | null;
+  result?: {
+    jwt: string
+  };
+  error?: {
+    code: number;
+    message: string;
+    data: {
+      name: string;
+      message: string;
+      arguments: string[];
+    }
+  }
+}
+
+/**
+ * login
+ *
+ * @param {string} email - The email from quantri.congly.vn
+ * @param {string} password - The password from quantri.congly.vn
+ * @returns {Promise} LoginResponse
+ */
+export async function requestLoggingIn(email: string, password: string): Promise<LoginResponse | undefined> {
+  const headers = {
+    "Content-Type": "application/json",
+  };
+
+  const data: LoginRequest = {
+    method: "call",
+    params: {
+      login: email,
+      password: password,
+    },
+    id: null,
+  };
+
+  try {
+  const res = await fetch(`${SKYMEET_API}/api/auth`, {
+      method: "POST",
+      headers,
+      body: data as any
+    });
+
+    if (!res.ok) {
+      console.log("Status error:", res.status);
+    }
+
+    return res.json();
+  } catch (err) {
+    console.log("Could not send request", err);
+  }
+}

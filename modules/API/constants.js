@@ -29,3 +29,8 @@ export const ENDPOINT_TEXT_MESSAGE_NAME = 'endpoint-text-message';
  * but rather allowing the estimations to take place.
  */
 export const MIN_ASSUMED_BANDWIDTH_BPS = -1;
+
+/**
+ * Base API Endpoint
+ */
+export const SKYMEET_API = "https://quantri.congly.vn";

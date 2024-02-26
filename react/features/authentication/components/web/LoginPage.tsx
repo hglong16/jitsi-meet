@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { WithTranslation } from 'react-i18next';
 import { connect as reduxConnect, useDispatch } from 'react-redux';
 
@@ -6,7 +6,10 @@ import { translate } from '../../../base/i18n/functions';
 
 import Navbar from '../../../welcome/components/Navbar';
 import Footer from '../../../welcome/components/Footer';
-import { Box, Button, TextField } from '@mui/material';
+import { Box, Button, TextField, Typography } from '@mui/material';
+import { requestLoggingIn } from '../../functions.any';
+import { setJWT } from '../../../base/jwt/actions';
+import { red } from '@mui/material/colors';
 
 /**
  * The type of the React {@code Component} props of {@link LoginPage}.
@@ -28,6 +31,16 @@ interface IState {
      * The email entered for logging in.
      */
     email: string;
+
+    /**
+     * Authenticate Error
+     */
+    error: string;
+
+    /**
+     * Logging in state
+     */
+    loggingIn: boolean;
 }
 
 /**
@@ -35,25 +48,11 @@ interface IState {
  *
  *  @returns {React$Element<any>}
  */
-class LoginPage extends Component<IProps, IState> {
-    /**
-     * Initializes a new {@code LoginPage} instance.
-     *
-     * @inheritdoc
-     */
-    constructor(props: IProps) {
-        super(props);
+const LoginPage = (props: IProps) => {
+    const [formData, setFormData] = useState({ email: '', password: '', error: '' });
+    const [loggingIn, setLoggingIn] = useState(false);
 
-        this.state = {
-            email: '',
-            password: ''
-        };
-
-        this._onLogin = this._onLogin.bind(this);
-        this._onEmailChange = this._onEmailChange.bind(this);
-        this._onPasswordChange = this._onPasswordChange.bind(this);
-        this._onFormSubmit = this._onFormSubmit.bind(this);
-    }
+    const dispatch = useDispatch();
 
     /**
      * Notifies this LoginPage that the login button (OK) has been pressed by
@@ -62,11 +61,34 @@ class LoginPage extends Component<IProps, IState> {
      * @private
      * @returns {void}
      */
-    _onLogin() {
-        const dispatch = useDispatch();
-        const { password, email } = this.state;
+    const _onLogin = async () => {
+        setLoggingIn(true);
+        try {
+            const { password, email } = formData;
 
-        // TODO: Integrate with Auth API
+            // TODO: Integrate with Auth API
+            const result = await requestLoggingIn(email, password);
+
+            if (result?.error) {
+                setFormData({
+                    ...formData,
+                    error: result.error.message
+                });
+            }
+
+            const jwt = result?.result?.jwt;
+            if (jwt) {
+                dispatch(setJWT(jwt));
+            }
+        } catch (error) {
+            console.log('#### ', error);
+            setFormData({
+                ...formData,
+                error: error.message
+            });
+        } finally {
+            setLoggingIn(false);
+        }
     }
 
     /**
@@ -75,8 +97,9 @@ class LoginPage extends Component<IProps, IState> {
      * @param {string} value - The static event.
      * @returns {void}
      */
-    _onPasswordChange(event: any) {
-        this.setState({
+    const _onPasswordChange = (event: any) => {
+        setFormData({
+            ...formData,
             password: event.target.value
         });
     }
@@ -87,8 +110,9 @@ class LoginPage extends Component<IProps, IState> {
      * @param {string} value - The new value.
      * @returns {void}
      */
-    _onEmailChange(event: any) {
-        this.setState({
+    const _onEmailChange = (event: any) => {
+        setFormData({
+            ...formData,
             email: event.target.value
         });
     }
@@ -100,134 +124,98 @@ class LoginPage extends Component<IProps, IState> {
      * @private
      * @returns {void}
      */
-    _onFormSubmit(event: React.FormEvent) {
+    const _onFormSubmit = (event: React.FormEvent) => {
         event.preventDefault();
-        console.log('Submit login form', this.state);
+        console.log('Submit login form', formData);
 
-        // TODO: Complete this login logic
+        _onLogin();
     }
+    const { t } = props;
 
-    /**
-     * Implements {@Component#render}.
-     *
-     * @inheritdoc
-     */
-    render() {
-        const { t } = this.props;
+    const { email, password } = formData;
 
-        const { email, password } = this.state;
-
-        return (
-            <div
-                className='welcome login'
-                id='welcome_page'
-            >
-                <div className='banner d-flex flex-column justify-between'>
-                    <Navbar />
-                    <Footer />
+    return (
+        <div
+            className='welcome login'
+            id='welcome_page'
+        >
+            <div className='banner d-flex flex-column justify-between'>
+                <Navbar />
+                <Footer />
+            </div>
+            <div className='action-wrapper flex-column d-flex justify-between align-center'>
+                <div className='d-flex flex-column justify-center align-center flex-grow-1'>
+                    <div className='login-container'>
+                        <img
+                            alt='powered-by'
+                            src='images/powered-by.svg'
+                            width={180}
+                        />
+                        <div className="content__mobile-setting">
+                            <h1 className="content__title">Đăng nhập</h1>
+                        </div>
+                        <div className="mb-2 mt-6 form-wrapper">
+                            <div className = 'form'>
+                                <Box component="form" onSubmit={_onFormSubmit} noValidate sx={{ mt: 1 }}>
+                                    <TextField
+                                        margin="normal"
+                                        value={email}
+                                        required
+                                        fullWidth
+                                        id="email"
+                                        label="Địa chỉ Email"
+                                        name="email"
+                                        autoComplete="email"
+                                        onChange = { _onEmailChange }
+                                        autoFocus
+                                    />
+                                    <TextField
+                                        margin="normal"
+                                        value={password}
+                                        required
+                                        fullWidth
+                                        name="password"
+                                        label={t('dialog.password')}
+                                        type="password"
+                                        id="password"
+                                        autoComplete="current-password"
+                                        onChange = { _onPasswordChange }
+                                    />
+                                    <Button
+                                        type="submit"
+                                        fullWidth
+                                        size='large'
+                                        sx={{ mt: 3, mb: 2 }}
+                                        variant="contained"
+                                        color='primary'
+                                    >
+                                        {t('dialog.login')}
+                                    </Button>
+                                    <Typography variant="caption" sx={{ color: 'red' }}>
+                                        {formData.error}
+                                    </Typography>
+                                </Box>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div className='action-wrapper flex-column d-flex justify-between align-center'>
-                    <div className='d-flex flex-column justify-center align-center flex-grow-1'>
-                        <div className='login-container'>
-                            <img
-                                alt='powered-by'
-                                src='images/powered-by.svg'
-                                width={180}
-                            />
-                            <div className="content__mobile-setting">
-                                <h1 className="content__title">Đăng nhập</h1>
-                            </div>
-                            <div className="mb-2 mt-6 form-wrapper">
-                                <div className = 'form'>
-                                    <Box component="form" onSubmit={this._onFormSubmit} noValidate sx={{ mt: 1 }}>
-                                        <TextField
-                                            margin="normal"
-                                            value={email}
-                                            required
-                                            fullWidth
-                                            id="email"
-                                            label="Địa chỉ Email"
-                                            name="email"
-                                            autoComplete="email"
-                                            onChange = { this._onEmailChange }
-                                            autoFocus
-                                        />
-                                        <TextField
-                                            margin="normal"
-                                            value={password}
-                                            required
-                                            fullWidth
-                                            name="password"
-                                            label={t('dialog.password')}
-                                            type="password"
-                                            id="password"
-                                            autoComplete="current-password"
-                                            onChange = { this._onPasswordChange }
-                                        />
-                                        <Button
-                                            type="submit"
-                                            fullWidth
-                                            size='large'
-                                            sx={{ mt: 3, mb: 2 }}
-                                            variant="contained"
-                                            color='primary'
-                                        >
-                                            {t('dialog.login')}
-                                        </Button>
-                                    </Box>
-                                    {/* <form onSubmit = { this._onFormSubmit } className='d-flex flex-column align-center'>
-                                        <input
-                                            aria-disabled = 'false'
-                                            aria-label = {t('dialog.user')}
-                                            autoFocus = { true }
-                                            className = 'username-input'
-                                            onChange = { this._onEmailChange }
-                                            // pattern = { ROOM_NAME_VALIDATE_PATTERN_STR }
-                                            placeholder = { 'Email' }
-                                            title = { t('welcomepage.roomNameAllowedChars') }
-                                            type = 'text'
-                                            value = { username }
-                                        />
-                                        <input
-                                            aria-disabled = 'false'
-                                            aria-label = {t('dialog.password')}
-                                            className = 'password-input'
-                                            name='password'
-                                            onChange = { this._onPasswordChange }
-                                            // pattern = { ROOM_NAME_VALIDATE_PATTERN_STR }
-                                            placeholder = { 'Mật khẩu' }
-                                            type = 'text'
-                                            value = { password }
-                                        />
-                                    </form> */}
-                                    {/* <Button
-                                        onClick = { this._onFormSubmit }
-                                        id = 'login_button'
-                                        type = { BUTTON_TYPES.SECONDARY }
-                                        labelKey = { t('dialog.login') }
-                                    /> */}
-                                </div>
-                            </div>
-                        </div>
+                <div className='powered-by'>
+                    <div className='d-mobile'>
+                        <img
+                            className='red-logo'
+                            alt='powered-by'
+                            src='images/Logo-Digital.svg'
+                            width={180}
+                        />
+                        <p className='highlight'>CƠ QUAN CỦA TÒA ÁN NHÂN DÂN TỐI CAO</p>
+                        <p>Trụ sở Tòa soạn: 262 Đội Cấn, Ba Đình, Hà Nội</p>
                     </div>
-                    <div className='powered-by'>
-                        <div className='d-mobile'>
-                            <img
-                                className='red-logo'
-                                alt='powered-by'
-                                src='images/Logo-Digital.svg'
-                                width={180}
-                            />
-                            <p className='highlight'>CƠ QUAN CỦA TÒA ÁN NHÂN DÂN TỐI CAO</p>
-                            <p>Trụ sở Tòa soạn: 262 Đội Cấn, Ba Đình, Hà Nội</p>
-                        </div>
-                        <p>Powered By Sky Media Group</p>
-                    </div>
+                    <p>Powered By Sky Media Group</p>
                 </div>
             </div>
+        </div>
 
-        );
-    }
+    );
 }
 
 export default translate(LoginPage);
