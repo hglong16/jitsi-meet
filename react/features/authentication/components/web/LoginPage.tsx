@@ -93,7 +93,7 @@ const LoginPage = (props: IProps) => {
             console.log('#### ', error);
             setFormData({
                 ...formData,
-                error: error.message
+                error: (error as any).message
             });
         } finally {
             setLoggingIn(false);

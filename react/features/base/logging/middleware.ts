@@ -1,4 +1,4 @@
-// @ts-expect-error
+// @ts-ignore
 import Logger from '@jitsi/logger';
 import { AnyAction } from 'redux';
 

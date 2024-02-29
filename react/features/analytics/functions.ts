@@ -1,4 +1,4 @@
-// @ts-expect-error
+// @ts-ignore
 import { API_ID } from '../../../modules/API/constants';
 import { getName as getAppName } from '../app/functions';
 import { IStore } from '../app/types';
@@ -107,7 +107,7 @@ export async function createHandlers({ getState }: IStore) {
         version: JitsiMeetJS.version,
         whiteListedEvents
     };
-    const handlers = [];
+    const handlers: any = [];
 
     if (amplitudeAPPKey) {
         try {
@@ -271,7 +271,7 @@ function _loadHandlers(scriptURLs: string[] = [], handlerConstructorOptions: Obj
             }
         }
 
-        const handlers = [];
+        const handlers: any = [];
 
         for (const Handler of getJitsiMeetGlobalNS().analyticsHandlers) {
             // Catch any error while loading to avoid skipping analytics in case

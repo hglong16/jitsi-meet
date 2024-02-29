@@ -1,4 +1,4 @@
-// @ts-expect-error
+// @ts-ignore
 import jwtDecode from 'jwt-decode';
 import { AnyAction } from 'redux';
 

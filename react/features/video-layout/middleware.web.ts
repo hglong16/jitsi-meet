@@ -1,4 +1,4 @@
-// @ts-expect-error
+// @ts-ignore
 import VideoLayout from '../../../modules/UI/videolayout/VideoLayout.js';
 import { CONFERENCE_WILL_INIT, CONFERENCE_WILL_LEAVE } from '../base/conference/actionTypes';
 import { MEDIA_TYPE } from '../base/media/constants';

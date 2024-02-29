@@ -112,7 +112,7 @@ const BasicInformation = (props: Props) => {
                       <TextField
                         label="Tên hiển thị"
                         sx={{ width: '400px' }}
-                        error={errors?.name?.message}
+                        error={!!errors?.name?.message}
                         helperText={errors?.name?.message ?? ''}
                         type='string'
                         {...field}
@@ -147,7 +147,7 @@ const BasicInformation = (props: Props) => {
                           label="Email"
                           sx={{ width: '400px' }}
                           type='string'
-                          error={errors?.email?.message}
+                          error={!!errors?.email?.message}
                           helperText={errors?.email?.message ?? ''}
                           {...field}
                         />

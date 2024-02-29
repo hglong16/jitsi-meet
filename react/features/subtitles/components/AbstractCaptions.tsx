@@ -40,7 +40,7 @@ export class AbstractCaptions<P extends IAbstractCaptionsProps> extends Componen
             return null;
         }
 
-        const paragraphs = [];
+        const paragraphs: any = [];
 
         // @ts-ignore
         for (const [ id, text ] of _transcripts ?? []) {

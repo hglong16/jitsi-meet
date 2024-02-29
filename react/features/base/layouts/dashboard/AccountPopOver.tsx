@@ -56,7 +56,7 @@ export const AccountPopover = (props) => {
         }}
       >
         <MenuItem>
-          <Link to="/logout" underline='none' color={'#000'}>
+          <Link href="/logout" underline='none' color={'#000'}>
             Đăng xuất
           </Link>
         </MenuItem>

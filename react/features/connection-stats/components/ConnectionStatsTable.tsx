@@ -485,7 +485,7 @@ const ConnectionStatsTable = ({
                 || transport[0].remoteCandidateType === 'relay';
         }
 
-        const additionalData = [];
+        const additionalData: any = [];
 
         if (isP2P) {
             additionalData.push(

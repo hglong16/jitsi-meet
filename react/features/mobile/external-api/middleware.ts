@@ -4,7 +4,7 @@ import debounce from 'lodash/debounce';
 import { NativeEventEmitter, NativeModules } from 'react-native';
 import { AnyAction } from 'redux';
 
-// @ts-expect-error
+// @ts-ignore
 import { ENDPOINT_TEXT_MESSAGE_NAME } from '../../../../modules/API/constants';
 import { appNavigate } from '../../app/actions.native';
 import { IStore } from '../../app/types';

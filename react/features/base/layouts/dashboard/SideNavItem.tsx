@@ -3,7 +3,17 @@ import PropTypes from 'prop-types';
 import { Box, ButtonBase } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-export const SideNavItem = (props) => {
+type Props = {
+  active?: boolean;
+  disabled?: boolean;
+  external?: boolean;
+  icon: any;
+  path: string;
+  title: string;
+  className?: string;
+}
+
+export const SideNavItem = (props: Props) => {
   const { active = false, disabled, external, icon, path, title, className } = props;
 
   const linkProps = path

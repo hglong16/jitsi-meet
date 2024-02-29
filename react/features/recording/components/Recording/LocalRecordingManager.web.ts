@@ -207,7 +207,7 @@ const LocalRecordingManager: ILocalRecordingManager = {
                 throw new Error('NoLocalStreams');
             }
             this.selfRecording.withVideo = Boolean(videoTrack);
-            const localTracks = [];
+            const localTracks: any = [];
 
             audioTrack && localTracks.push(audioTrack);
             videoTrack && localTracks.push(videoTrack);

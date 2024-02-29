@@ -75,6 +75,8 @@ const MeetingHistory = () => {
                           meetings={recentConferenceDict[key] as any}
                           onItemDelete={onItemDelete}
                           onPress={onPress}
+                          disabled = {false}
+                          listEmptyComponent={() => {}}
                         />
                       </div>
                     ))

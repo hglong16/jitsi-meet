@@ -57,18 +57,21 @@ export function _addLocalTracksToConference(
         conference: IJitsiConference,
         localTracks: Array<Object>) {
     const conferenceLocalTracks = conference.getLocalTracks();
-    const promises = [];
+    const promises: any = [];
 
     for (const track of localTracks) {
         // XXX The library lib-jitsi-meet may be draconian, for example, when
         // adding one and the same video track multiple times.
         if (conferenceLocalTracks.indexOf(track) === -1) {
             promises.push(
-                conference.addTrack(track).catch((err: Error) => {
-                    _reportError(
-                        'Failed to add local track to conference',
-                        err);
-                }));
+                conference
+                    .addTrack(track as any)
+                    .catch((err: Error) => {
+                        _reportError(
+                            'Failed to add local track to conference',
+                            err);
+                    })
+                );
         }
     }
 

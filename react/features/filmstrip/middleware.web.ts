@@ -1,6 +1,6 @@
 import { batch } from 'react-redux';
 
-// @ts-expect-error
+// @ts-ignore
 import VideoLayout from '../../../modules/UI/videolayout/VideoLayout';
 import {
     DOMINANT_SPEAKER_CHANGED,

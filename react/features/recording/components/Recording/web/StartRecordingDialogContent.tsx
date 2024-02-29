@@ -253,8 +253,8 @@ class StartRecordingDialogContent extends AbstractStartRecordingDialogContent<IP
             selectedRecordingService,
             t
         } = this.props;
-        let content = null;
-        let switchContent = null;
+        let content: any = null;
+        let switchContent: any = null;
         let labelContent = (
             <Text className = 'recording-title'>
                 { t('recording.authDropboxText') }

@@ -1,4 +1,4 @@
-// @ts-expect-error
+// @ts-ignore
 import { generateRoomWithoutSeparator } from '@jitsi/js-utils/random';
 
 import { getDefaultURL } from '../app/functions';

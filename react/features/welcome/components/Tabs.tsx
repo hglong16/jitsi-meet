@@ -35,7 +35,7 @@ const Tabs = ({ accessibilityLabel, tabs }: IProps) => {
     }, []);
 
     const onKeyDown = useCallback(index => (event: React.KeyboardEvent) => {
-        let newIndex = null;
+        let newIndex: number | null = null;
 
         if (event.key === 'ArrowLeft') {
             event.preventDefault();

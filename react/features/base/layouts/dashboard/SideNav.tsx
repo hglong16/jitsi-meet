@@ -11,7 +11,6 @@ import {
   useMediaQuery
 } from '@mui/material';
 import { Scrollbar } from './ScrollBar';
-import { items } from './config';
 import { SideNavItem } from './SideNavItem';
 import { Link, useLocation } from 'react-router-dom';
 
@@ -25,7 +24,7 @@ import LogoutIcon from '../../../../../images/skymeet/logout.svg';
 export const SideNav = (props) => {
   const { open, onClose } = props;
   const location = useLocation();
-  const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'));
+  const lgUp = useMediaQuery((theme: any) => theme.breakpoints.up('lg'));
 
   const content = (
     <Box

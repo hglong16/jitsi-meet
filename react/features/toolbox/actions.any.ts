@@ -1,4 +1,4 @@
-// @ts-expect-error
+// @ts-ignore
 import UIEvents from '../../../service/UI/UIEvents';
 import { VIDEO_MUTE, createToolbarEvent } from '../analytics/AnalyticsEvents';
 import { sendAnalytics } from '../analytics/functions';

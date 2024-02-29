@@ -132,7 +132,7 @@ export function updateAutoPinnedParticipant(
     // Unpin the screen share when the screen sharing participant leaves. Switch to tile view if no other
     // participant was pinned before screen share was auto-pinned, pin the previously pinned participant otherwise.
     if (!remoteScreenShares?.length) {
-        let participantId = null;
+        let participantId: any = null;
 
         if (pinned && !screenShares.find(share => share === pinned.id)) {
             participantId = pinned.id;

@@ -27,5 +27,5 @@ export function createTheme() {
       borderRadius: 8
     },
     typography
-  });
+  } as any);
 }

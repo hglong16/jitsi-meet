@@ -121,7 +121,7 @@ const ChangePassword = (props: Props) => {
                       <TextField
                         label="Mật khẩu cũ"
                         sx={{ width: '400px' }}
-                        error={errors?.oldPassword?.message}
+                        error={!!errors?.oldPassword?.message}
                         helperText={errors?.oldPassword?.message ?? ''}
                         type={hiddenFormValue.showOldPassword ? 'string' : 'password'}
                         InputProps={{
@@ -180,7 +180,7 @@ const ChangePassword = (props: Props) => {
                           label="Mật khẩu"
                           sx={{ width: '400px' }}
                           type={hiddenFormValue.showPassword ? 'string' : 'password'}
-                          error={errors?.password?.message}
+                          error={!!errors?.password?.message}
                           helperText={errors?.password?.message ?? ''}
                           InputProps={{
                             endAdornment: (

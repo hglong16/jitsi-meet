@@ -132,7 +132,7 @@ function _getConnectionDataFromTestResults({ fractionalLoss: l, throughput: t }:
         videoQuality: _getLevel(THROUGHPUT_VIDEO_THRESHOLDS, t, false)
     };
     let connectionType = CONNECTION_TYPE.NONE;
-    const connectionDetails = [];
+    const connectionDetails: any = [];
 
     if (throughput.audioQuality === 0 || loss.audioQuality === 0) {
         // Calls are impossible.

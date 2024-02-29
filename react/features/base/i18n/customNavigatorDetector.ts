@@ -18,7 +18,7 @@ export default {
      * @returns {string} The default language if any.
      */
     lookup() {
-        let found = [];
+        let found: any = [];
 
         if (typeof navigator !== 'undefined') {
             if (navigator.languages) {
@@ -35,7 +35,7 @@ export default {
             }
         }
 
-        found = found.map<string>(normalizeLanguage);
+        found = found.map(normalizeLanguage);
 
         return found.length > 0 ? found : undefined;
     },

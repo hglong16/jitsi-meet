@@ -73,6 +73,8 @@ const Dashboard = () => {
                       hideURL={true}
                       meetings={conferences}
                       onPress={onPress}
+                      disabled = {false}
+                      listEmptyComponent={() => {}}
                     />
                   </div>
                 ) : (
