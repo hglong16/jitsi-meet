@@ -33,4 +33,4 @@ export const MIN_ASSUMED_BANDWIDTH_BPS = -1;
 /**
  * Base API Endpoint
  */
-export const SKYMEET_API = "https://quantri.congly.vn";
+export const SKYMEET_API = "https://api.skymeet.vn";

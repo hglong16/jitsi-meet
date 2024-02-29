@@ -45,5 +45,6 @@ export const JWT_VALIDATION_ERRORS = {
     NBF_FUTURE: 'nbfFuture',
     NBF_INVALID: 'nbfInvalid',
     PAYLOAD_NOT_FOUND: 'payloadNotFound',
-    TOKEN_EXPIRED: 'tokenExpired'
+    TOKEN_EXPIRED: 'tokenExpired',
+    UNKNOWN: 'unknown'
 };

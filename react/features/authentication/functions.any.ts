@@ -88,20 +88,16 @@ export async function requestLoggingIn(email: string, password: string): Promise
     "Content-Type": "application/json",
   };
 
-  const data: LoginRequest = {
-    method: "call",
-    params: {
-      login: email,
-      password: password,
-    },
-    id: null,
+  const data = {
+    login: email,
+    password: password,
   };
 
   try {
-  const res = await fetch(`${SKYMEET_API}/api/auth`, {
+    const res = await fetch(`${SKYMEET_API}/api/auth`, {
       method: "POST",
       headers,
-      body: data as any
+      body: JSON.stringify(data)
     });
 
     if (!res.ok) {

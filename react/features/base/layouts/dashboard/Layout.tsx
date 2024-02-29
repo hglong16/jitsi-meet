@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { styled } from '@mui/material/styles';
-import { withAuthGuard } from './WithAuthGuard';
+import { WithAuthGuard } from './WithAuthGuard';
 import { SideNav } from './SideNav';
 import { TopNav } from './TopNav';
 import { useLocation } from 'react-router-dom';

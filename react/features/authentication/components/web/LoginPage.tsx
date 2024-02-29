@@ -10,6 +10,9 @@ import { Box, Button, TextField, Typography } from '@mui/material';
 import { requestLoggingIn } from '../../functions.any';
 import { setJWT } from '../../../base/jwt/actions';
 import { red } from '@mui/material/colors';
+import { validateJwt } from '../../../base/jwt/functions';
+import { Navigate, redirect, useNavigate } from 'react-router-dom';
+import LoadingIndicator from '../../../base/layouts/dashboard/LoadingIndicator';
 
 /**
  * The type of the React {@code Component} props of {@link LoginPage}.
@@ -51,6 +54,7 @@ interface IState {
 const LoginPage = (props: IProps) => {
     const [formData, setFormData] = useState({ email: '', password: '', error: '' });
     const [loggingIn, setLoggingIn] = useState(false);
+    const navigate = useNavigate();
 
     const dispatch = useDispatch();
 
@@ -78,7 +82,12 @@ const LoginPage = (props: IProps) => {
 
             const jwt = result?.result?.jwt;
             if (jwt) {
-                dispatch(setJWT(jwt));
+                const authErrors = validateJwt(jwt ?? '');
+
+                if (authErrors.length === 0) {
+                    dispatch(setJWT(jwt));
+                    return navigate('/');
+                }
             }
         } catch (error) {
             console.log('#### ', error);
@@ -126,7 +135,6 @@ const LoginPage = (props: IProps) => {
      */
     const _onFormSubmit = (event: React.FormEvent) => {
         event.preventDefault();
-        console.log('Submit login form', formData);
 
         _onLogin();
     }
@@ -139,6 +147,9 @@ const LoginPage = (props: IProps) => {
             className='welcome login'
             id='welcome_page'
         >
+            {loggingIn && (
+                <LoadingIndicator />
+            )}
             <div className='banner d-flex flex-column justify-between'>
                 <Navbar />
                 <Footer />

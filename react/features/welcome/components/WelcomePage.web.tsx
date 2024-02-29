@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Grid, TextField, Button, Typography } from '@mui/material';
+import { Grid, TextField, Button, Typography, Box } from '@mui/material';
 
 import { isMobileBrowser } from '../../base/environment/utils';
 import { translate, translateToHTML } from '../../base/i18n/functions';
@@ -196,14 +196,14 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
             <Layout>
 
                 <div
-                    className='welcome'
+                    className='welcome ml-8'
                     id='welcome_page'
                 >
                     {/* <div className='banner d-flex flex-column justify-between'>
                         <Navbar />
                         <Footer />
                     </div> */}
-                    <div className='action-wrapper flex-column d-flex justify-between align-center'>
+                    <Box className='action-wrapper flex-column d-flex justify-between align-center' sx={{ width: 'unset!important', padding: '0 0 0 0' }}>
                         <div className='d-flex flex-column justify-center align-center flex-grow-1'>
                             <div>
                                 {/* <img
@@ -288,7 +288,7 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
                             </div>
                             <p>Powered By Sky Media Group</p>
                         </div> */}
-                    </div>
+                    </Box>
                 </div>
             </Layout>
         );

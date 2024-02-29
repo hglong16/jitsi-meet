@@ -12,7 +12,6 @@ const PrivateRoute = (props: RouteProps) => {
   // );
   try {
     const errors: Object[] = validateJwt(jwtState?.jwt || '');
-    console.log('errors', errors);
     if (errors.length > 0) {
       return (
         <Navigate to="/login" />

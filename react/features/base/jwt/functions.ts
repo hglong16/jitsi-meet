@@ -185,6 +185,7 @@ export function validateJwt(jwt: string) {
         }
     } catch (e: any) {
         logger.error(`Unspecified JWT error${e?.message ? `: ${e.message}` : ''}`);
+        errors.push({ key: JWT_VALIDATION_ERRORS.UNKNOWN });
     }
 
     return errors;

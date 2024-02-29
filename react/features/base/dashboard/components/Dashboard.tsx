@@ -6,9 +6,10 @@ import { useDispatch } from 'react-redux';
 import { appNavigate } from '../../../app/actions.web';
 import { OngoingConference, getOngoingConferences, toDisplayConference } from '../function.any';
 
-const URL = process.env.NODE_ENV === 'development'
-  ? 'https://55e3-2405-4803-a0ff-51e0-cd97-c218-a88c-a32c.ngrok-free.app/api/conference'
-  : 'https://api.skymeet.vn/api/conference';
+// const URL = process.env.NODE_ENV === 'development'
+//   ? 'https://55e3-2405-4803-a0ff-51e0-cd97-c218-a88c-a32c.ngrok-free.app/api/conference'
+//   : 'https://api.skymeet.vn/api/conference';
+const URL = 'https://api.skymeet.vn/api/conference';
 
 const Dashboard = () => {
   const dispatch = useDispatch();

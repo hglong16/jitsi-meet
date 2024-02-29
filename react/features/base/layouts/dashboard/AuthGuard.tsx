@@ -9,9 +9,9 @@ import { validateJwt } from '../../jwt/functions';
 
 const AuthGuard = ({ children }) => {
   const jwtState = useSelector<IReduxState, IJwtState>((state) => state['features/base/jwt']);
-  const isAuthenticated = validateJwt(jwtState?.jwt ?? '');
+  const authErrors = validateJwt(jwtState?.jwt ?? '');
 
-  if (!isAuthenticated) {
+  if (authErrors.length > 0) {
     return <Navigate to="/login" />;
   }
 
