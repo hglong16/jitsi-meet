@@ -83,7 +83,7 @@ export type LoginResponse = {
  * @param {string} password - The password from quantri.congly.vn
  * @returns {Promise} LoginResponse
  */
-export async function requestLoggingIn(email: string, password: string): Promise<LoginResponse | undefined> {
+export async function requestLoggingIn(email: string, password: string): Promise<LoginResponse> {
   const headers = {
     "Content-Type": "application/json",
   };
@@ -107,5 +107,18 @@ export async function requestLoggingIn(email: string, password: string): Promise
     return res.json();
   } catch (err) {
     console.log("Could not send request", err);
+    return {
+      jsonrpc: '',
+      id: null,
+      error: {
+        code: 10001,
+        message: 'Xin vui lòng kiểm tra lại đường truyền mạng',
+        data: {
+          name: 'Unknown Error',
+          message: err.message,
+          arguments: [],
+        }
+      }
+    }
   }
 }

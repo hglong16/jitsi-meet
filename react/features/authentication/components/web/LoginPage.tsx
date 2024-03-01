@@ -55,7 +55,6 @@ const LoginPage = (props: IProps) => {
         password: "",
         error: "",
     });
-    console.log("#### ", formData.error);
     const [loggingIn, setLoggingIn] = useState(false);
     const navigate = useNavigate();
 
@@ -77,10 +76,17 @@ const LoginPage = (props: IProps) => {
             const result = await requestLoggingIn(email, password);
 
             if (result?.error) {
-                setFormData({
-                    ...formData,
-                    error: result.error.message,
-                });
+                if (result?.error.message.toLowerCase().includes("odoo")) {
+                    setFormData({
+                        ...formData,
+                        error: "Email hoặc mật khẩu không đúng",
+                    });
+                } else {
+                    setFormData({
+                        ...formData,
+                        error: result.error.message
+                    });
+                }
             }
 
             const jwt = result?.result?.jwt;
@@ -209,12 +215,13 @@ const LoginPage = (props: IProps) => {
                                         variant="caption"
                                         sx={{ color: "red" }}
                                     >
-                                        {formData.error &&
+                                        {formData.error}
+                                        {/* {formData.error &&
                                         formData.error
                                             .toLowerCase()
                                             .includes("odoo")
                                             ? "Email hoặc mật khẩu không đúng"
-                                            : "Xin vui lòng kiểm tra lại đường truyền mạng"}
+                                            : "Xin vui lòng kiểm tra lại đường truyền mạng"} */}
                                     </Typography>
                                 </Box>
                             </div>
