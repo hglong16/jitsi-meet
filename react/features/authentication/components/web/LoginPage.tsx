@@ -209,7 +209,8 @@ const LoginPage = (props: IProps) => {
                                         variant="caption"
                                         sx={{ color: "red" }}
                                     >
-                                        {formData.error
+                                        {formData.error &&
+                                        formData.error
                                             .toLowerCase()
                                             .includes("odoo")
                                             ? "Email hoặc mật khẩu không đúng"
