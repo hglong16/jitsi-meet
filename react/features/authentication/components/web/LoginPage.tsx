@@ -233,7 +233,7 @@ const LoginPage = (props: IProps) => {
                         <img
                             className="red-logo"
                             alt="powered-by"
-                            src="images/Logo-Digital.svg"
+                            src="images/ConglyDigital.png"
                             width={180}
                         />
                         <p className="highlight">

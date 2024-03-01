@@ -1,31 +1,35 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Grid, TextField, Button, Typography, Box } from '@mui/material';
+import React from "react";
+import { connect } from "react-redux";
+import { Grid, TextField, Button, Typography, Box } from "@mui/material";
 
-import { isMobileBrowser } from '../../base/environment/utils';
-import { translate, translateToHTML } from '../../base/i18n/functions';
-import Icon from '../../base/icons/components/Icon';
-import { IconWarning } from '../../base/icons/svg';
-import Watermarks from '../../base/react/components/web/Watermarks';
-import getUnsafeRoomText from '../../base/util/getUnsafeRoomText.web';
-import CalendarList from '../../calendar-sync/components/CalendarList.web';
-import YourMeetingRooms from '../../recent-list/components/YourMeetingRooms.web';
-import RecentList from '../../recent-list/components/RecentList.web';
-import SettingsButton from '../../settings/components/web/SettingsButton';
-import { SETTINGS_TABS } from '../../settings/constants';
+import { isMobileBrowser } from "../../base/environment/utils";
+import { translate, translateToHTML } from "../../base/i18n/functions";
+import Icon from "../../base/icons/components/Icon";
+import { IconWarning } from "../../base/icons/svg";
+import Watermarks from "../../base/react/components/web/Watermarks";
+import getUnsafeRoomText from "../../base/util/getUnsafeRoomText.web";
+import CalendarList from "../../calendar-sync/components/CalendarList.web";
+import YourMeetingRooms from "../../recent-list/components/YourMeetingRooms.web";
+import RecentList from "../../recent-list/components/RecentList.web";
+import SettingsButton from "../../settings/components/web/SettingsButton";
+import { SETTINGS_TABS } from "../../settings/constants";
 
-import { AbstractWelcomePage, IProps, _mapStateToProps } from './AbstractWelcomePage';
-import Tabs from './Tabs';
-import Navbar from './Navbar';
-import Footer from './Footer';
-import { Layout } from '../../base/layouts/dashboard/Layout';
+import {
+    AbstractWelcomePage,
+    IProps,
+    _mapStateToProps,
+} from "./AbstractWelcomePage";
+import Tabs from "./Tabs";
+import Navbar from "./Navbar";
+import Footer from "./Footer";
+import { Layout } from "../../base/layouts/dashboard/Layout";
 
 /**
  * The pattern used to validate room name.
  *
  * @type {string}
  */
-export const ROOM_NAME_VALIDATE_PATTERN_STR = '^[^?&:\u0022\u0027%#]+$';
+export const ROOM_NAME_VALIDATE_PATTERN_STR = "^[^?&:\u0022\u0027%#]+$";
 
 /**
  * The Web container rendering the welcome page.
@@ -47,7 +51,7 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
      * @static
      */
     static defaultProps = {
-        _room: ''
+        _room: "",
     };
 
     /**
@@ -63,7 +67,7 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
             ...this.state,
 
             generateRoomNames:
-                interfaceConfig.GENERATE_ROOMNAMES_ON_WELCOME_PAGE
+                interfaceConfig.GENERATE_ROOMNAMES_ON_WELCOME_PAGE,
         };
 
         /**
@@ -95,7 +99,8 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
          * @type {HTMLTemplateElement|null}
          */
         this._additionalCardTemplate = document.getElementById(
-            'welcome-page-additional-card-template') as HTMLTemplateElement;
+            "welcome-page-additional-card-template"
+        ) as HTMLTemplateElement;
 
         /**
          * The template to use as the main content for the welcome page. If
@@ -105,7 +110,8 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
          * @type {HTMLTemplateElement|null}
          */
         this._additionalContentTemplate = document.getElementById(
-            'welcome-page-additional-content-template') as HTMLTemplateElement;
+            "welcome-page-additional-content-template"
+        ) as HTMLTemplateElement;
 
         /**
          * The template to use as the additional content for the welcome page header toolbar.
@@ -115,18 +121,18 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
          * @type {HTMLTemplateElement|null}
          */
         this._additionalToolbarContentTemplate = document.getElementById(
-            'settings-toolbar-additional-content-template'
+            "settings-toolbar-additional-content-template"
         ) as HTMLTemplateElement;
 
         // Bind event handlers so they are only bound once per instance.
         this._onFormSubmit = this._onFormSubmit.bind(this);
         this._onRoomChange = this._onRoomChange.bind(this);
         this._setAdditionalCardRef = this._setAdditionalCardRef.bind(this);
-        this._setAdditionalContentRef
-            = this._setAdditionalContentRef.bind(this);
+        this._setAdditionalContentRef =
+            this._setAdditionalContentRef.bind(this);
         this._setRoomInputRef = this._setRoomInputRef.bind(this);
-        this._setAdditionalToolbarContentRef
-            = this._setAdditionalToolbarContentRef.bind(this);
+        this._setAdditionalToolbarContentRef =
+            this._setAdditionalToolbarContentRef.bind(this);
         this._renderFooter = this._renderFooter.bind(this);
     }
 
@@ -140,7 +146,7 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
     componentDidMount() {
         super.componentDidMount();
 
-        document.body.classList.add('welcome-page');
+        document.body.classList.add("welcome-page");
         document.title = interfaceConfig.APP_NAME;
 
         if (this.state.generateRoomNames) {
@@ -149,12 +155,15 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
 
         if (this._shouldShowAdditionalContent()) {
             this._additionalContentRef?.appendChild(
-                this._additionalContentTemplate?.content.cloneNode(true) as Node);
+                this._additionalContentTemplate?.content.cloneNode(true) as Node
+            );
         }
 
         if (this._shouldShowAdditionalToolbarContent()) {
             this._additionalToolbarContentRef?.appendChild(
-                this._additionalToolbarContentTemplate?.content.cloneNode(true) as Node
+                this._additionalToolbarContentTemplate?.content.cloneNode(
+                    true
+                ) as Node
             );
         }
 
@@ -174,7 +183,7 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
     componentWillUnmount() {
         super.componentWillUnmount();
 
-        document.body.classList.remove('welcome-page');
+        document.body.classList.remove("welcome-page");
     }
 
     /**
@@ -185,26 +194,31 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
      */
     render() {
         const { _moderatedRoomServiceUrl, t } = this.props;
-        const { DEFAULT_WELCOME_PAGE_LOGO_URL, DISPLAY_WELCOME_FOOTER } = interfaceConfig;
+        const { DEFAULT_WELCOME_PAGE_LOGO_URL, DISPLAY_WELCOME_FOOTER } =
+            interfaceConfig;
         const showAdditionalCard = this._shouldShowAdditionalCard();
         const showAdditionalContent = this._shouldShowAdditionalContent();
-        const showAdditionalToolbarContent = this._shouldShowAdditionalToolbarContent();
-        const contentClassName = showAdditionalContent ? 'with-content' : 'without-content';
-        const footerClassName = DISPLAY_WELCOME_FOOTER ? 'with-footer' : 'without-footer';
+        const showAdditionalToolbarContent =
+            this._shouldShowAdditionalToolbarContent();
+        const contentClassName = showAdditionalContent
+            ? "with-content"
+            : "without-content";
+        const footerClassName = DISPLAY_WELCOME_FOOTER
+            ? "with-footer"
+            : "without-footer";
 
         return (
             <Layout>
-
-                <div
-                    className='welcome ml-8'
-                    id='welcome_page'
-                >
+                <div className="welcome ml-8" id="welcome_page">
                     {/* <div className='banner d-flex flex-column justify-between'>
                         <Navbar />
                         <Footer />
                     </div> */}
-                    <Box className='action-wrapper flex-column d-flex justify-between align-center' sx={{ width: 'unset!important', padding: '0 0 0 0' }}>
-                        <div className='d-flex flex-column justify-center align-center flex-grow-1'>
+                    <Box
+                        className="action-wrapper flex-column d-flex justify-between align-center"
+                        sx={{ width: "unset!important", padding: "0 0 0 0" }}
+                    >
+                        <div className="d-flex flex-column justify-center align-center flex-grow-1">
                             <div>
                                 {/* <img
                                     alt='powered-by'
@@ -213,45 +227,62 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
                                 /> */}
                                 <div className="content__mobile-setting">
                                     {/* <h1 className="content__title">Hội nghị Trực tuyến</h1> */}
-                                    <Typography
-                                        variant="h3"
-                                    >
+                                    <Typography variant="h3">
                                         Hội nghị Trực tuyến
                                     </Typography>
                                 </div>
                                 <h2 className="content__description">
-                                    Cổng hội nghị trực tuyến an toàn, bảo mật. Kết nối mọi lúc mọi nơi
+                                    Cổng hội nghị trực tuyến an toàn, bảo mật.
+                                    Kết nối mọi lúc mọi nơi
                                 </h2>
                                 <div className="mb-2 mt-6">
                                     <h6>Nhập tên phòng để bắt đầu</h6>
-                                    <div id = 'enter_room'>
-                                        <div className = 'join-meeting-container'>
-                                            <div className = 'enter-room-input-container'>
-                                                <form onSubmit = { this._onFormSubmit }>
+                                    <div id="enter_room">
+                                        <div className="join-meeting-container">
+                                            <div className="enter-room-input-container">
+                                                <form
+                                                    onSubmit={
+                                                        this._onFormSubmit
+                                                    }
+                                                >
                                                     <input
-                                                        aria-disabled = 'false'
-                                                        aria-label = 'Meeting name input'
-                                                        autoFocus = { true }
-                                                        className = 'enter-room-input'
-                                                        id = 'enter_room_field'
-                                                        onChange = { this._onRoomChange }
-                                                        pattern = { ROOM_NAME_VALIDATE_PATTERN_STR }
-                                                        placeholder = { this.state.roomPlaceholder }
-                                                        ref = { this._setRoomInputRef }
-                                                        title = { t('welcomepage.roomNameAllowedChars') }
-                                                        type = 'text'
-                                                        value = { this.state.room } />
+                                                        aria-disabled="false"
+                                                        aria-label="Meeting name input"
+                                                        autoFocus={true}
+                                                        className="enter-room-input"
+                                                        id="enter_room_field"
+                                                        onChange={
+                                                            this._onRoomChange
+                                                        }
+                                                        pattern={
+                                                            ROOM_NAME_VALIDATE_PATTERN_STR
+                                                        }
+                                                        placeholder={
+                                                            this.state
+                                                                .roomPlaceholder
+                                                        }
+                                                        ref={
+                                                            this
+                                                                ._setRoomInputRef
+                                                        }
+                                                        title={t(
+                                                            "welcomepage.roomNameAllowedChars"
+                                                        )}
+                                                        type="text"
+                                                        value={this.state.room}
+                                                    />
                                                 </form>
                                             </div>
                                             <button
-                                                aria-disabled = 'false'
-                                                aria-label = 'Start meeting'
-                                                className = 'welcome-page-button'
-                                                id = 'enter_room_button'
-                                                onClick = { this._onFormSubmit }
-                                                tabIndex = { 0 }
-                                                type = 'button'>
-                                                { t('welcomepage.startMeeting') }
+                                                aria-disabled="false"
+                                                aria-label="Start meeting"
+                                                className="welcome-page-button"
+                                                id="enter_room_button"
+                                                onClick={this._onFormSubmit}
+                                                tabIndex={0}
+                                                type="button"
+                                            >
+                                                {t("welcomepage.startMeeting")}
                                             </button>
                                         </div>
                                     </div>
@@ -259,16 +290,20 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
                                 {
                                     <div className="mb-2 mt-4">
                                         <h6>Cuộc họp gần đây</h6>
-                                        <div className = 'welcome-cards-container mt-2'>
-                                            <div className = 'welcome-card-column'>
-                                                <div className = 'welcome-tabs welcome-card'>
-                                                    { this._renderTabs() }
+                                        <div className="welcome-cards-container mt-2">
+                                            <div className="welcome-card-column">
+                                                <div className="welcome-tabs welcome-card">
+                                                    {this._renderTabs()}
                                                 </div>
-                                                { showAdditionalCard
-                                                    ? <div
-                                                        className = 'welcome-card welcome-card--dark'
-                                                        ref = { this._setAdditionalCardRef } />
-                                                    : null }
+                                                {showAdditionalCard ? (
+                                                    <div
+                                                        className="welcome-card welcome-card--dark"
+                                                        ref={
+                                                            this
+                                                                ._setAdditionalCardRef
+                                                        }
+                                                    />
+                                                ) : null}
                                             </div>
                                         </div>
                                     </div>
@@ -280,7 +315,7 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
                                 <img
                                     className='red-logo'
                                     alt='powered-by'
-                                    src='images/Logo-Digital.svg'
+                                    src='images/ConglyDigital.png'
                                     width={180}
                                 />
                                 <p className='highlight'>CƠ QUAN CỦA TÒA ÁN NHÂN DÂN TỐI CAO</p>
@@ -301,11 +336,9 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
      */
     _doRenderInsecureRoomNameWarning() {
         return (
-            <div className = 'insecure-room-name-warning'>
-                <Icon src = { IconWarning } />
-                <span>
-                    { getUnsafeRoomText(this.props.t, 'welcome') }
-                </span>
+            <div className="insecure-room-name-warning">
+                <Icon src={IconWarning} />
+                <span>{getUnsafeRoomText(this.props.t, "welcome")}</span>
             </div>
         );
     }
@@ -351,9 +384,8 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
             t,
             _deeplinkingCfg: {
                 ios = { downloadLink: undefined },
-                android = { fDroidUrl: undefined,
-                    downloadLink: undefined }
-            }
+                android = { fDroidUrl: undefined, downloadLink: undefined },
+            },
         } = this.props;
 
         const { downloadLink: iosDownloadLink } = ios;
@@ -367,20 +399,31 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
                 flexDirection={{ lg: "row", md: "row", xs: "column" }}
             >
                 <Grid item lg={4} md={3.5}>
-                    <p className="footer__highlight">CƠ QUAN CỦA TÒA ÁN NHÂN DÂN TỐI CAO</p>
+                    <p className="footer__highlight">
+                        CƠ QUAN CỦA TÒA ÁN NHÂN DÂN TỐI CAO
+                    </p>
                     <p>Trụ sở Tòa soạn: 262 Đội Cấn, Ba Đình, Hà Nội</p>
-                    <p>Giấy phép số 226/BTTTT do Bộ Thông tin và Truyền thông cấp</p>
+                    <p>
+                        Giấy phép số 226/BTTTT do Bộ Thông tin và Truyền thông
+                        cấp
+                    </p>
                 </Grid>
                 <Grid item lg={4} md={3.5}>
                     <p>
-                    Tổng Biên tập: <span className="footer__highlight">Trần Đức Vinh</span>
+                        Tổng Biên tập:{" "}
+                        <span className="footer__highlight">Trần Đức Vinh</span>
                     </p>
                     <p>
-                    Phó Tổng Biên tập: <span className="footer__highlight">Tô Thị Lan Phương</span>
+                        Phó Tổng Biên tập:{" "}
+                        <span className="footer__highlight">
+                            Tô Thị Lan Phương
+                        </span>
                     </p>
                 </Grid>
                 <Grid item lg={4} md={5}>
-                    <p className="footer__powered">Powered by Sky Media Group</p>
+                    <p className="footer__powered">
+                        Powered by Sky Media Group
+                    </p>
                 </Grid>
             </Grid>
         );
@@ -402,9 +445,9 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
         const tabs: any = [];
 
         tabs.push({
-            id: 'your-rooms',
-            label: t('welcomepage.recentList'),
-            content: <YourMeetingRooms />
+            id: "your-rooms",
+            label: t("welcomepage.recentList"),
+            content: <YourMeetingRooms />,
         });
 
         if (tabs.length === 0) {
@@ -413,8 +456,9 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
 
         return (
             <Tabs
-                accessibilityLabel = { t('welcomepage.meetingsAccessibilityLabel') }
-                tabs = { tabs } />
+                accessibilityLabel={t("welcomepage.meetingsAccessibilityLabel")}
+                tabs={tabs}
+            />
         );
     }
 
@@ -435,17 +479,17 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
 
         if (_calendarEnabled) {
             tabs.push({
-                id: 'calendar',
-                label: t('welcomepage.upcomingMeetings'),
-                content: <CalendarList />
+                id: "calendar",
+                label: t("welcomepage.upcomingMeetings"),
+                content: <CalendarList />,
             });
         }
 
         if (_recentListEnabled) {
             tabs.push({
-                id: 'recent',
-                label: t('welcomepage.recentMeetings'),
-                content: <RecentList limit={5}/>
+                id: "recent",
+                label: t("welcomepage.recentMeetings"),
+                content: <RecentList limit={5} />,
             });
         }
 
@@ -455,8 +499,9 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
 
         return (
             <Tabs
-                accessibilityLabel = { t('welcomepage.meetingsAccessibilityLabel') }
-                tabs = { tabs } />
+                accessibilityLabel={t("welcomepage.meetingsAccessibilityLabel")}
+                tabs={tabs}
+            />
         );
     }
 
@@ -518,10 +563,12 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
      * @returns {boolean}
      */
     _shouldShowAdditionalCard() {
-        return interfaceConfig.DISPLAY_WELCOME_PAGE_ADDITIONAL_CARD
-            && this._additionalCardTemplate
-            && this._additionalCardTemplate.content
-            && this._additionalCardTemplate.innerHTML.trim();
+        return (
+            interfaceConfig.DISPLAY_WELCOME_PAGE_ADDITIONAL_CARD &&
+            this._additionalCardTemplate &&
+            this._additionalCardTemplate.content &&
+            this._additionalCardTemplate.innerHTML.trim()
+        );
     }
 
     /**
@@ -532,10 +579,12 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
      * @returns {boolean}
      */
     _shouldShowAdditionalContent() {
-        return interfaceConfig.DISPLAY_WELCOME_PAGE_CONTENT
-            && this._additionalContentTemplate
-            && this._additionalContentTemplate.content
-            && this._additionalContentTemplate.innerHTML.trim();
+        return (
+            interfaceConfig.DISPLAY_WELCOME_PAGE_CONTENT &&
+            this._additionalContentTemplate &&
+            this._additionalContentTemplate.content &&
+            this._additionalContentTemplate.innerHTML.trim()
+        );
     }
 
     /**
@@ -546,10 +595,12 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
      * @returns {boolean}
      */
     _shouldShowAdditionalToolbarContent() {
-        return interfaceConfig.DISPLAY_WELCOME_PAGE_TOOLBAR_ADDITIONAL_CONTENT
-            && this._additionalToolbarContentTemplate
-            && this._additionalToolbarContentTemplate.content
-            && this._additionalToolbarContentTemplate.innerHTML.trim();
+        return (
+            interfaceConfig.DISPLAY_WELCOME_PAGE_TOOLBAR_ADDITIONAL_CONTENT &&
+            this._additionalToolbarContentTemplate &&
+            this._additionalToolbarContentTemplate.content &&
+            this._additionalToolbarContentTemplate.innerHTML.trim()
+        );
     }
 }
 
