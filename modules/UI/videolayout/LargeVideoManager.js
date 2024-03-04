@@ -507,7 +507,7 @@ export default class LargeVideoManager {
      * Updates the src of the dominant speaker avatar
      */
     updateAvatar() {
-        createRoot(
+        ReactDOM.render(
             <Provider store = { APP.store }>
                 <Avatar
                     id = "dominantSpeakerAvatar"
@@ -548,7 +548,7 @@ export default class LargeVideoManager {
         const presenceLabelContainer = document.getElementById('remotePresenceMessage');
 
         if (presenceLabelContainer) {
-            createRoot(
+            ReactDOM.render(
                 <Provider store = { APP.store }>
                     <I18nextProvider i18n = { i18next }>
                         <PresenceLabel

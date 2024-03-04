@@ -613,7 +613,7 @@ export class VideoContainer extends LargeContainer {
             return;
         }
 
-        createRoot(
+        ReactDOM.render(
             <LargeVideoBackground
                 hidden = { this._hideBackground || this._isHidden }
                 mirror = {
