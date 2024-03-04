@@ -105,7 +105,7 @@ export async function requestLoggingIn(email: string, password: string): Promise
     }
 
     return res.json();
-  } catch (err) {
+  } catch (err: any) {
     console.log("Could not send request", err);
     return {
       jsonrpc: '',
