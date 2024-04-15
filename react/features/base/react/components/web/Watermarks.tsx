@@ -120,7 +120,7 @@ class Watermarks extends Component<IProps, State> {
      * @returns {ReactElement|null} Watermark element or null.
      */
     _renderBrandWatermark() {
-        let reactElement = null;
+        let reactElement: any = null;
 
         if (this.state.showBrandWatermark) {
             reactElement = (
@@ -160,7 +160,7 @@ class Watermarks extends Component<IProps, State> {
         const { noMargins, t } = this.props;
         const className = `watermark ${noMargins ? 'leftwatermarknomargin' : 'leftwatermark'}`;
 
-        let reactElement = null;
+        let reactElement: any = null;
 
         if (_showJitsiWatermark) {
             const style = {

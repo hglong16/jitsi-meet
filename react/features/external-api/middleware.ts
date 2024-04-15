@@ -1,4 +1,4 @@
-// @ts-expect-error
+// @ts-ignore
 import { getJitsiMeetTransport } from '../../../modules/transport';
 import {
     CONFERENCE_FAILED,

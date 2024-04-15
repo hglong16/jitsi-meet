@@ -17,7 +17,7 @@ import { isFilmstripScrollVisible } from './functions';
  */
 export function updateRemoteParticipants(store: IStore, participantId?: string) {
     const state = store.getState();
-    let reorderedParticipants = [];
+    let reorderedParticipants: any = [];
     const { sortedRemoteVirtualScreenshareParticipants } = state['features/base/participants'];
 
     if (!isFilmstripScrollVisible(state) && !sortedRemoteVirtualScreenshareParticipants.size) {

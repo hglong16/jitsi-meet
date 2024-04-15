@@ -49,7 +49,7 @@ class SoundCollection extends Component<IProps> {
      */
     render() {
         let key = 0;
-        const sounds = [];
+        const sounds: any = [];
 
         for (const [ soundId, sound ] of this.props._sounds.entries()) {
             const { options, src } = sound;

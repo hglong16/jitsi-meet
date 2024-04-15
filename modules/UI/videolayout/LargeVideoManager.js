@@ -4,6 +4,7 @@ import Logger from '@jitsi/logger';
 import $ from 'jquery';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { I18nextProvider } from 'react-i18next';
 import { Provider } from 'react-redux';
 

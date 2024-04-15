@@ -44,7 +44,7 @@ class Message extends Component<IProps> {
         // Tokenize the text in order to avoid emoji substitution for URLs
         const tokens = text ? text.split(' ') : [];
 
-        const content = [];
+        const content: any = [];
 
         // check if the message is a GIF
         if (isGifMessage(text)) {

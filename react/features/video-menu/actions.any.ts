@@ -1,4 +1,4 @@
-// @ts-expect-error
+// @ts-ignore
 import UIEvents from '../../../service/UI/UIEvents';
 import {
     AUDIO_MUTE,

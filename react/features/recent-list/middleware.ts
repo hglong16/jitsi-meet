@@ -60,7 +60,7 @@ function _appWillMount({ dispatch, getState }: IStore, next: Function, action: A
     // consequently, the feature known-domains, it's possible for the feature
     // known-list to know of domains which the feature known-domains is yet to
     // discover.
-    const knownDomains = [];
+    const knownDomains: any = [];
 
     for (const { conference } of getState()['features/recent-list']) {
         const uri = parseURIString(conference);

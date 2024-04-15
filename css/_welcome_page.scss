@@ -373,7 +373,7 @@ body.welcome-page {
 
     .action-wrapper {
         width: 50%;
-        padding: 16px;
+        padding: 0px 16px 16px;
 
         #enter_room {
             display: $welcomePageEnterRoomDisplay;
@@ -421,15 +421,15 @@ body.welcome-page {
         .welcome-page-button {
             border: 0;
             font-size: 14px;
-            background: #CC0000;
+            background: #10B981;
             border-radius: 8px;
             color: #FFFFFF;
             cursor: pointer;
             padding: 16px 20px;
             margin-left: -6px;
 
-            &:focus-within {
-                outline: auto 2px #CC0000;
+            &:focus, &:hover, &:active {
+                background-color: #0B815A;
             }
         }
 
@@ -442,7 +442,7 @@ body.welcome-page {
 
             .tab-content {
                 display: $welcomePageTabContentDisplay;
-                height: 250px;
+                // height: 250px;
                 margin: 5px 0px;
                 overflow: hidden;
                 flex-grow: 1;
@@ -479,10 +479,10 @@ body.welcome-page {
         }
 
         .welcome-cards-container {
-            gap: 12px;
-            padding: 12px;
-            border: 1px solid #dbdbdb;
-            border-radius: 8px;
+            // gap: 12px;
+            // padding: 12px;
+            // border: 1px solid #dbdbdb;
+            // border-radius: 8px;
         }
 
         .powered-by {
@@ -513,7 +513,7 @@ body.welcome-page {
         }
 
         .action-wrapper {
-            width: fit-content;
+            width: unset;
             min-height: calc(100vh - 132px);
 
             >div:nth-child(1) {
@@ -556,7 +556,7 @@ body.welcome-page {
         }
 
         &__mobile-setting {
-            margin-top: 32px;
+            // margin-top: 32px;
         }
 
         &__settings {

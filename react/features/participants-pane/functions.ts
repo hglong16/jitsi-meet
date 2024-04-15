@@ -209,7 +209,7 @@ export function getSortedParticipantIds(stateful: IStateful) {
         }
     }
 
-    const dominant = [];
+    const dominant: any = [];
     const dominantId = dominantSpeaker?.id;
     const local = remoteRaisedHandParticipants.has(id ?? '') ? [] : [ id ];
 

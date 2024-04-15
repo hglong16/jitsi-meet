@@ -1,4 +1,4 @@
-// @ts-expect-error
+// @ts-ignore
 import UIEvents from '../../../service/UI/UIEvents';
 import { CONFERENCE_JOIN_IN_PROGRESS } from '../base/conference/actionTypes';
 import { getCurrentConference } from '../base/conference/functions';

@@ -203,7 +203,7 @@ const Notification = ({
 
     // eslint-disable-next-line react/no-multi-comp
     const renderDescription = useCallback(() => {
-        const descriptionArray = [];
+        const descriptionArray: any = [];
 
         descriptionKey
             && descriptionArray.push(t(descriptionKey, descriptionArguments));

@@ -1,6 +1,7 @@
 /* global __dirname */
 
 const CircularDependencyPlugin = require('circular-dependency-plugin');
+const Dotenv = require('dotenv-webpack');
 const fs = require('fs');
 const { join, resolve } = require('path');
 const process = require('process');
@@ -232,6 +233,7 @@ function getConfig(options = {}) {
  */
 function getDevServerConfig() {
     return {
+        port: 8228,
         client: {
             overlay: {
                 errors: true,
@@ -280,6 +282,7 @@ module.exports = (_env, argv) => {
             plugins: [
                 ...config.plugins,
                 ...getBundleAnalyzerPlugin(analyzeBundle, 'app'),
+                new Dotenv(),
                 new webpack.IgnorePlugin({
                     resourceRegExp: /^canvas$/,
                     contextRegExp: /resemblejs$/
@@ -291,6 +294,7 @@ module.exports = (_env, argv) => {
                 new webpack.ProvidePlugin({
                     process: 'process/browser'
                 })
+
             ],
 
             performance: getPerformanceHints(perfHintOptions, 5 * 1024 * 1024)

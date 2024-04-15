@@ -175,7 +175,7 @@ export default class ScreenshotCaptureSummary {
         const { jwt } = this._state['features/base/jwt'];
         const meetingFqn = extractFqnFromPath();
         const remoteParticipants = getRemoteParticipants(this._state);
-        const participants = [];
+        const participants: any = [];
 
         participants.push(getLocalParticipant(this._state)?.id);
         remoteParticipants.forEach(p => participants.push(p.id));

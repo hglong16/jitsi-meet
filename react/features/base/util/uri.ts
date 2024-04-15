@@ -192,7 +192,7 @@ export function getLocationContextRoot({ pathname }: { pathname: string; }) {
  * constructed out of the specified {@code obj}.
  */
 function _objectToURLParamsArray(obj = {}) {
-    const params = [];
+    const params: any = [];
 
     for (const key in obj) { // eslint-disable-line guard-for-in
         try {

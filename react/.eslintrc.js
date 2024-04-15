@@ -28,13 +28,13 @@ module.exports = {
     //         }
     //     }
     // ],
-    'rules': {
+    rules: {
         // XXX remove this eventually.
-        'react/jsx-indent-props': 0
+        "react/jsx-indent-props": 0,
     },
-    'settings': {
-        'react': {
-            'version': 'detect'
-        }
-    }
+    settings: {
+        react: {
+            version: "detect",
+        },
+    },
 };

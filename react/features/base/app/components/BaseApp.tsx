@@ -1,4 +1,4 @@
-// @ts-expect-error
+// @ts-ignore
 import { jitsiLocalStorage } from '@jitsi/js-utils';
 import _ from 'lodash';
 import React, { Component, ComponentType, Fragment } from 'react';
@@ -158,6 +158,7 @@ export default class BaseApp<P> extends Component<P, IState> {
      * @returns {ReactElement}
      */
     render() {
+        // console.log('==== state', this.state);
         const { route: { component, props }, store } = this.state;
 
         if (store) {
@@ -204,6 +205,7 @@ export default class BaseApp<P> extends Component<P, IState> {
      * @protected
      */
     _createMainElement(component?: ComponentType, props?: Object) {
+        console.log('==== component _createMainElement', component);
         return component ? React.createElement(component, props || {}) : null;
     }
 
@@ -223,7 +225,11 @@ export default class BaseApp<P> extends Component<P, IState> {
         // additional 3rd party middleware:
         // - Thunk - allows us to dispatch async actions easily. For more info
         // @see https://github.com/gaearon/redux-thunk.
-        const middleware = MiddlewareRegistry.applyMiddleware(Thunk, createLogger());
+        const middleware = process.env.NODE_ENV === 'production'
+            ? MiddlewareRegistry.applyMiddleware(Thunk)
+            : MiddlewareRegistry.applyMiddleware(Thunk, createLogger());
+
+        // const middleware = MiddlewareRegistry.applyMiddleware(Thunk);
 
         // @ts-ignore
         const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

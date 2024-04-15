@@ -36,6 +36,8 @@ export const MAX_LIST_SIZE = 30;
  */
 const STORE_NAME = 'features/recent-list';
 
+const IGNORE_URLS = ['/new-meeting', '/meeting-history', '/account', '/support', '/login', '/logout'];
+
 /**
  * Sets up the persistence of the feature {@code recent-list}.
  */
@@ -70,8 +72,9 @@ ReducerRegistry.register<IRecentListState>(STORE_NAME, (state = DEFAULT_STATE, a
  */
 function _deleteRecentListEntry(
         state: Array<IRecent>, entryId: { date: number; url: string; }): Array<IRecent> {
-    return state.filter(entry =>
-        entry.conference !== entryId.url || entry.date !== entryId.date);
+    return state.filter(entry => {
+        return entry.conference !== entryId.url;
+    });
 }
 
 /**
@@ -81,8 +84,11 @@ function _deleteRecentListEntry(
  * @param {Object} action - The redux action.
  * @returns {Object}
  */
-function _storeCurrentConference(state: IRecentListState, { locationURL }: { locationURL: { href: string; }; }) {
+function _storeCurrentConference(state: IRecentListState, { locationURL }: { locationURL: { href: string; pathname: string }; }) {
     const conference = getURLWithoutParamsNormalized(new URL(locationURL.href));
+    if (IGNORE_URLS.indexOf(locationURL.pathname) > -1) {
+        return state;
+    }
 
     // If the current conference is already in the list, we remove it to re-add
     // it to the top.

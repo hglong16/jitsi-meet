@@ -385,7 +385,7 @@ class Filmstrip extends PureComponent <IProps, IState> {
             }
         }
 
-        let toolbar = null;
+        let toolbar: any = null;
 
         if (!this.props._iAmRecorder && this.props._isFilmstripButtonEnabled
             && _currentLayout !== LAYOUTS.TILE_VIEW

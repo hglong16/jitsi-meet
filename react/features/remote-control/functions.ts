@@ -1,6 +1,6 @@
 import React from 'react';
 
-// @ts-expect-error
+// @ts-ignore
 import VideoLayout from '../../../modules/UI/videolayout/VideoLayout';
 import { IReduxState, IStore } from '../app/types';
 import { IJitsiConference } from '../base/conference/reducer';
@@ -107,7 +107,7 @@ export function getKey(event: React.KeyboardEvent) {
  * @returns {Array} With possible values: "shift", "control", "alt", "command".
  */
 export function getModifiers(event: React.KeyboardEvent) {
-    const modifiers = [];
+    const modifiers: any = [];
 
     if (event.shiftKey) {
         modifiers.push('shift');

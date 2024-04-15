@@ -46,7 +46,7 @@ class AudioLevelIndicator extends Component<IProps> {
         // Let's now stretch the audio level over the number of dots we have.
         const stretchedAudioLevel = AUDIO_LEVEL_DOTS * audioLevel;
 
-        const audioLevelDots = [];
+        const audioLevelDots: any = [];
 
         for (let i = 0; i < AUDIO_LEVEL_DOTS; i++) {
             const distanceFromCenter = CENTER_DOT_INDEX - i;

@@ -1,4 +1,4 @@
-// @ts-expect-error
+// @ts-ignore
 import { PostMessageTransportBackend, Transport } from '../../../modules/transport';
 import {
     CONFERENCE_JOINED,

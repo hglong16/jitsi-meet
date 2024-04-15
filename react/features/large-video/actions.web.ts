@@ -1,4 +1,4 @@
-// @ts-expect-error
+// @ts-ignore
 import VideoLayout from '../../../modules/UI/videolayout/VideoLayout';
 import { IStore } from '../app/types';
 import { MEDIA_TYPE } from '../base/media/constants';

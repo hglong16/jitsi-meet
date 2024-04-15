@@ -1,16 +1,19 @@
-// @ts-expect-error
+// @ts-ignore
 import { generateRoomWithoutSeparator } from '@jitsi/js-utils/random';
 import { Component } from 'react';
 import { WithTranslation } from 'react-i18next';
 
 import { createWelcomePageEvent } from '../../analytics/AnalyticsEvents';
 import { sendAnalytics } from '../../analytics/functions';
+// @ts-ignore
 import { appNavigate } from '../../app/actions';
 import { IReduxState, IStore } from '../../app/types';
 import { IDeeplinkingConfig } from '../../base/config/configType';
 import isInsecureRoomName from '../../base/util/isInsecureRoomName';
+// @ts-ignore
 import { isCalendarEnabled } from '../../calendar-sync/functions';
 import { isUnsafeRoomWarningEnabled } from '../../prejoin/functions';
+// @ts-ignore
 import { isRecentListEnabled } from '../../recent-list/functions';
 import { v4 as uuidv4 } from 'uuid';
 

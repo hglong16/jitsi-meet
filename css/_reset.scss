@@ -229,3 +229,8 @@ a:hover,
 a:active {
   text-decoration: underline;
 }
+
+a:focus,
+a:hover {
+  text-decoration: none;
+}

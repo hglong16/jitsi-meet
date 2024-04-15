@@ -5,6 +5,7 @@ import Logger from '@jitsi/logger';
 import $ from 'jquery';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 import { browser } from '../../../react/features/base/lib-jitsi-meet';
 import { FILMSTRIP_BREAKPOINT } from '../../../react/features/filmstrip/constants';

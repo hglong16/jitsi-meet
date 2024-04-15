@@ -139,7 +139,7 @@ export function createLocalTracksA(options: ITrackOptions = {}) {
             dispatch,
             getState
         };
-        const promises = [];
+        const promises: any = [];
 
         // The following executes on React Native only at the time of this
         // writing. The effort to port Web's createInitialLocalTracks

@@ -1,4 +1,4 @@
-// @ts-expect-error
+// @ts-ignore
 import jwtDecode from 'jwt-decode';
 
 import { IReduxState } from '../../app/types';
@@ -138,16 +138,19 @@ export function validateJwt(jwt: string) {
             }
         }
 
-        if (!isValidUnixTimestamp(nbf)) {
-            errors.push({ key: JWT_VALIDATION_ERRORS.NBF_INVALID });
-        } else if (currentTimestamp < nbf * 1000) {
-            errors.push({ key: JWT_VALIDATION_ERRORS.NBF_FUTURE });
-        }
+        // if (!isValidUnixTimestamp(nbf)) {
+        //     errors.push({ key: JWT_VALIDATION_ERRORS.NBF_INVALID });
+        // } else if (currentTimestamp < nbf * 1000) {
+        //     errors.push({ key: JWT_VALIDATION_ERRORS.NBF_FUTURE });
+        // }
 
-        if (!isValidUnixTimestamp(exp)) {
-            errors.push({ key: JWT_VALIDATION_ERRORS.EXP_INVALID });
-        } else if (currentTimestamp > exp * 1000) {
-            errors.push({ key: JWT_VALIDATION_ERRORS.TOKEN_EXPIRED });
+        // Allow permanent token
+        if (exp) {
+            if (!isValidUnixTimestamp(exp)) {
+                errors.push({ key: JWT_VALIDATION_ERRORS.EXP_INVALID });
+            } else if (currentTimestamp > exp * 1000) {
+                errors.push({ key: JWT_VALIDATION_ERRORS.TOKEN_EXPIRED });
+            }
         }
 
         if (!context) {
@@ -182,6 +185,7 @@ export function validateJwt(jwt: string) {
         }
     } catch (e: any) {
         logger.error(`Unspecified JWT error${e?.message ? `: ${e.message}` : ''}`);
+        errors.push({ key: JWT_VALIDATION_ERRORS.UNKNOWN });
     }
 
     return errors;
