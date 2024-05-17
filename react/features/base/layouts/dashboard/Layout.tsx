@@ -52,10 +52,10 @@ export const Layout = ((props) => {
         backgroundColor: '#fff'
       }}>
         <TopNav onNavOpen={() => setOpenNav(true)} />
-        <SideNav
+        {/* <SideNav
           onClose={() => setOpenNav(false)}
           open={openNav}
-        />
+        /> */}
         <LayoutRoot>
           <LayoutContainer>
             {children}
