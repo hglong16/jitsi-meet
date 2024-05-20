@@ -6,7 +6,7 @@ import { TopNav } from './TopNav';
 import { useLocation } from 'react-router-dom';
 import { Box } from '@mui/material';
 
-const SIDE_NAV_WIDTH = 280;
+const SIDE_NAV_WIDTH = 0;
 
 const LayoutRoot = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -19,6 +19,7 @@ const LayoutRoot = styled('div')(({ theme }) => ({
 
 const LayoutContainer = styled('div')({
   display: 'flex',
+  paddingTop: '5px',
   flex: '1 1 auto',
   flexDirection: 'column',
   width: '100%'
