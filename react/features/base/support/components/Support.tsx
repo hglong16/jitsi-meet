@@ -32,7 +32,7 @@ const AccountSetting = (props: Props) => {
             Hỗ trợ sự cố
           </Typography>
           <Typography variant='h6' sx={{ color: '#101828' }} className='mt-4'>
-            Hotline: 0918839888 (Hoàng)
+            Hotline: 0972787616 (Long)
           </Typography>
         </div>
       </div>
