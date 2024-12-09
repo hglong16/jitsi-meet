@@ -30,7 +30,7 @@ var config = {
 
     hosts: {
         // XMPP domain.
-        domain: 'skymeet.vn',
+        domain: 'jitsi-meet.example.com',
 
         // When using authentication, domain for guest users.
         // anonymousdomain: 'guest.example.com',
@@ -42,19 +42,26 @@ var config = {
         // focus: 'focus.jitsi-meet.example.com',
 
         // XMPP MUC domain. FIXME: use XEP-0030 to discover it.
-        muc: 'conference.' + subdomain + 'skymeet.vn',
+        muc: 'conference.' + subdomain + 'jitsi-meet.example.com',
     },
 
     // BOSH URL. FIXME: use XEP-0156 to discover it.
-    bosh: 'https://skymeet.vn/' + subdir + 'http-bind',
+    bosh: 'https://jitsi-meet.example.com/' + subdir + 'http-bind',
 
     // Websocket URL (XMPP)
-    websocket: 'wss://skymeet.vn/' + subdir + 'xmpp-websocket',
+    // websocket: 'wss://jitsi-meet.example.com/' + subdir + 'xmpp-websocket',
+
+    // Whether BOSH should be preferred over WebSocket if both are configured.
+    // preferBosh: false,
 
     // The real JID of focus participant - can be overridden here
     // Do not change username - FIXME: Make focus username configurable
     // https://github.com/jitsi/jitsi-meet/issues/7376
     // focusUserJid: 'focus@auth.jitsi-meet.example.com',
+
+    // Option to send conference requests to jicofo over http (requires nginx rule for it)
+    // conferenceRequestUrl:
+    //   'https://<!--# echo var="http_host" default="jitsi-meet.example.com" -->/' + subdir + 'conference-request/v1',
 
     // Options related to the bridge (colibri) data channel
     bridgeChannel: {
@@ -77,12 +84,8 @@ var config = {
         // Allows the setting of a custom bandwidth value from the UI.
         // assumeBandwidth: true,
 
-        // Disables the End to End Encryption feature. Useful for debugging
-        // issues related to insertable streams.
-        // disableE2EE: false,
-
-        // Enables XMPP WebSocket (as opposed to BOSH) for the given amount of users.
-        // mobileXmppWsThreshold: 10, // enable XMPP WebSockets on mobile for 10% of the users
+        // Enables the use of the codec selection API supported by the browsers .
+        // enableCodecSelectionAPI: false,
 
         // P2P test mode disables automatic switching to P2P when there are 2
         // participants in the conference.
@@ -95,10 +98,11 @@ var config = {
         // This is useful when the client runs on a host with limited resources.
         // noAutoPlayVideo: false,
 
-        // Enable callstats only for a percentage of users.
-        // This takes a value between 0 and 100 which determines the probability for
-        // the callstats to be enabled.
-        // callStatsThreshold: 5, // enable callstats for 5% of the users.
+        // Experiment: Whether to skip interim transcriptions.
+        // skipInterimTranscriptions: false,
+
+        // Dump transcripts to a <transcript> element for debugging.
+        // dumpTranscript: false,
     },
 
     // Disables moderator indicators.
@@ -112,6 +116,9 @@ var config = {
 
     // Disables polls feature.
     // disablePolls: false,
+
+    // Disables demote button from self-view
+    // disableSelfDemote: false,
 
     // Disables self-view tile. (hides it from tile view and from filmstrip)
     // disableSelfView: false,
@@ -202,24 +209,75 @@ var config = {
     // installation. Specifically, these files are needed:
     //   - https://meet.example.com/libs/krisp/krisp.mjs
     //   - https://meet.example.com/libs/krisp/models/model_8.kw
-    //   - https://meet.example.com/libs/krisp/models/model_16.kw
-    //   - https://meet.example.com/libs/krisp/models/model_32.kw
-    // NOTE: Krisp JS SDK v1.0.9 was tested.
+    //   - https://meet.example.com/libs/krisp/models/model_nc.kw
+    //   - https://meet.example.com/libs/krisp/models/model_bvc.kw
+    //   - https://meet.example.com/libs/krisp/assets/bvc-allowed.txt
+    //     In case when you have known BVC supported devices and you want to extend allowed devices list
+    //   - https://meet.example.com/libs/krisp/assets/bvc-allowed-ext.txt
+    //     In case when you have known BVC supported devices and you want to extend allowed devices list
+    //   - https://meet.example.com/libs/krisp/models/model_inbound_8.kw
+    //   - https://meet.example.com/libs/krisp/models/model_inbound_16.kw
+    //     In case when you want to use inbound noise suppression models
+    // NOTE: Krisp JS SDK v2.0.0 was tested.
     // noiseSuppression: {
     //     krisp: {
     //         enabled: false,
     //         logProcessStats: false,
     //         debugLogs: false,
+    //         useBVC: false,
+    //         bufferOverflowMS: 1000,
+    //         inboundModels: {
+    //             modelInbound8: 'model_inbound_8.kef',
+    //             modelInbound16: 'model_inbound_16.kef',
+    //         },
+    //         preloadInboundModels: {
+    //             modelInbound8: 'model_inbound_8.kef',
+    //             modelInbound16: 'model_inbound_16.kef',
+    //         },
+    //         preloadModels: {
+    //             modelBVC: 'model_bvc.kef',
+    //             model8: 'model_8.kef',
+    //             modelNC: 'model_nc_mq.kef',
+    //         },
+    //         models: {
+    //             modelBVC: 'model_bvc.kef',
+    //             model8: 'model_8.kef',
+    //             modelNV: 'model_nc_mq.kef',
+    //         },
+    //         bvc: {
+    //             allowedDevices: 'bvc-allowed.txt',
+    //             allowedDevicesExt: 'bvc-allowed-ext.txt',
+    //         }
     //     },
     // },
 
     // Video
 
-    // Sets the preferred resolution (height) for local video. Defaults to 720.
-    resolution: 1080,
+    // Sets the default camera facing mode.
+    // cameraFacingMode: 'user',
 
+    // Sets the preferred resolution (height) for local video. Defaults to 720.
+    // resolution: 720,
+
+    // DEPRECATED. Please use raisedHands.disableRemoveRaisedHandOnFocus instead.
     // Specifies whether the raised hand will hide when someone becomes a dominant speaker or not
     // disableRemoveRaisedHandOnFocus: false,
+
+    // Specifies which raised hand related config should be set.
+    // raisedHands: {
+    //     // Specifies whether the raised hand can be lowered by moderator.
+    //     disableLowerHandByModerator: false,
+
+    //     // Specifies whether there is a notification before hiding the raised hand
+    //     // when someone becomes the dominant speaker.
+    //     disableLowerHandNotification: true,
+
+    //     // Specifies whether there is a notification when you are the next speaker in line.
+    //     disableNextSpeakerNotification: false,
+
+    //     // Specifies whether the raised hand will hide when someone becomes a dominant speaker or not.
+    //     disableRemoveRaisedHandOnFocus: false,
+    // },
 
     // speakerStats: {
     //     // Specifies whether the speaker stats is enable or not.
@@ -253,22 +311,22 @@ var config = {
 
     // How many participants while in the tile view mode, before the receiving video quality is reduced from HD to SD.
     // Use -1 to disable.
-    maxFullResolutionParticipants: -1,
+    // maxFullResolutionParticipants: 2,
 
     // w3c spec-compliant video constraints to use for video capture. Currently
     // used by browsers that return true from lib-jitsi-meet's
     // util#browser#usesNewGumFlow. The constraints are independent from
     // this config's resolution value. Defaults to requesting an ideal
     // resolution of 720p.
-    constraints: {
-        video: {
-            height: {
-                ideal: 1080,
-                max: 1080,
-                min: 720,
-            },
-        },
-    },
+    // constraints: {
+    //     video: {
+    //         height: {
+    //             ideal: 720,
+    //             max: 720,
+    //             min: 240,
+    //         },
+    //     },
+    // },
 
     // Enable / disable simulcast support.
     // disableSimulcast: false,
@@ -288,12 +346,19 @@ var config = {
     //     max: 5,
     // },
 
-    // This option has been deprecated since it is no longer supported as per the w3c spec.
-    // https://w3c.github.io/mediacapture-screen-share/#dom-mediadevices-getdisplaymedia. If the user has not
-    // interacted with the webpage before the getDisplayMedia call, the promise will be rejected by the browser. This
-    // has already been implemented in Firefox and Safari and will be implemented in Chrome soon.
-    // https://bugs.chromium.org/p/chromium/issues/detail?id=1198918
-    // startScreenSharing: false,
+    // Optional screenshare settings that give more control over screen capture in the browser.
+    // screenShareSettings: {
+    //      // Show users the current tab is the preferred capture source, default: false.
+    //      desktopPreferCurrentTab: false,
+    //      // Allow users to select system audio, default: include.
+    //      desktopSystemAudio: 'include',
+    //      // Allow users to seamlessly switch which tab they are sharing without having to select the tab again.
+    //      desktopSurfaceSwitching: 'include',
+    //      // Allow a user to be shown a preference for what screen is to be captured, default: unset.
+    //      desktopDisplaySurface: undefined,
+    //      // Allow users to select the current tab as a capture source, default: exclude.
+    //      desktopSelfBrowserSurface: 'exclude'
+    // },
 
     // Recording
 
@@ -308,6 +373,20 @@ var config = {
     //     // 'https://jitsi-meet.example.com/static/oauth.html'
     //     redirectURI:
     //          'https://jitsi-meet.example.com/subfolder/static/oauth.html',
+    // },
+
+    // configuration for all things recording related. Existing settings will be migrated here in the future.
+    // recordings: {
+    //    // IF true (default) recording audio and video is selected by default in the recording dialog.
+    //    // recordAudioAndVideo: true,
+    //    // If true, shows a notification at the start of the meeting with a call to action button
+    //    // to start recording (for users who can do so).
+    //    // suggestRecording: true,
+    //    // If true, shows a warning label in the prejoin screen to point out the possibility that
+    //    // the call you're joining might be recorded.
+    //    // showPrejoinWarning: true,
+    //    // If true, the notification for recording start will display a link to download the cloud recording.
+    //    // showRecordingLink: true,
     // },
 
     // recordingService: {
@@ -370,7 +449,7 @@ var config = {
     // DEPRECATED. Use transcription.preferredLanguage instead.
     // preferredTranscribeLanguage: 'en-US',
 
-    // DEPRECATED. Use transcription.autoCaptionOnRecord instead.
+    // DEPRECATED. Use transcription.autoTranscribeOnRecord instead.
     // autoCaptionOnRecord: false,
 
     // Transcription options.
@@ -399,11 +478,12 @@ var config = {
     //     // ./src/react/features/transcribing/transcriber-langs.json.
     //     preferredLanguage: 'en-US',
 
-    //     // Disable start transcription for all participants.
-    //     disableStartForAll: false,
+    //     // Enables automatic turning on transcribing when recording is started
+    //     autoTranscribeOnRecord: false,
 
-    //     // Enables automatic turning on captions when recording is started
-    //     autoCaptionOnRecord: false,
+    //     // Enables automatic request of subtitles when transcriber is present in the meeting, uses the default
+    //     // language that is set
+    //     autoCaptionOnTranscribe: false,
     // },
 
     // Misc
@@ -431,6 +511,61 @@ var config = {
     //    // Provides a way to set the codec preference on desktop based endpoints.
     //    codecPreferenceOrder: [ 'VP9', 'VP8', 'H264' ],
     //
+    //    // Provides a way to set the codec for screenshare.
+    //    screenshareCodec: 'AV1',
+    //    mobileScreenshareCodec: 'VP8',
+    //
+    //    // Codec specific settings for scalability modes and max bitrates.
+    //    av1: {
+    //      maxBitratesVideo: {
+    //          low: 100000,
+    //          standard: 300000,
+    //          high: 1000000,
+    //          fullHd: 2000000,
+    //          ultraHd: 4000000,
+    //          ssHigh: 2500000
+    //      },
+    //      scalabilityModeEnabled: true,
+    //      useSimulcast: false,
+    //      useKSVC: true
+    //    },
+    //    h264: {
+    //      maxBitratesVideo: {
+    //          low: 200000,
+    //          standard: 500000,
+    //          high: 1500000,
+    //          fullHd: 3000000,
+    //          ultraHd: 6000000,
+    //          ssHigh: 2500000
+    //      },
+    //      scalabilityModeEnabled: true
+    //    },
+    //    vp8: {
+    //      maxBitratesVideo: {
+    //          low: 200000,
+    //          standard: 500000,
+    //          high: 1500000,
+    //          fullHd: 3000000,
+    //          ultraHd: 6000000,
+    //          ssHigh: 2500000
+    //      },
+    //      scalabilityModeEnabled: false
+    //    },
+    //    vp9: {
+    //      maxBitratesVideo: {
+    //          low: 100000,
+    //          standard: 300000,
+    //          high: 1200000,
+    //          fullHd: 2500000,
+    //          ultraHd: 5000000,
+    //          ssHigh: 2500000
+    //      },
+    //      scalabilityModeEnabled: true,
+    //      useSimulcast: false,
+    //      useKSVC: true
+    //    },
+    //
+    //    DEPRECATED! Use `codec specific settings` instead.
     //    // Provides a way to configure the maximum bitrates that will be enforced on the simulcast streams for
     //    // video tracks. The keys in the object represent the type of the stream (LD, SD or HD) and the values
     //    // are the max.bitrates to be set on that particular type of stream. The actual send may vary based on
@@ -523,14 +658,6 @@ var config = {
     // Disables or enables REMB support in this client (default: enabled).
     // enableRemb: true,
 
-    // Enables ICE restart logic in LJM and displays the page reload overlay on
-    // ICE failure. Current disabled by default because it's causing issues with
-    // signaling when Octo is enabled. Also when we do an "ICE restart"(which is
-    // not a real ICE restart), the client maintains the TCC sequence number
-    // counter, but the bridge resets it. The bridge sends media packets with
-    // TCC sequence numbers starting from 0.
-    // enableIceRestart: false,
-
     // Enables forced reload of the client when the call is migrated as a result of
     // the bridge going down.
     // enableForcedReload: true,
@@ -583,7 +710,7 @@ var config = {
     //     // Whether to disable welcome page. In case it's disabled a random room
     //     // will be joined when no room is specified.
     //     disabled: false,
-    //     // If set,landing page will redirect to this URL.
+    //     // If set, landing page will redirect to this URL.
     //     customUrl: ''
     // },
 
@@ -631,8 +758,9 @@ var config = {
     // Hides the dominant speaker name badge that hovers above the toolbox
     // hideDominantSpeakerBadge: false,
 
-    //  Default language for the user interface. Cannot be overwritten.
-    defaultLanguage: 'vi',
+    // Default language for the user interface. Cannot be overwritten.
+    // DEPRECATED! Use the `lang` iframe option directly instead.
+    // defaultLanguage: 'en',
 
     // Disables profile and the edit of all fields from the profile settings (display name and email)
     // disableProfile: false,
@@ -655,7 +783,7 @@ var config = {
     // Configs for prejoin page.
     // prejoinConfig: {
     //     // When 'true', it shows an intermediate page before joining, where the user can configure their devices.
-    //     // This replaces `prejoinPageEnabled`.
+    //     // This replaces `prejoinPageEnabled`. Defaults to true.
     //     enabled: true,
     //     // Hides the participant name editing field in the prejoin screen.
     //     // If requireDisplayName is also set as true, a name should still be provided through
@@ -663,6 +791,11 @@ var config = {
     //     hideDisplayName: false,
     //     // List of buttons to hide from the extra join options dropdown.
     //     hideExtraJoinButtons: ['no-audio', 'by-phone'],
+    //     // Configuration for pre-call test
+    //     // By setting preCallTestEnabled, you enable the pre-call test in the prejoin page.
+    //     // ICE server credentials need to be provided over the preCallTestICEUrl
+    //     preCallTestEnabled: false,
+    //     preCallTestICEUrl: ''
     // },
 
     // When 'true', the user cannot edit the display name.
@@ -765,6 +898,22 @@ var config = {
     //     // Indicates whether the toolbar should still autohide when chat is open
     //     autoHideWhileChatIsOpen: false,
     // },
+
+    // Overrides the buttons displayed in the main toolbar. Depending on the screen size the number of displayed
+    // buttons varies from 2 buttons to 8 buttons. Every array in the mainToolbarButtons array will replace the
+    // corresponding default buttons configuration matched by the number of buttons specified in the array. Arrays with
+    // more than 8 buttons or less then 2 buttons will be ignored. When there there isn't an override for a cerain
+    // configuration (for example when 3 buttons are displayed) the default jitsi-meet configuration will be used.
+    // The order of the buttons in the array is preserved.
+    // mainToolbarButtons: [
+    //     [ 'microphone', 'camera', 'desktop', 'chat', 'raisehand', 'reactions', 'participants-pane', 'tileview' ],
+    //     [ 'microphone', 'camera', 'desktop', 'chat', 'raisehand', 'participants-pane', 'tileview' ],
+    //     [ 'microphone', 'camera', 'desktop', 'chat', 'raisehand', 'participants-pane' ],
+    //     [ 'microphone', 'camera', 'desktop', 'chat', 'participants-pane' ],
+    //     [ 'microphone', 'camera', 'chat', 'participants-pane' ],
+    //     [ 'microphone', 'camera', 'chat' ],
+    //     [ 'microphone', 'camera' ]
+    // ],
 
     // Toolbar buttons which have their click/tap event exposed through the API on
     // `toolbarButtonClicked`. Passing a string for the button key will
@@ -886,38 +1035,10 @@ var config = {
     // The interval at which PeerConnection.getStats() is called. Defaults to 10000
     // pcStatsInterval: 10000,
 
-    // To enable sending statistics to callstats.io you must provide the
-    // Application ID and Secret.
-    // callStatsID: '',
-    // callStatsSecret: '',
-    // callStatsApplicationLogsDisabled: false,
-
-    // The callstats initialize config params as described in the API:
-    // https://docs.callstats.io/docs/javascript#callstatsinitialize-with-app-secret
-    // callStatsConfigParams: {
-    //     disableBeforeUnloadHandler: true, // disables callstats.js's window.onbeforeunload parameter.
-    //     applicationVersion: "app_version", // Application version specified by the developer.
-    //     disablePrecalltest: true, // disables the pre-call test, it is enabled by default.
-    //     siteID: "siteID", // The name/ID of the site/campus from where the call/pre-call test is made.
-    //     additionalIDs: { // additionalIDs object, contains application related IDs.
-    //         customerID: "Customer Identifier. Example, walmart.",
-    //         tenantID: "Tenant Identifier. Example, monster.",
-    //         productName: "Product Name. Example, Jitsi.",
-    //         meetingsName: "Meeting Name. Example, Jitsi loves callstats.",
-    //         serverName: "Server/MiddleBox Name. Example, jvb-prod-us-east-mlkncws12.",
-    //         pbxID: "PBX Identifier. Example, walmart.",
-    //         pbxExtensionID: "PBX Extension Identifier. Example, 5625.",
-    //         fqExtensionID: "Fully qualified Extension Identifier. Example, +71 (US) +5625.",
-    //         sessionID: "Session Identifier. Example, session-12-34",
-    //     },
-    //     collectLegacyStats: true, //enables the collection of legacy stats in chrome browser
-    //     collectIP: true, //enables the collection localIP address
-    // },
-
-    // Enables sending participants' display names to callstats
+    // Enables sending participants' display names to stats
     // enableDisplayNameInStats: false,
 
-    // Enables sending participants' emails (if available) to callstats and other analytics
+    // Enables sending participants' emails (if available) to stats and other analytics
     // enableEmailInStats: false,
 
     // faceLandmarks: {
@@ -940,7 +1061,7 @@ var config = {
     //     captureInterval: 1000,
     // },
 
-    // Controls the percentage of automatic feedback shown to participants when callstats is enabled.
+    // Controls the percentage of automatic feedback shown to participants.
     // The default value is 100%. If set to 0, no automatic feedback will be requested
     // feedbackPercentage: 100,
 
@@ -948,7 +1069,7 @@ var config = {
     //
 
     // If third party requests are disabled, no other server will be contacted.
-    // This means avatars will be locally generated and callstats integration
+    // This means avatars will be locally generated and external stats integration
     // will not function.
     // disableThirdPartyRequests: false,
 
@@ -979,6 +1100,10 @@ var config = {
         //
         // Provides a way to set the codec preference on desktop based endpoints.
         // codecPreferenceOrder: [ 'VP9', 'VP8', 'H264 ],
+
+        // Provides a way to set the codec for screenshare.
+        // screenshareCodec: 'AV1',
+        // mobileScreenshareCodec: 'VP8',
 
         // How long we're going to wait, before going back to P2P after the 3rd
         // participant has left the conference (to filter out page reload).
@@ -1131,6 +1256,7 @@ var config = {
     //     warning: '',
     //   },
     //   externallyManagedKey: false,
+    //   disabled: false,
     // },
 
     // Options related to end-to-end (participant to participant) ping.
@@ -1159,60 +1285,68 @@ var config = {
     // DEPRECATED! Use deeplinking.disabled instead.
     // If true, any checks to handoff to another application will be prevented
     // and instead the app will continue to display in the current browser.
-    // disableDeepLinking: true,
+    // disableDeepLinking: false,
 
     // The deeplinking config.
     // For information about the properties of
     // deeplinking.[ios/android].dynamicLink check:
     // https://firebase.google.com/docs/dynamic-links/create-manually
-    deeplinking: {
+    // deeplinking: {
+    //
+    //     // The desktop deeplinking config, disabled by default.
+    //     desktop: {
+    //         appName: 'Jitsi Meet',
+    //         appScheme: 'jitsi-meet,
+    //         download: {
+    //             linux:
+    //               'https://github.com/jitsi/jitsi-meet-electron/releases/latest/download/jitsi-meet-x86_64.AppImage',
+    //             macos: 'https://github.com/jitsi/jitsi-meet-electron/releases/latest/download/jitsi-meet.dmg',
+    //             windows: 'https://github.com/jitsi/jitsi-meet-electron/releases/latest/download/jitsi-meet.exe'
+    //         },
+    //         enabled: false
+    //     },
+    //     // If true, any checks to handoff to another application will be prevented
+    //     // and instead the app will continue to display in the current browser.
+    //     disabled: false,
 
-        // The desktop deeplinking config.
-        desktop: {
-            appName: 'Sky Meet - Hội nghị trực tuyến'
-        },
-        // If true, any checks to handoff to another application will be prevented
-        // and instead the app will continue to display in the current browser.
-        disabled: true,
+    //     // whether to hide the logo on the deep linking pages.
+    //     hideLogo: false,
 
-        // whether to hide the logo on the deep linking pages.
-        // hideLogo: false,
+    //     // The ios deeplinking config.
+    //     ios: {
+    //         appName: 'Jitsi Meet',
+    //         // Specify mobile app scheme for opening the app from the mobile browser.
+    //         appScheme: 'org.jitsi.meet',
+    //         // Custom URL for downloading ios mobile app.
+    //         downloadLink: 'https://itunes.apple.com/us/app/jitsi-meet/id1165103905',
+    //         dynamicLink: {
+    //             apn: 'org.jitsi.meet',
+    //             appCode: 'w2atb',
+    //             customDomain: undefined,
+    //             ibi: 'com.atlassian.JitsiMeet.ios',
+    //             isi: '1165103905'
+    //         }
+    //     },
 
-        // The ios deeplinking config.
-        // ios: {
-        //     appName: 'Jitsi Meet',
-        //     // Specify mobile app scheme for opening the app from the mobile browser.
-        //     appScheme: 'org.jitsi.meet',
-        //     // Custom URL for downloading ios mobile app.
-        //     downloadLink: 'https://itunes.apple.com/us/app/jitsi-meet/id1165103905',
-        //     dynamicLink: {
-        //         apn: 'org.jitsi.meet',
-        //         appCode: 'w2atb',
-        //         customDomain: undefined,
-        //         ibi: 'com.atlassian.JitsiMeet.ios',
-        //         isi: '1165103905'
-        //     }
-        // },
-
-        // // The android deeplinking config.
-        // android: {
-        //     appName: 'Jitsi Meet',
-        //     // Specify mobile app scheme for opening the app from the mobile browser.
-        //     appScheme: 'org.jitsi.meet',
-        //     // Custom URL for downloading android mobile app.
-        //     downloadLink: 'https://play.google.com/store/apps/details?id=org.jitsi.meet',
-        //     // Android app package name.
-        //     appPackage: 'org.jitsi.meet',
-        //     fDroidUrl: 'https://f-droid.org/en/packages/org.jitsi.meet/',
-        //     dynamicLink: {
-        //         apn: 'org.jitsi.meet',
-        //         appCode: 'w2atb',
-        //         customDomain: undefined,
-        //         ibi: 'com.atlassian.JitsiMeet.ios',
-        //         isi: '1165103905'
-        //     }
-        // }
-    },
+    //     // The android deeplinking config.
+    //     android: {
+    //         appName: 'Jitsi Meet',
+    //         // Specify mobile app scheme for opening the app from the mobile browser.
+    //         appScheme: 'org.jitsi.meet',
+    //         // Custom URL for downloading android mobile app.
+    //         downloadLink: 'https://play.google.com/store/apps/details?id=org.jitsi.meet',
+    //         // Android app package name.
+    //         appPackage: 'org.jitsi.meet',
+    //         fDroidUrl: 'https://f-droid.org/en/packages/org.jitsi.meet/',
+    //         dynamicLink: {
+    //             apn: 'org.jitsi.meet',
+    //             appCode: 'w2atb',
+    //             customDomain: undefined,
+    //             ibi: 'com.atlassian.JitsiMeet.ios',
+    //             isi: '1165103905'
+    //         }
+    //     }
+    // },
 
     // // The terms, privacy and help centre URL's.
     // legalUrls: {
@@ -1252,6 +1386,8 @@ var config = {
     // remoteVideoMenu: {
     //     // Whether the remote video context menu to be rendered or not.
     //     disabled: true,
+    //     // If set to true the 'Switch to visitor' button will be disabled.
+    //     disableDemote: true,
     //     // If set to true the 'Kick out' button will be disabled.
     //     disableKick: true,
     //     // If set to true the 'Grant moderator' button will be disabled.
@@ -1271,9 +1407,6 @@ var config = {
 
     // If set to true all muting operations of remote participants will be disabled.
     // disableRemoteMute: true,
-
-    // Enables support for lip-sync for this client (if the browser supports it).
-    // enableLipSync: false,
 
     /**
      External API url used to receive branding specific information.
@@ -1341,8 +1474,17 @@ var config = {
     */
     // dynamicBrandingUrl: '',
 
+    // A list of allowed URL domains for shared video.
+    //
+    // NOTE:
+    // '*' is allowed value and it will allow any URL to be used for shared video. We do not recommend using '*',
+    // use it at your own risk!
+    // sharedVideoAllowedURLDomains: [ ],
+
     // Options related to the participants pane.
     // participantsPane: {
+    //     // Enables feature
+    //     enabled: true,
     //     // Hides the moderator settings tab.
     //     hideModeratorSettingsTab: false,
     //     // Hides the more actions button.
@@ -1367,9 +1509,6 @@ var config = {
     // When true the user cannot add more images to be used as virtual background.
     // Only the default ones from will be available.
     // disableAddingBackgroundImages: false,
-
-    // Disables using screensharing as virtual background.
-    // disableScreensharingVirtualBackground: false,
 
     // Sets the background transparency level. '0' is fully transparent, '1' is opaque.
     // backgroundAlpha: 1,
@@ -1397,7 +1536,6 @@ var config = {
     //         'conference-timer',
     //         'participants-count',
     //         'e2ee',
-    //         'transcribing',
     //         'video-quality',
     //         'insecure-room',
     //         'highlight-moment',
@@ -1466,6 +1604,17 @@ var config = {
     // and will automatically redirect to the token service to get the token for the meeting.
     // tokenAuthUrlAutoRedirect: false
 
+    // You can put an array of values to target different entity types in the invite dialog.
+    // Valid values are "phone", "room", "sip", "user", "videosipgw" and "email"
+    // peopleSearchQueryTypes: ["user", "email"],
+    // Directory endpoint which is called for invite dialog autocomplete
+    // peopleSearchUrl: "https://myservice.com/api/people",
+    // Endpoint which is called to send invitation requests
+    // inviteServiceUrl: "https://myservice.com/api/invite",
+
+    // For external entities (e. g. email), the localStorage key holding the token value for directory authentication
+    // peopleSearchTokenLocation: "mytoken",
+
     // List of undocumented settings used in jitsi-meet
     /**
      _immediateReloadThreshold
@@ -1482,9 +1631,6 @@ var config = {
      iAmRecorder
      iAmSipGateway
      microsoftApiApplicationClientID
-     peopleSearchQueryTypes
-     peopleSearchUrl
-     requireDisplayName
      */
 
     /**
@@ -1499,8 +1645,6 @@ var config = {
      _peerConnStatusOutOfLastNTimeout
      _peerConnStatusRtcMuteTimeout
      avgRtpStatsN
-     callStatsConfIDNamespace
-     callStatsCustomScriptUrl
      desktopSharingSources
      disableAEC
      disableAGC
@@ -1509,7 +1653,6 @@ var config = {
      disableLocalStats
      disableNS
      enableTalkWhileMuted
-     forceJVB121Ratio
      forceTurnRelay
      hiddenDomain
      hiddenFromRecorderFeatureEnabled
@@ -1608,7 +1751,7 @@ var config = {
     //     'toolbar.noAudioSignalTitle', // shown when a broken mic is detected
     //     'toolbar.noisyAudioInputTitle', // shown when noise is detected for the current microphone
     //     'toolbar.talkWhileMutedPopup', // shown when user tries to speak while muted
-    //     'transcribing.failedToStart', // shown when transcribing fails to start
+    //     'transcribing.failed', // shown when transcribing fails
     // ],
 
     // List of notifications to be disabled. Works in tandem with the above setting.
@@ -1667,21 +1810,18 @@ var config = {
     //     tileTime: 5000,
     //     // Limit results by rating: g, pg, pg-13, r. Default value: g.
     //     rating: 'pg',
-    //     // The proxy server url for giphy requests in the web app.
-    //     proxyUrl: 'https://giphy-proxy.example.com',
     // },
 
     // Logging
     // logging: {
     //      // Default log level for the app and lib-jitsi-meet.
     //      defaultLogLevel: 'trace',
-    //      // Option to disable LogCollector (which stores the logs on CallStats).
+    //      // Option to disable LogCollector.
     //      //disableLogCollector: true,
     //      // Individual loggers are customizable.
     //      loggers: {
     //      // The following are too verbose in their logging with the default level.
     //      'modules/RTC/TraceablePeerConnection.js': 'info',
-    //      'modules/statistics/CallStats.js': 'info',
     //      'modules/xmpp/strophe.util.js': 'log',
     // },
 
@@ -1695,6 +1835,11 @@ var config = {
     //     // The server used to support whiteboard collaboration.
     //     // https://github.com/jitsi/excalidraw-backend
     //     collabServerBaseUrl: 'https://excalidraw-backend.example.com',
+    //     // The user access limit to the whiteboard, introduced as a means
+    //     // to control the performance.
+    //     userLimit: 25,
+    //     // The url for more info about the whiteboard and its usage limitations.
+    //     limitUrl: 'https://example.com/blog/whiteboard-limits',
     // },
 
     // The watchRTC initialize config params as described :
@@ -1730,6 +1875,9 @@ var config = {
     //         collectionInterval?: number;
     //         logGetStats?: boolean;
     // },
+
+    // Hide login button on auth dialog, you may want to enable this if you are using JWT tokens to authenticate users
+    // hideLoginButton: true,
 };
 
 // Temporary backwards compatibility with old mobile clients.
