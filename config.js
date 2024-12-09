@@ -30,7 +30,7 @@ var config = {
 
     hosts: {
         // XMPP domain.
-        domain: 'jitsi-meet.example.com',
+        domain: 'cen.ink',
 
         // When using authentication, domain for guest users.
         // anonymousdomain: 'guest.example.com',
@@ -46,7 +46,7 @@ var config = {
     },
 
     // BOSH URL. FIXME: use XEP-0156 to discover it.
-    bosh: 'https://jitsi-meet.example.com/' + subdir + 'http-bind',
+    bosh: 'https://cen.ink/' + subdir + 'http-bind',
 
     // Websocket URL (XMPP)
     // websocket: 'wss://jitsi-meet.example.com/' + subdir + 'xmpp-websocket',
@@ -89,10 +89,10 @@ var config = {
 
         // P2P test mode disables automatic switching to P2P when there are 2
         // participants in the conference.
-        // p2pTestMode: false,
+        p2pTestMode: false,
 
         // Enables the test specific features consumed by jitsi-meet-torture
-        // testMode: false,
+        testMode: false,
 
         // Disables the auto-play behavior of *all* newly created video element.
         // This is useful when the client runs on a host with limited resources.
