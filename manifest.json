@@ -7,8 +7,8 @@
       "platform": "chromeos_play"
     }
   ],
-  "short_name": "Sky Meeting",
-  "name": "Sky Meeting",
+  "short_name": "Smart Meeting",
+  "name": "Smart Meeting",
   "icons": [
     {
       "src": "static/pwa/icons/icon192.png",

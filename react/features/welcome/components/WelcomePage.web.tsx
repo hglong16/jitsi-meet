@@ -321,7 +321,7 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
                                 <p className='highlight'>CƠ QUAN CỦA TÒA ÁN NHÂN DÂN TỐI CAO</p>
                                 <p>Trụ sở Tòa soạn: 262 Đội Cấn, Ba Đình, Hà Nội</p>
                             </div>
-                            <p>Powered By Sky Media Group</p>
+                            <p>Powered By Dlynx JSC</p>
                         </div> */}
                     </Box>
                 </div>
@@ -422,7 +422,7 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
                 </Grid>
                 <Grid item lg={4} md={5}>
                     <p className="footer__powered">
-                        Powered by Sky Media Group
+                        Powered by Dlynx JSC
                     </p>
                 </Grid>
             </Grid>

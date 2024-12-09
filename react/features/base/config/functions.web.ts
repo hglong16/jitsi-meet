@@ -101,9 +101,9 @@ export function _setDeeplinkingDefaults(deeplinking: IDeeplinkingConfig) {
     } = deeplinking;
 
     // desktop.appName = desktop.appName || 'Công Lý';
-    desktop.appName =  'Sky Meet';
+    desktop.appName =  'Smart Meet';
 
-    ios.appName = ios.appName || 'Sky Meet';
+    ios.appName = ios.appName || 'Smart Meet';
     ios.appScheme = ios.appScheme || 'org.jitsi.meet';
     ios.downloadLink = ios.downloadLink
         || 'https://itunes.apple.com/us/app/jitsi-meet/id1165103905';

@@ -241,7 +241,7 @@ const LoginPage = (props: IProps) => {
                         </p>
                         <p>Trụ sở Tòa soạn: 262 Đội Cấn, Ba Đình, Hà Nội</p>
                     </div>
-                    <p>Powered By Sky Media Group</p>
+                    <p>Powered By Dlynx JSC</p>
                 </div>
             </div>
         </div>
