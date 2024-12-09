@@ -100,7 +100,7 @@ export function _setDeeplinkingDefaults(deeplinking: IDeeplinkingConfig) {
         ios = {} as IDeeplinkingMobileConfig
     } = deeplinking;
 
-    // desktop.appName = desktop.appName || 'Công Lý';
+    // desktop.appName = desktop.appName || 'Smart Meeting';
     desktop.appName =  'Smart Meet';
 
     ios.appName = ios.appName || 'Smart Meet';

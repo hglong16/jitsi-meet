@@ -237,9 +237,9 @@ const LoginPage = (props: IProps) => {
                             width={180}
                         />
                         <p className="highlight">
-                            CƠ QUAN CỦA TÒA ÁN NHÂN DÂN TỐI CAO
+                            DLYNX JSC
                         </p>
-                        <p>Trụ sở Tòa soạn: 262 Đội Cấn, Ba Đình, Hà Nội</p>
+                        <p>Ba Đình, Hà Nội</p>
                     </div>
                     <p>Powered By Dlynx JSC</p>
                 </div>

@@ -80,8 +80,8 @@ export type LoginResponse = {
 /**
  * login
  *
- * @param {string} email - The email from quantri.congly.vn
- * @param {string} password - The password from quantri.congly.vn
+ * @param {string} email - The email from quantri.cen.ink
+ * @param {string} password - The password from quantri.cen.ink
  * @returns {Promise} LoginResponse
  */
 export async function requestLoggingIn(

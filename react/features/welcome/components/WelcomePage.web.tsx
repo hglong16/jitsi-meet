@@ -310,19 +310,6 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
                                 }
                             </div>
                         </div>
-                        {/* <div className='powered-by'>
-                            <div className='d-mobile'>
-                                <img
-                                    className='red-logo'
-                                    alt='powered-by'
-                                    src='images/ConglyDigital.png'
-                                    width={180}
-                                />
-                                <p className='highlight'>CƠ QUAN CỦA TÒA ÁN NHÂN DÂN TỐI CAO</p>
-                                <p>Trụ sở Tòa soạn: 262 Đội Cấn, Ba Đình, Hà Nội</p>
-                            </div>
-                            <p>Powered By Dlynx JSC</p>
-                        </div> */}
                     </Box>
                 </div>
             </Layout>
@@ -399,31 +386,16 @@ class WelcomePage extends AbstractWelcomePage<IProps> {
                 flexDirection={{ lg: "row", md: "row", xs: "column" }}
             >
                 <Grid item lg={4} md={3.5}>
-                    <p className="footer__highlight">
-                        CƠ QUAN CỦA TÒA ÁN NHÂN DÂN TỐI CAO
-                    </p>
-                    <p>Trụ sở Tòa soạn: 262 Đội Cấn, Ba Đình, Hà Nội</p>
-                    <p>
-                        Giấy phép số 226/BTTTT do Bộ Thông tin và Truyền thông
-                        cấp
-                    </p>
+                    <p className="footer__highlight">DLYNX</p>
+                    <p>Ba Đình, Hà Nội</p>
                 </Grid>
                 <Grid item lg={4} md={3.5}>
                     <p>
-                        Tổng Biên tập:{" "}
-                        <span className="footer__highlight">Trần Đức Vinh</span>
-                    </p>
-                    <p>
-                        Phó Tổng Biên tập:{" "}
-                        <span className="footer__highlight">
-                            Tô Thị Lan Phương
-                        </span>
+                        <span className="footer__highlight">DLYNX JSC</span>
                     </p>
                 </Grid>
                 <Grid item lg={4} md={5}>
-                    <p className="footer__powered">
-                        Powered by Dlynx JSC
-                    </p>
+                    <p className="footer__powered">Powered by Dlynx JSC</p>
                 </Grid>
             </Grid>
         );
