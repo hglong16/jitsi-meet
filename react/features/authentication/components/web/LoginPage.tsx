@@ -10,7 +10,10 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 import { requestLoggingIn } from "../../functions.any";
 import { setJWT } from "../../../base/jwt/actions";
 import { red } from "@mui/material/colors";
-import { createJwt, validateJwt } from "../../../base/jwt/functions";
+import {
+    generateJwt,
+    validateJwt,
+} from "../../../base/jwt/functions";
 import { Navigate, redirect, useNavigate } from "react-router-dom";
 import LoadingIndicator from "../../../base/layouts/dashboard/LoadingIndicator";
 
@@ -88,16 +91,16 @@ const LoginPage = (props: IProps) => {
             //         });
             //     }
             // }
-            const jwt = createJwt(email);
+            const jwt = generateJwt(email);
+            console.log(jwt);
 
             // const jwt = result?.result?.jwt;
             if (jwt) {
                 const authErrors = validateJwt(jwt ?? "");
+                console.log(authErrors);
 
-                if (authErrors.length === 0) {
-                    dispatch(setJWT(jwt));
-                    return navigate("/");
-                }
+                dispatch(setJWT(jwt));
+                return navigate("/");
             }
         } catch (error) {
             console.log("####oncatch ", error);

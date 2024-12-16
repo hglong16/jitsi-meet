@@ -197,34 +197,79 @@ export function validateJwt(jwt: string) {
     return errors;
 }
 
-const JWT_SECRET = "your_jwt_secret"; // Replace with your secret key
-const JWT_VALIDITY_PERIOD = 60 * 60; // Token validity period in seconds (1 hour)
+interface JwtPayload {
+    sub: string;
+    aud?: string;
+    iss?: string;
+    exp?: number;
+    nbf?: number;
+    context?: { features?: any };
+}
 
-// Function to create a JWT based on the username
-export function createJwt(username) {
-    const currentTimestamp = Math.floor(Date.now() / 1000);
+export function fakeJwt(username: string): JwtPayload {
+    const currentTimestamp = Math.floor(new Date().getTime() / 1000); // Current time in seconds
 
-    // Define the payload based on the username
-    const payload = {
-        sub: username, // Subject (usually the username or user ID)
-        aud: "jitsi", // Audience
-        iss: "chat", // Issuer
-        exp: currentTimestamp + JWT_VALIDITY_PERIOD, // Expiry time (current time + 1 hour)
-        nbf: currentTimestamp, // Not before (same as current timestamp)
+    // Creating a fake JWT payload
+    const fakePayload: JwtPayload = {
+        sub: `${username}`, // Dynamically setting the sub with username
+        aud: "jitsi", // Assuming "jitsi" as the audience
+        iss: "chat", // Assuming "chat" as the issuer
+        exp: currentTimestamp + 3600, // Setting expiration time to 1 hour from now
+        nbf: currentTimestamp, // Setting the not-before time to now
         context: {
-            // Example context
             features: {
-                chat: true,
-                video: true,
+                feature1: true,
+                feature2: false,
             },
         },
     };
 
-    // Create the JWT using the payload and secret
-    const token = jwt.sign(payload, JWT_SECRET);
-
-    return token;
+    return fakePayload;
 }
+
+function base64UrlEncode(str) {
+    return btoa(str)
+        .replace(/\+/g, "-") // Replace + with -
+        .replace(/\//g, "_") // Replace / with _
+        .replace(/=+$/, ""); // Remove padding
+}
+
+export function generateJwt(user) {
+    const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
+
+    const header = {
+        alg: "HS256",
+        typ: "JWT",
+    };
+
+    const payload = {
+        context: {
+            user: {
+                id: user,
+                name: user,
+                email: user,
+            },
+        },
+        aud: "jitsi",
+        iss: "jitsi",
+        nbf: currentTime, // Not before
+        exp: currentTime + 360000, // Expires in 1 hour
+        iat: currentTime, // Issued at
+        room: "*",
+    };
+
+    // Encode header and payload
+    const encodedHeader = base64UrlEncode(JSON.stringify(header));
+    const encodedPayload = base64UrlEncode(JSON.stringify(payload));
+
+    // Fake signature for demonstration purposes (replace with real signature in production)
+    const fakeSignature = "fakeSignature";
+
+    // Return the complete JWT
+    return `${encodedHeader}.${encodedPayload}.${fakeSignature}`;
+}
+
+// Example usage:
 
 /**
  * Extracts and returns the expiration date of jwt.
