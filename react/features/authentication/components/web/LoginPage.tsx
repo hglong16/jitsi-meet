@@ -10,7 +10,7 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 import { requestLoggingIn } from "../../functions.any";
 import { setJWT } from "../../../base/jwt/actions";
 import { red } from "@mui/material/colors";
-import { validateJwt } from "../../../base/jwt/functions";
+import { createJwt, validateJwt } from "../../../base/jwt/functions";
 import { Navigate, redirect, useNavigate } from "react-router-dom";
 import LoadingIndicator from "../../../base/layouts/dashboard/LoadingIndicator";
 
@@ -73,23 +73,24 @@ const LoginPage = (props: IProps) => {
             const { password, email } = formData;
 
             // TODO: Integrate with Auth API
-            const result = await requestLoggingIn(email, password);
+            // const result = await requestLoggingIn(email, password);
 
-            if (result?.error) {
-                if (result?.error.message.toLowerCase().includes("odoo")) {
-                    setFormData({
-                        ...formData,
-                        error: "Email hoặc mật khẩu không đúng",
-                    });
-                } else {
-                    setFormData({
-                        ...formData,
-                        error: result.error.message
-                    });
-                }
-            }
+            // if (result?.error) {
+            //     if (result?.error.message.toLowerCase().includes("odoo")) {
+            //         setFormData({
+            //             ...formData,
+            //             error: "Email hoặc mật khẩu không đúng",
+            //         });
+            //     } else {
+            //         setFormData({
+            //             ...formData,
+            //             error: result.error.message
+            //         });
+            //     }
+            // }
+            const jwt = createJwt(email);
 
-            const jwt = result?.result?.jwt;
+            // const jwt = result?.result?.jwt;
             if (jwt) {
                 const authErrors = validateJwt(jwt ?? "");
 
@@ -236,9 +237,7 @@ const LoginPage = (props: IProps) => {
                             src="images/ConglyDigital.png"
                             width={180}
                         />
-                        <p className="highlight">
-                            DLYNX JSC
-                        </p>
+                        <p className="highlight">DLYNX JSC</p>
                         <p>Ba Đình, Hà Nội</p>
                     </div>
                     <p>Powered By Dlynx JSC</p>

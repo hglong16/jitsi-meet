@@ -68,6 +68,7 @@
     "jquery-i18next": "1.2.1",
     "js-md5": "0.6.1",
     "js-sha512": "0.8.0",
+    "jsonwebtoken": "^9.0.2",
     "jwt-decode": "2.2.0",
     "lib-jitsi-meet": "https://github.com/jitsi/lib-jitsi-meet/releases/download/v1698.0.0+03cb3ce8/lib-jitsi-meet.tgz",
     "lodash": "4.17.21",

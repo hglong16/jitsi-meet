@@ -1,12 +1,13 @@
 // @ts-ignore
-import jwtDecode from 'jwt-decode';
+import jwtDecode from "jwt-decode";
+import jwt from "jsonwebtoken";
 
-import { IReduxState } from '../../app/types';
-import { getLocalParticipant } from '../participants/functions';
-import { parseURLParams } from '../util/parseURLParams';
+import { IReduxState } from "../../app/types";
+import { getLocalParticipant } from "../participants/functions";
+import { parseURLParams } from "../util/parseURLParams";
 
-import { JWT_VALIDATION_ERRORS, MEET_FEATURES } from './constants';
-import logger from './logger';
+import { JWT_VALIDATION_ERRORS, MEET_FEATURES } from "./constants";
+import logger from "./logger";
 
 /**
  * Retrieves the JSON Web Token (JWT), if any, defined by a specific
@@ -17,9 +18,11 @@ import logger from './logger';
  * @returns {string} The JSON Web Token (JWT), if any, defined by the specified
  * {@code url}; otherwise, {@code undefined}.
  */
-export function parseJWTFromURLParams(url: URL | typeof window.location = window.location) {
+export function parseJWTFromURLParams(
+    url: URL | typeof window.location = window.location
+) {
     // @ts-ignore
-    return parseURLParams(url, true, 'search').jwt;
+    return parseURLParams(url, true, "search").jwt;
 }
 
 /**
@@ -29,7 +32,7 @@ export function parseJWTFromURLParams(url: URL | typeof window.location = window
  * @returns {string}
  */
 export function getJwtName(state: IReduxState) {
-    const { user } = state['features/base/jwt'];
+    const { user } = state["features/base/jwt"];
 
     return user?.name;
 }
@@ -43,8 +46,13 @@ export function getJwtName(state: IReduxState) {
  * @param {boolean} ifNotInFeatures - Default value if features prop exists but does not have the {@code feature}.
  * @returns {bolean}
  */
-export function isJwtFeatureEnabled(state: IReduxState, feature: string, ifNoToken = false, ifNotInFeatures = false) {
-    const { jwt } = state['features/base/jwt'];
+export function isJwtFeatureEnabled(
+    state: IReduxState,
+    feature: string,
+    ifNoToken = false,
+    ifNotInFeatures = false
+) {
+    const { jwt } = state["features/base/jwt"];
 
     if (!jwt) {
         return ifNoToken;
@@ -53,15 +61,15 @@ export function isJwtFeatureEnabled(state: IReduxState, feature: string, ifNoTok
     const { features } = getLocalParticipant(state) || {};
 
     // If `features` is undefined, act as if everything is enabled.
-    if (typeof features === 'undefined') {
+    if (typeof features === "undefined") {
         return true;
     }
 
-    if (typeof features[feature as keyof typeof features] === 'undefined') {
+    if (typeof features[feature as keyof typeof features] === "undefined") {
         return ifNotInFeatures;
     }
 
-    return String(features[feature as keyof typeof features]) === 'true';
+    return String(features[feature as keyof typeof features]) === "true";
 }
 
 /**
@@ -72,7 +80,10 @@ export function isJwtFeatureEnabled(state: IReduxState, feature: string, ifNoTok
  * @returns {boolean} - Whether the timestamp is indeed a valid UNIX timestamp or not.
  */
 function isValidUnixTimestamp(timestamp: number | string) {
-    return typeof timestamp === 'number' && timestamp * 1000 === new Date(timestamp * 1000).getTime();
+    return (
+        typeof timestamp === "number" &&
+        timestamp * 1000 === new Date(timestamp * 1000).getTime()
+    );
 }
 
 /**
@@ -101,17 +112,10 @@ export function validateJwt(jwt: string) {
             return errors;
         }
 
-        const {
-            aud,
-            context,
-            exp,
-            iss,
-            nbf,
-            sub
-        } = payload;
+        const { aud, context, exp, iss, nbf, sub } = payload;
 
         // JaaS only
-        if (sub?.startsWith('vpaas-magic-cookie')) {
+        if (sub?.startsWith("vpaas-magic-cookie")) {
             const { kid } = header;
 
             // if Key ID is missing, we return the error immediately without further validations.
@@ -121,15 +125,15 @@ export function validateJwt(jwt: string) {
                 return errors;
             }
 
-            if (kid.substring(0, kid.indexOf('/')) !== sub) {
+            if (kid.substring(0, kid.indexOf("/")) !== sub) {
                 errors.push({ key: JWT_VALIDATION_ERRORS.KID_MISMATCH });
             }
 
-            if (aud !== 'jitsi') {
+            if (aud !== "jitsi") {
                 errors.push({ key: JWT_VALIDATION_ERRORS.AUD_INVALID });
             }
 
-            if (iss !== 'chat') {
+            if (iss !== "chat") {
                 errors.push({ key: JWT_VALIDATION_ERRORS.ISS_INVALID });
             }
 
@@ -159,36 +163,67 @@ export function validateJwt(jwt: string) {
             const { features } = context;
             const meetFeatures = Object.values(MEET_FEATURES);
 
-            Object.keys(features).forEach(feature => {
+            Object.keys(features).forEach((feature) => {
                 if (meetFeatures.includes(feature)) {
                     const featureValue = features[feature];
 
                     // cannot use truthy or falsy because we need the exact value and type check.
                     if (
-                        featureValue !== true
-                        && featureValue !== false
-                        && featureValue !== 'true'
-                        && featureValue !== 'false'
+                        featureValue !== true &&
+                        featureValue !== false &&
+                        featureValue !== "true" &&
+                        featureValue !== "false"
                     ) {
                         errors.push({
                             key: JWT_VALIDATION_ERRORS.FEATURE_VALUE_INVALID,
-                            args: { feature }
+                            args: { feature },
                         });
                     }
                 } else {
                     errors.push({
                         key: JWT_VALIDATION_ERRORS.FEATURE_INVALID,
-                        args: { feature }
+                        args: { feature },
                     });
                 }
             });
         }
     } catch (e: any) {
-        logger.error(`Unspecified JWT error${e?.message ? `: ${e.message}` : ''}`);
+        logger.error(
+            `Unspecified JWT error${e?.message ? `: ${e.message}` : ""}`
+        );
         errors.push({ key: JWT_VALIDATION_ERRORS.UNKNOWN });
     }
 
     return errors;
+}
+
+const JWT_SECRET = "your_jwt_secret"; // Replace with your secret key
+const JWT_VALIDITY_PERIOD = 60 * 60; // Token validity period in seconds (1 hour)
+
+// Function to create a JWT based on the username
+export function createJwt(username) {
+    const currentTimestamp = Math.floor(Date.now() / 1000);
+
+    // Define the payload based on the username
+    const payload = {
+        sub: username, // Subject (usually the username or user ID)
+        aud: "jitsi", // Audience
+        iss: "chat", // Issuer
+        exp: currentTimestamp + JWT_VALIDITY_PERIOD, // Expiry time (current time + 1 hour)
+        nbf: currentTimestamp, // Not before (same as current timestamp)
+        context: {
+            // Example context
+            features: {
+                chat: true,
+                video: true,
+            },
+        },
+    };
+
+    // Create the JWT using the payload and secret
+    const token = jwt.sign(payload, JWT_SECRET);
+
+    return token;
 }
 
 /**
