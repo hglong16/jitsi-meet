@@ -33,4 +33,4 @@ export const MIN_ASSUMED_BANDWIDTH_BPS = -1;
 /**
  * Base API Endpoint
  */
-export const SKYMEET_API = "https://api-sm.pikapulse.com";
+export const SKYMEET_API = "https://192.168.1.22:8058";
